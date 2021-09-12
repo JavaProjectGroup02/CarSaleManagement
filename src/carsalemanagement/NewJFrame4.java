@@ -1,21 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package carsalemanagement;
+
 
 /**
  *
  * @author Dell
  */
+import java.awt.Color;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class NewJFrame4 extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame4
      */
+    Connection con = null;
+    PreparedStatement pst;
+    ResultSet rs;
     public NewJFrame4() {
         initComponents();
+        createConnection();
+    }
+    
+    void createConnection(){
+        String className = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(className);
+            System.out.println("Driver loaded Successfully");
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            System.out.println("Connection Successfull");
+      
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver loding Failed");
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed");
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -27,21 +52,87 @@ public class NewJFrame4 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        text1 = new javax.swing.JTextField();
+        b1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Table1 = new javax.swing.JTable();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        text1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                text1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                text1FocusLost(evt);
+            }
+        });
+        getContentPane().add(text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 145, -1));
+
+        b1.setText("Search");
+        b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(b1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+
+        Table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Make", "Model", "Milage", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(Table1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
+            pst.setString(1,text1.getText());
+            rs = pst.executeQuery();
+            if(rs.next()==false){
+                    JOptionPane.showMessageDialog(this, "Sorry records not found");
+                    text1.setText("");
+                }
+            else{
+                pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
+                pst.setString(1,text1.getText());
+                rs = pst.executeQuery();
+                DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
+                Statement stmt = con.createStatement();
+                while (rs.next()) {
+                String Make = rs.getString("Make");
+                String Model = rs.getString("Model");
+                String Milage = rs.getString("Milage");
+                String Price = rs.getString("Price");
+                
+                tableModel.addRow(new Object[]{Make,Model,Milage,Price});
+                
+            }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame4.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b1ActionPerformed
+
+    private void text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_text1FocusGained
+
+    private void text1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusLost
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_text1FocusLost
 
     /**
      * @param args the command line arguments
@@ -79,5 +170,9 @@ public class NewJFrame4 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Table1;
+    private javax.swing.JButton b1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField text1;
     // End of variables declaration//GEN-END:variables
 }

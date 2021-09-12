@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package carsalemanagement;
-
+import java.awt.Color;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Dell
@@ -14,8 +18,28 @@ public class NewJFrame1 extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame1
      */
+    Connection con = null;
     public NewJFrame1() {
         initComponents();
+        createConnection();
+    }
+    
+    void createConnection(){
+        String className = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(className);
+            System.out.println("Driver loaded Successfully");
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            System.out.println("Connection Successfull");
+      
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver loding Failed");
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed");
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -41,27 +65,27 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        pricet = new javax.swing.JTextField();
+        datet = new javax.swing.JTextField();
+        maket = new javax.swing.JTextField();
+        modelt = new javax.swing.JTextField();
+        manuyt = new javax.swing.JTextField();
+        regyt = new javax.swing.JTextField();
+        milaget = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
+        categoryt = new javax.swing.JTextField();
+        tpt = new javax.swing.JTextField();
+        namet = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        addresst = new javax.swing.JTextArea();
         jLabel16 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        nict = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        regnot = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -117,36 +141,37 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jLabel10.setText("Price");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 190, 30));
+        pricet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 190, 30));
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.setToolTipText("");
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 400, 190, 30));
-
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 190, 30));
-
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 190, 30));
-
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 190, 30));
-
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 190, 30));
-
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 190, 30));
-
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Car", "Lorry", "Motor Bicycle", "Pick Up", "SUV", "Three Wheeler", "Van", "Wagon", "Other" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        datet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        datet.setToolTipText("");
+        datet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                datetActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 190, 30));
+        getContentPane().add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 400, 190, 30));
+
+        maket.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        maket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maketActionPerformed(evt);
+            }
+        });
+        getContentPane().add(maket, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 190, 30));
+
+        modelt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(modelt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 190, 30));
+
+        manuyt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(manuyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 190, 30));
+
+        regyt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(regyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 190, 30));
+
+        milaget.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(milaget, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 190, 30));
 
         jLabel11.setFont(new java.awt.Font("Tekton Pro", 1, 36)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 153));
@@ -169,32 +194,32 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jLabel15.setText("Address");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, -1, -1));
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField5.setToolTipText("");
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 190, 30));
+        categoryt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        categoryt.setToolTipText("");
+        getContentPane().add(categoryt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 190, 30));
 
-        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField11.setToolTipText("");
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        tpt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tpt.setToolTipText("");
+        tpt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                tptActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, 250, 30));
+        getContentPane().add(tpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, 250, 30));
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField13.setToolTipText("");
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        namet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        namet.setToolTipText("");
+        namet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                nametActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 250, 30));
+        getContentPane().add(namet, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 250, 30));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        addresst.setColumns(20);
+        addresst.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addresst.setRows(5);
+        jScrollPane1.setViewportView(addresst);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 250, 100));
 
@@ -202,9 +227,9 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jLabel16.setText("Telephone");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, -1, -1));
 
-        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField12.setToolTipText("");
-        getContentPane().add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 150, 190, 30));
+        nict.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nict.setToolTipText("");
+        getContentPane().add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 150, 190, 30));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -216,29 +241,90 @@ public class NewJFrame1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 460, 90, -1));
+
+        regnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        regnot.setToolTipText("");
+        getContentPane().add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 190, 30));
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void nametActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_nametActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void tptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tptActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_tptActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //For vehicles
+        String regno = regnot.getText();
+        String category = categoryt.getText();
+        String make = maket.getText();
+        String model = modelt.getText();
+        String manuy = manuyt.getText();
+        String regy = regyt.getText();
+        String milage = milaget.getText();
+        String price = pricet.getText();
+        
+        //For owners
+        String nic = nict.getText();
+        String name = namet.getText();
+        String address = addresst.getText();
+        String tp = tpt.getText();
+        String date = datet.getText();
+        String regno1 = regnot.getText();
+            /*Convert
+            int num = Tnteger.parse(number);
+            */
+     
+        try {
+            /*//clesInsert vehicles
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO vehicle VALUES(?,?,?,?,?,?,?,?)");
+            stmt.setString(1, regno);
+            stmt.setString(2, category);
+            stmt.setString(3, make);
+            stmt.setString(4, model);
+            stmt.setString(5, manuy);
+            stmt.setString(6, regy);
+            stmt.setString(7, milage);
+            stmt.setString(8, price);
+            
+            //Insert owners
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO preowner VALUES(?,?,?,?,?)");
+            stmt.setString(1, nic);
+            stmt.setString(2, name);
+            stmt.setString(3, address);
+            stmt.setString(4, tp);
+            stmt.setString(5, date);
+            stmt.execute();*/
+            
+            
+            Statement stm = con.createStatement();
+            String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
+            String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
+            stm.executeUpdate(sql1);
+            stm.executeUpdate(sql);
+            //con.close()
+            } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
         NewJFrame jf = new NewJFrame();
         jf.show();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void maketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maketActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_maketActionPerformed
+
+    private void datetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,8 +362,10 @@ public class NewJFrame1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea addresst;
+    private javax.swing.JTextField categoryt;
+    private javax.swing.JTextField datet;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -300,17 +388,15 @@ public class NewJFrame1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField maket;
+    private javax.swing.JTextField manuyt;
+    private javax.swing.JTextField milaget;
+    private javax.swing.JTextField modelt;
+    private javax.swing.JTextField namet;
+    private javax.swing.JTextField nict;
+    private javax.swing.JTextField pricet;
+    private javax.swing.JTextField regnot;
+    private javax.swing.JTextField regyt;
+    private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package carsalemanagement;
-
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Dell
@@ -14,8 +17,28 @@ public class NewJFrame3 extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame3
      */
+    Connection con = null;
     public NewJFrame3() {
         initComponents();
+        createConnection();
+    }
+    
+    void createConnection(){
+        String className = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(className);
+            System.out.println("Driver loaded Successfully");
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            System.out.println("Connection Successfull");
+      
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver loding Failed");
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed");
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -27,18 +50,94 @@ public class NewJFrame3 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        show = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Table1 = new javax.swing.JTable();
+        show1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 3, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 0));
-        jLabel1.setText("Existing ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
+        show.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        show.setText("Search");
+        show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showActionPerformed(evt);
+            }
+        });
+        getContentPane().add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
+
+        Table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Reg No", "Category", "Make", "Model", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(Table1);
+        if (Table1.getColumnModel().getColumnCount() > 0) {
+            Table1.getColumnModel().getColumn(0).setPreferredWidth(5);
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 750, -1));
+
+        show1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        show1.setText("Show Existing");
+        show1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                show1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(show1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed
+        // TODO add your handling code here:
+        NewJFrame4 jf4 = new NewJFrame4();
+        jf4.show();
+        dispose();
+        
+        
+        /*try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM vehicle");
+            while (rs.next()) {
+                String Regno = rs.getString("Regno");
+                String Category = rs.getString("Category");
+                String Make = rs.getString("Make");
+                String Model = rs.getString("Model");
+                String Price = rs.getString("Price");
+                
+                tableModel.addRow(new Object[]{Regno,Category,Make,Model,Price});
+                
+            }
+        } catch (SQLException ex)*/ 
+    }//GEN-LAST:event_showActionPerformed
+
+    private void show1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
+        
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM vehicle");
+            while (rs.next()) {
+                String Regno = rs.getString("Regno");
+                String Category = rs.getString("Category");
+                String Make = rs.getString("Make");
+                String Model = rs.getString("Model");
+                String Price = rs.getString("Price");
+                
+                tableModel.addRow(new Object[]{Regno,Category,Make,Model,Price});
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame3.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_show1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,6 +175,9 @@ public class NewJFrame3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTable Table1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton show;
+    private javax.swing.JButton show1;
     // End of variables declaration//GEN-END:variables
 }

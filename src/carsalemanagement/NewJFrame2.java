@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package carsalemanagement;
-
+import java.awt.Color;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Dell
@@ -14,8 +18,30 @@ public class NewJFrame2 extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame2
      */
+    ResultSet rs;
+    PreparedStatement pst;
+    Connection con = null;
     public NewJFrame2() {
         initComponents();
+        createConnection();
+    }
+    
+    void createConnection(){
+        String className = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(className);
+            System.out.println("Driver loaded Successfully");
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            System.out.println("Connection Successfull");
+      
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver loding Failed");
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed");
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -33,21 +59,21 @@ public class NewJFrame2 extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        tpt = new javax.swing.JTextField();
+        datet = new javax.swing.JTextField();
+        namet = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        spnotet = new javax.swing.JTextArea();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        nict = new javax.swing.JTextField();
+        regnot = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        addresst = new javax.swing.JTextArea();
         jLabel20 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jTextField10 = new javax.swing.JTextField();
+        pricet = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,22 +105,22 @@ public class NewJFrame2 extends javax.swing.JFrame {
         jLabel16.setText("Telephone");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField5.setToolTipText("");
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 250, 30));
+        tpt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tpt.setToolTipText("");
+        getContentPane().add(tpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 250, 30));
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField6.setToolTipText("");
-        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, 190, 30));
+        datet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        datet.setToolTipText("");
+        getContentPane().add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, 190, 30));
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField7.setToolTipText("");
-        getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 250, 30));
+        namet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        namet.setToolTipText("");
+        getContentPane().add(namet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 250, 30));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        spnotet.setColumns(20);
+        spnotet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        spnotet.setRows(5);
+        jScrollPane1.setViewportView(spnotet);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 250, 100));
 
@@ -110,18 +136,18 @@ public class NewJFrame2 extends javax.swing.JFrame {
         jLabel19.setText("Date");
         getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField8.setToolTipText("");
-        getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 190, 30));
+        nict.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nict.setToolTipText("");
+        getContentPane().add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 190, 30));
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField9.setToolTipText("");
-        getContentPane().add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 190, 30));
+        regnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        regnot.setToolTipText("");
+        getContentPane().add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 190, 30));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        addresst.setColumns(20);
+        addresst.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addresst.setRows(5);
+        jScrollPane2.setViewportView(addresst);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 250, 100));
 
@@ -140,9 +166,9 @@ public class NewJFrame2 extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 390, 90, -1));
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField10.setToolTipText("");
-        getContentPane().add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 190, 30));
+        pricet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pricet.setToolTipText("");
+        getContentPane().add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 190, 30));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel21.setText("Price");
@@ -152,10 +178,41 @@ public class NewJFrame2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        NewJFrame jf = new NewJFrame();
-        jf.show();
-        dispose();
+        try {
+            // TODO add your handling code here:
+            
+            //For newowners
+            String nic = nict.getText();
+            String name = namet.getText();
+            String address = addresst.getText();
+            String tp = tpt.getText();
+            String regno1 = regnot.getText();
+            
+            //For Sold items
+            String regno = regnot.getText();
+            String price = pricet.getText();
+            String date = datet.getText();
+            String spnote = spnotet.getText();
+            
+            //Insert Items
+            Statement stm = con.createStatement();
+            String sql ="INSERT INTO newowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
+            String sql1 ="INSERT INTO solditem VALUES('"+regno+"','"+price+"','"+date+"','"+spnote+"')";
+            stm.executeUpdate(sql);
+            stm.executeUpdate(sql1);
+            
+            //Delete Items
+            Statement stm1 = (Statement) con.createStatement();
+            String query1 = "delete from  vehicle where Regno='"+regno+"'";
+            stm1.executeUpdate(query1);
+            
+            JOptionPane.showMessageDialog(this,"Vehicle sold successfully"); 
+            NewJFrame jf = new NewJFrame();
+            jf.show();
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -194,6 +251,8 @@ public class NewJFrame2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea addresst;
+    private javax.swing.JTextField datet;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
@@ -208,13 +267,11 @@ public class NewJFrame2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField namet;
+    private javax.swing.JTextField nict;
+    private javax.swing.JTextField pricet;
+    private javax.swing.JTextField regnot;
+    private javax.swing.JTextArea spnotet;
+    private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
 }
