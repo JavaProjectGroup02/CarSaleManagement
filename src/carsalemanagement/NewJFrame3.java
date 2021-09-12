@@ -54,9 +54,9 @@ public class NewJFrame3 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Table1 = new javax.swing.JTable();
         show1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         show.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         show.setText("Search");
@@ -65,7 +65,6 @@ public class NewJFrame3 extends javax.swing.JFrame {
                 showActionPerformed(evt);
             }
         });
-        getContentPane().add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
 
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,8 +79,6 @@ public class NewJFrame3 extends javax.swing.JFrame {
             Table1.getColumnModel().getColumn(0).setPreferredWidth(5);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 750, -1));
-
         show1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         show1.setText("Show Existing");
         show1.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +86,45 @@ public class NewJFrame3 extends javax.swing.JFrame {
                 show1ActionPerformed(evt);
             }
         });
-        getContentPane().add(show1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 102, 0));
+        jButton2.setText("Home");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(show1)
+                        .addGap(490, 490, 490)
+                        .addComponent(show))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(show1)
+                    .addComponent(show))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(20, 20, 20))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -139,6 +174,12 @@ public class NewJFrame3 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_show1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NewJFrame jf = new NewJFrame();
+        jf.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,6 +217,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton show;
     private javax.swing.JButton show1;

@@ -9,6 +9,7 @@ package carsalemanagement;
  *
  * @author Dell
  */
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,58 +71,145 @@ public class NewJFrame5 extends javax.swing.JFrame {
         Telel = new javax.swing.JLabel();
         datel = new javax.swing.JLabel();
         pricel = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 155, -1));
 
+        text1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        text1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                text1KeyPressed(evt);
+            }
+        });
+
+        bt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bt.setText("Search");
         bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btActionPerformed(evt);
             }
         });
-        getContentPane().add(bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 11, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Address");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 107, -1, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Special Notes");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Name");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Name");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Telephone");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Date");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Price");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
-        getContentPane().add(Spl, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 430, 20));
-        getContentPane().add(namel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 430, 20));
-        getContentPane().add(addressl, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 430, 20));
-        getContentPane().add(Telel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 430, 20));
-        getContentPane().add(datel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 430, 20));
-        getContentPane().add(pricel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 430, 20));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 102, 0));
+        jButton2.setText("Home");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(63, 63, 63)
+                                .addComponent(addressl, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(44, 44, 44)
+                                .addComponent(Telel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(86, 86, 86)
+                                .addComponent(datel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(83, 83, 83)
+                                .addComponent(pricel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(23, 23, 23)
+                                .addComponent(Spl, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4))
+                                    .addGap(78, 78, 78)
+                                    .addComponent(namel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bt))))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(namel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(addressl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(Telel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(datel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(pricel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(Spl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActionPerformed
-try {    // TODO add your handling code here:
+        try {    // TODO add your handling code here:
             pst = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
             pst.setString(1,text1.getText());
             rs = pst.executeQuery();
@@ -155,6 +243,49 @@ try {    // TODO add your handling code here:
             Logger.getLogger(NewJFrame4.class.getName()).log(Level.SEVERE, null, ex);
         }      // TODO add your handling code here:
     }//GEN-LAST:event_btActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NewJFrame jf = new NewJFrame();
+        jf.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            try {    // TODO add your handling code here:
+                pst = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
+                pst.setString(1,text1.getText());
+                rs = pst.executeQuery();
+                pst1 = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
+                pst1.setString(1,text1.getText());
+                rs1 = pst1.executeQuery();
+                if(rs.first()==false || rs1.first()==false){
+                        JOptionPane.showMessageDialog(this, "Sorry records not found");
+                        text1.setText("");
+                    }
+                else{
+                    Statement stmt = con.createStatement();
+
+                    String Name = rs1.getString("Name");
+                    String Address = rs1.getString("Address");
+                    String Tele = rs1.getString("Tele");
+                    String Date = rs.getString("Date");
+                    String Price = rs.getString("Price");
+                    String SpNotes = rs.getString("SpNotes");
+
+                    namel.setText(Name);
+                    addressl.setText(Address);
+                    Telel.setText(Tele);
+                    datel.setText(Date);
+                    pricel.setText(Price);
+                    Spl.setText(SpNotes);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NewJFrame4.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_text1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -197,6 +328,7 @@ try {    // TODO add your handling code here:
     private javax.swing.JLabel addressl;
     private javax.swing.JButton bt;
     private javax.swing.JLabel datel;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

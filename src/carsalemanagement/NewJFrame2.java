@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package carsalemanagement;
-import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,85 +75,101 @@ public class NewJFrame2 extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         pricet = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 0));
         jLabel1.setText("Selling Details");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("Owner");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("Notes");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel14.setText("Name");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel15.setText("Addres");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel16.setText("Telephone");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
         tpt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tpt.setToolTipText("");
-        getContentPane().add(tpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 250, 30));
+        tpt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tptKeyPressed(evt);
+            }
+        });
 
         datet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         datet.setToolTipText("");
-        getContentPane().add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, 190, 30));
+        datet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                datetKeyPressed(evt);
+            }
+        });
 
         namet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         namet.setToolTipText("");
-        getContentPane().add(namet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 250, 30));
+        namet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nametKeyPressed(evt);
+            }
+        });
 
         spnotet.setColumns(20);
         spnotet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         spnotet.setRows(5);
+        spnotet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spnotetKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(spnotet);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 250, 100));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel17.setText("NIC");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel18.setText("Vehi. No.");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel19.setText("Date");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
 
         nict.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nict.setToolTipText("");
-        getContentPane().add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 190, 30));
+        nict.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nictKeyPressed(evt);
+            }
+        });
 
         regnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         regnot.setToolTipText("");
-        getContentPane().add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 190, 30));
+        regnot.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                regnotKeyPressed(evt);
+            }
+        });
 
         addresst.setColumns(20);
         addresst.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addresst.setRows(5);
+        addresst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                addresstKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(addresst);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 250, 100));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel20.setText("Special");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -164,15 +180,135 @@ public class NewJFrame2 extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 390, 90, -1));
 
         pricet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         pricet.setToolTipText("");
-        getContentPane().add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 190, 30));
+        pricet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pricetKeyPressed(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel21.setText("Price");
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 102, 0));
+        jButton2.setText("Home");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(330, 330, 330)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel2)
+                        .addGap(408, 408, 408)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(regnot, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel17)
+                        .addGap(95, 95, 95)
+                        .addComponent(nict, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(180, 180, 180)
+                        .addComponent(jLabel21)
+                        .addGap(44, 44, 44)
+                        .addComponent(pricet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel14)
+                        .addGap(76, 76, 76)
+                        .addComponent(namet, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(120, 120, 120)
+                        .addComponent(jLabel19)
+                        .addGap(46, 46, 46)
+                        .addComponent(datet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel15)
+                        .addGap(66, 66, 66)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(120, 120, 120)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel13)))
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel16)
+                        .addGap(33, 33, 33)
+                        .addComponent(tpt, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(238, 238, 238)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(regnot, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(nict, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(pricet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(namet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(datet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel13))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(tpt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButton1))))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -207,13 +343,98 @@ public class NewJFrame2 extends javax.swing.JFrame {
             stm1.executeUpdate(query1);
             
             JOptionPane.showMessageDialog(this,"Vehicle sold successfully"); 
-            NewJFrame jf = new NewJFrame();
-            jf.show();
-            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(NewJFrame2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NewJFrame jf = new NewJFrame();
+        jf.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void nictKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nictKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            namet.requestFocus();
+        }
+    }//GEN-LAST:event_nictKeyPressed
+
+    private void nametKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nametKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            addresst.requestFocus();
+        }
+    }//GEN-LAST:event_nametKeyPressed
+
+    private void addresstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addresstKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            tpt.requestFocus();
+        }
+    }//GEN-LAST:event_addresstKeyPressed
+
+    private void tptKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tptKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            pricet.requestFocus();
+        }
+    }//GEN-LAST:event_tptKeyPressed
+
+    private void regnotKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regnotKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            nict.requestFocus();
+        }
+    }//GEN-LAST:event_regnotKeyPressed
+
+    private void pricetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pricetKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            datet.requestFocus();
+        }
+    }//GEN-LAST:event_pricetKeyPressed
+
+    private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            spnotet.requestFocus();
+        }
+    }//GEN-LAST:event_datetKeyPressed
+
+    private void spnotetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnotetKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            try {
+                // TODO add your handling code here:
+
+                //For newowners
+                String nic = nict.getText();
+                String name = namet.getText();
+                String address = addresst.getText();
+                String tp = tpt.getText();
+                String regno1 = regnot.getText();
+
+                //For Sold items
+                String regno = regnot.getText();
+                String price = pricet.getText();
+                String date = datet.getText();
+                String spnote = spnotet.getText();
+
+                //Insert Items
+                Statement stm = con.createStatement();
+                String sql ="INSERT INTO newowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
+                String sql1 ="INSERT INTO solditem VALUES('"+regno+"','"+price+"','"+date+"','"+spnote+"')";
+                stm.executeUpdate(sql);
+                stm.executeUpdate(sql1);
+
+                //Delete Items
+                Statement stm1 = (Statement) con.createStatement();
+                String query1 = "delete from  vehicle where Regno='"+regno+"'";
+                stm1.executeUpdate(query1);
+
+                JOptionPane.showMessageDialog(this,"Vehicle sold successfully"); 
+                NewJFrame jf = new NewJFrame();
+                jf.show();
+                dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(NewJFrame2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_spnotetKeyPressed
 
     /**
      * @param args the command line arguments
@@ -254,6 +475,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
     private javax.swing.JTextArea addresst;
     private javax.swing.JTextField datet;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

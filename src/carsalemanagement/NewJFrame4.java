@@ -6,7 +6,7 @@ package carsalemanagement;
  *
  * @author Dell
  */
-import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,28 +56,28 @@ public class NewJFrame4 extends javax.swing.JFrame {
         b1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setResizable(false);
 
-        text1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                text1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                text1FocusLost(evt);
+        text1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        text1.setToolTipText("");
+        text1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                text1KeyPressed(evt);
             }
         });
-        getContentPane().add(text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 145, -1));
 
+        b1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         b1.setText("Search");
         b1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b1ActionPerformed(evt);
             }
         });
-        getContentPane().add(b1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
+        Table1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -88,7 +88,44 @@ public class NewJFrame4 extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Table1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 102, 0));
+        jButton2.setText("Home");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(205, 205, 205)
+                        .addComponent(b1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(text1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b1))
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -124,15 +161,44 @@ public class NewJFrame4 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_b1ActionPerformed
 
-    private void text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusGained
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_text1FocusGained
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NewJFrame jf = new NewJFrame();
+        jf.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void text1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusLost
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_text1FocusLost
+    private void text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            try {
+            // TODO add your handling code here:
+                pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
+                pst.setString(1,text1.getText());
+                rs = pst.executeQuery();
+                if(rs.next()==false){
+                        JOptionPane.showMessageDialog(this, "Sorry records not found");
+                        text1.setText("");
+                    }
+                else{
+                    pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
+                    pst.setString(1,text1.getText());
+                    rs = pst.executeQuery();
+                    DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
+                    Statement stmt = con.createStatement();
+                    while (rs.next()) {
+                    String Make = rs.getString("Make");
+                    String Model = rs.getString("Model");
+                    String Milage = rs.getString("Milage");
+                    String Price = rs.getString("Price");
+
+                    tableModel.addRow(new Object[]{Make,Model,Milage,Price});
+
+                }
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(NewJFrame4.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_text1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -172,6 +238,7 @@ public class NewJFrame4 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table1;
     private javax.swing.JButton b1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField text1;
     // End of variables declaration//GEN-END:variables
