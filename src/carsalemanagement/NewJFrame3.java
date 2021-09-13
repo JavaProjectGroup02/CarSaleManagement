@@ -57,8 +57,11 @@ public class NewJFrame3 extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
+        show.setBackground(new java.awt.Color(204, 204, 204));
         show.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        show.setForeground(new java.awt.Color(0, 102, 0));
         show.setText("Search");
         show.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +69,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
             }
         });
 
+        Table1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -73,13 +77,25 @@ public class NewJFrame3 extends javax.swing.JFrame {
             new String [] {
                 "Reg No", "Category", "Make", "Model", "Price"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Table1.setRowHeight(20);
+        Table1.setRowMargin(2);
         jScrollPane1.setViewportView(Table1);
         if (Table1.getColumnModel().getColumnCount() > 0) {
             Table1.getColumnModel().getColumn(0).setPreferredWidth(5);
         }
 
+        show1.setBackground(new java.awt.Color(204, 204, 204));
         show1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        show1.setForeground(new java.awt.Color(0, 102, 0));
         show1.setText("Show Existing");
         show1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +104,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 102, 0));
         jButton2.setText("Home");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +118,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(show1)
@@ -110,7 +126,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
                         .addComponent(show))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,9 +137,9 @@ public class NewJFrame3 extends javax.swing.JFrame {
                     .addComponent(show))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(20, 20, 20))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -191,7 +207,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
