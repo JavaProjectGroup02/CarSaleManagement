@@ -55,9 +55,8 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -65,28 +64,32 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        pricet = new javax.swing.JTextField();
-        datet = new javax.swing.JTextField();
+        regnot = new javax.swing.JTextField();
+        categoryt = new javax.swing.JTextField();
         maket = new javax.swing.JTextField();
         modelt = new javax.swing.JTextField();
         manuyt = new javax.swing.JTextField();
         regyt = new javax.swing.JTextField();
         milaget = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        pricet = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        categoryt = new javax.swing.JTextField();
-        tpt = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        home = new javax.swing.JLabel();
+        save = new javax.swing.JLabel();
+        nict = new javax.swing.JTextField();
         namet = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         addresst = new javax.swing.JTextArea();
-        jLabel16 = new javax.swing.JLabel();
-        nict = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        regnot = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        tpt = new javax.swing.JTextField();
+        datet = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -99,61 +102,91 @@ public class NewJFrame1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(750, 400));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 3, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 0));
-        jLabel1.setText("Enter Details");
+        jPanel1.setBackground(new java.awt.Color(73, 31, 61));
+        jPanel1.setPreferredSize(new java.awt.Dimension(375, 400));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tekton Pro", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel2.setText("Owner");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Reg. No.");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Date");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Category");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Make");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Model");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Manu. Year");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Reg. Year");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Milage");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Price");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
-        pricet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        pricet.addKeyListener(new java.awt.event.KeyAdapter() {
+        regnot.setBackground(new java.awt.Color(73, 31, 61));
+        regnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        regnot.setForeground(new java.awt.Color(255, 255, 255));
+        regnot.setToolTipText("");
+        regnot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        regnot.setCaretColor(new java.awt.Color(255, 255, 255));
+        regnot.setMinimumSize(new java.awt.Dimension(7, 21));
+        regnot.setPreferredSize(new java.awt.Dimension(7, 21));
+        regnot.setSelectionColor(new java.awt.Color(255, 255, 255));
+        regnot.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                pricetKeyPressed(evt);
+                regnotKeyPressed(evt);
             }
         });
+        jPanel1.add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 190, -1));
 
-        datet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        datet.setToolTipText("");
-        datet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datetActionPerformed(evt);
-            }
-        });
-        datet.addKeyListener(new java.awt.event.KeyAdapter() {
+        categoryt.setBackground(new java.awt.Color(73, 31, 61));
+        categoryt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        categoryt.setForeground(new java.awt.Color(255, 255, 255));
+        categoryt.setToolTipText("");
+        categoryt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        categoryt.setCaretColor(new java.awt.Color(255, 255, 255));
+        categoryt.setPreferredSize(new java.awt.Dimension(7, 21));
+        categoryt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                datetKeyPressed(evt);
+                categorytKeyPressed(evt);
             }
         });
+        jPanel1.add(categoryt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 190, -1));
 
+        maket.setBackground(new java.awt.Color(73, 31, 61));
         maket.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        maket.setForeground(new java.awt.Color(255, 255, 255));
+        maket.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        maket.setCaretColor(new java.awt.Color(255, 255, 255));
+        maket.setPreferredSize(new java.awt.Dimension(7, 21));
         maket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 maketActionPerformed(evt);
@@ -164,74 +197,135 @@ public class NewJFrame1 extends javax.swing.JFrame {
                 maketKeyPressed(evt);
             }
         });
+        jPanel1.add(maket, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 190, -1));
 
+        modelt.setBackground(new java.awt.Color(73, 31, 61));
         modelt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        modelt.setForeground(new java.awt.Color(255, 255, 255));
+        modelt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        modelt.setCaretColor(new java.awt.Color(255, 255, 255));
+        modelt.setPreferredSize(new java.awt.Dimension(7, 21));
         modelt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 modeltKeyPressed(evt);
             }
         });
+        jPanel1.add(modelt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 190, -1));
 
+        manuyt.setBackground(new java.awt.Color(73, 31, 61));
         manuyt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        manuyt.setForeground(new java.awt.Color(255, 255, 255));
+        manuyt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        manuyt.setCaretColor(new java.awt.Color(255, 255, 255));
+        manuyt.setPreferredSize(new java.awt.Dimension(7, 21));
+        manuyt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manuytActionPerformed(evt);
+            }
+        });
         manuyt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 manuytKeyPressed(evt);
             }
         });
+        jPanel1.add(manuyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 190, -1));
 
+        regyt.setBackground(new java.awt.Color(73, 31, 61));
         regyt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        regyt.setForeground(new java.awt.Color(255, 255, 255));
+        regyt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        regyt.setCaretColor(new java.awt.Color(255, 255, 255));
+        regyt.setPreferredSize(new java.awt.Dimension(7, 21));
         regyt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 regytKeyPressed(evt);
             }
         });
+        jPanel1.add(regyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 190, -1));
 
+        milaget.setBackground(new java.awt.Color(73, 31, 61));
         milaget.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        milaget.setForeground(new java.awt.Color(255, 255, 255));
+        milaget.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        milaget.setCaretColor(new java.awt.Color(255, 255, 255));
+        milaget.setPreferredSize(new java.awt.Dimension(7, 21));
         milaget.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 milagetKeyPressed(evt);
             }
         });
+        jPanel1.add(milaget, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 190, -1));
 
-        jLabel11.setFont(new java.awt.Font("Tekton Pro", 1, 36)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel11.setText("Vehicle");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel12.setText("Reg. No.");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel13.setText("NIC");
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel14.setText("Name");
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel15.setText("Address");
-
-        categoryt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        categoryt.setToolTipText("");
-        categoryt.addKeyListener(new java.awt.event.KeyAdapter() {
+        pricet.setBackground(new java.awt.Color(73, 31, 61));
+        pricet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pricet.setForeground(new java.awt.Color(255, 255, 255));
+        pricet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        pricet.setCaretColor(new java.awt.Color(255, 255, 255));
+        pricet.setPreferredSize(new java.awt.Dimension(7, 21));
+        pricet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                categorytKeyPressed(evt);
+                pricetKeyPressed(evt);
             }
         });
+        jPanel1.add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 190, -1));
 
-        tpt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tpt.setToolTipText("");
-        tpt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tptActionPerformed(evt);
+        jLabel13.setFont(new java.awt.Font("Tekton Pro Ext", 0, 60)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel13.setText("ABC");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 60));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel16.setText("Vehicle  ");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 410));
+
+        jPanel2.setBackground(new java.awt.Color(189, 76, 84));
+        jPanel2.setPreferredSize(new java.awt.Dimension(375, 400));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        home.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        home.setForeground(new java.awt.Color(255, 255, 255));
+        home.setText(" Home ");
+        home.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeMouseClicked(evt);
             }
         });
-        tpt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jPanel2.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, -1, -1));
+
+        save.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        save.setForeground(new java.awt.Color(255, 255, 255));
+        save.setText(" Save ");
+        save.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveMouseClicked(evt);
+            }
+        });
+        jPanel2.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
+
+        nict.setBackground(new java.awt.Color(189, 76, 84));
+        nict.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nict.setForeground(new java.awt.Color(255, 255, 255));
+        nict.setToolTipText("");
+        nict.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        nict.setCaretColor(new java.awt.Color(255, 255, 255));
+        nict.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tptKeyPressed(evt);
+                nictKeyPressed(evt);
             }
         });
+        jPanel2.add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 190, -1));
 
+        namet.setBackground(new java.awt.Color(189, 76, 84));
         namet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        namet.setForeground(new java.awt.Color(255, 255, 255));
         namet.setToolTipText("");
+        namet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        namet.setCaretColor(new java.awt.Color(255, 255, 255));
         namet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nametActionPerformed(evt);
@@ -242,10 +336,16 @@ public class NewJFrame1 extends javax.swing.JFrame {
                 nametKeyPressed(evt);
             }
         });
+        jPanel2.add(namet, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 250, 20));
 
+        addresst.setBackground(new java.awt.Color(189, 76, 84));
         addresst.setColumns(20);
         addresst.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addresst.setForeground(new java.awt.Color(255, 255, 255));
+        addresst.setLineWrap(true);
         addresst.setRows(1);
+        addresst.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        addresst.setCaretColor(new java.awt.Color(255, 255, 255));
         addresst.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 addresstKeyPressed(evt);
@@ -253,193 +353,90 @@ public class NewJFrame1 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(addresst);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel16.setText("Telephone");
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 250, 70));
 
-        nict.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nict.setToolTipText("");
-        nict.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nictKeyPressed(evt);
-            }
-        });
-
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 102, 0));
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tpt.setBackground(new java.awt.Color(189, 76, 84));
+        tpt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tpt.setForeground(new java.awt.Color(255, 255, 255));
+        tpt.setToolTipText("");
+        tpt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        tpt.setCaretColor(new java.awt.Color(255, 255, 255));
+        tpt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                tptActionPerformed(evt);
             }
         });
-
-        regnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        regnot.setToolTipText("");
-        regnot.addKeyListener(new java.awt.event.KeyAdapter() {
+        tpt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                regnotKeyPressed(evt);
+                tptKeyPressed(evt);
             }
         });
+        jPanel2.add(tpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 250, 20));
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 102, 0));
-        jButton2.setText("Home");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        datet.setBackground(new java.awt.Color(189, 76, 84));
+        datet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        datet.setForeground(new java.awt.Color(255, 255, 255));
+        datet.setToolTipText("");
+        datet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        datet.setCaretColor(new java.awt.Color(255, 255, 255));
+        datet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                datetActionPerformed(evt);
             }
         });
+        datet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                datetKeyPressed(evt);
+            }
+        });
+        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 190, 20));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("X");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 0, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("NIC");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Name");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Address");
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Telephone");
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("Date");
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
+
+        jLabel15.setBackground(new java.awt.Color(255, 204, 204));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 204, 255));
+        jLabel15.setText("Owner  ");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 0, -1, 410));
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel11)
-                        .addGap(367, 367, 367)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel12)
-                        .addGap(42, 42, 42)
-                        .addComponent(regnot, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel13))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel4)
-                        .addGap(37, 37, 37)
-                        .addComponent(categoryt, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(160, 160, 160)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nict, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(namet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(regyt, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(58, 58, 58)
-                                    .addComponent(milaget, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel10)
-                                    .addGap(74, 74, 74)
-                                    .addComponent(pricet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(14, 14, 14)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(maket, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(modelt, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(manuyt, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(160, 160, 160)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(datet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tpt, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel2))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(regnot, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(nict, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(categoryt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(namet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(maket, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15))
-                                .addGap(10, 10, 10)
-                                .addComponent(modelt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tpt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel16))
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(datet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(manuyt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(regyt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(milaget, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton2)
-                                        .addComponent(jButton1))
-                                    .addComponent(pricet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 23, Short.MAX_VALUE))
-        );
-
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nametActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametActionPerformed
@@ -450,63 +447,6 @@ public class NewJFrame1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tptActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        //For vehicles
-        String regno = regnot.getText();
-        String category = categoryt.getText();
-        String make = maket.getText();
-        String model = modelt.getText();
-        String manuy = manuyt.getText();
-        String regy = regyt.getText();
-        String milage = milaget.getText();
-        String price = pricet.getText();
-        
-        //For owners
-        String nic = nict.getText();
-        String name = namet.getText();
-        String address = addresst.getText();
-        String tp = tpt.getText();
-        String date = datet.getText();
-        String regno1 = regnot.getText();
-            /*Convert
-            int num = Tnteger.parse(number);
-            */
-     
-        try {
-            /*//clesInsert vehicles
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO vehicle VALUES(?,?,?,?,?,?,?,?)");
-            stmt.setString(1, regno);
-            stmt.setString(2, category);
-            stmt.setString(3, make);
-            stmt.setString(4, model);
-            stmt.setString(5, manuy);
-            stmt.setString(6, regy);
-            stmt.setString(7, milage);
-            stmt.setString(8, price);
-            
-            //Insert owners
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO preowner VALUES(?,?,?,?,?)");
-            stmt.setString(1, nic);
-            stmt.setString(2, name);
-            stmt.setString(3, address);
-            stmt.setString(4, tp);
-            stmt.setString(5, date);
-            stmt.execute();*/
-            
-            
-            Statement stm = con.createStatement();
-            String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
-            String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
-            stm.executeUpdate(sql1);
-            stm.executeUpdate(sql);
-            //con.close()
-            } catch (SQLException ex) {
-            Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void maketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maketActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_maketActionPerformed
@@ -514,12 +454,6 @@ public class NewJFrame1 extends javax.swing.JFrame {
     private void datetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_datetActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        NewJFrame jf = new NewJFrame();
-        jf.show();
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -668,6 +602,91 @@ public class NewJFrame1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tptKeyPressed
 
+    private void manuytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manuytActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manuytActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
+        NewJFrame jf = new NewJFrame();
+        jf.show();
+        dispose();
+    }//GEN-LAST:event_homeMouseClicked
+
+    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+//For vehicles
+        String regno = regnot.getText();
+        String category = categoryt.getText();
+        String make = maket.getText();
+        String model = modelt.getText();
+        String manuy = manuyt.getText();
+        String regy = regyt.getText();
+        String milage = milaget.getText();
+        String price = pricet.getText();
+        
+        //For owners
+        String nic = nict.getText();
+        String name = namet.getText();
+        String address = addresst.getText();
+        String tp = tpt.getText();
+        String date = datet.getText();
+        String regno1 = regnot.getText();
+            /*Convert
+            int num = Tnteger.parse(number);
+            */
+     
+        try {
+            /*//clesInsert vehicles
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO vehicle VALUES(?,?,?,?,?,?,?,?)");
+            stmt.setString(1, regno);
+            stmt.setString(2, category);
+            stmt.setString(3, make);
+            stmt.setString(4, model);
+            stmt.setString(5, manuy);
+            stmt.setString(6, regy);
+            stmt.setString(7, milage);
+            stmt.setString(8, price);
+            
+            //Insert owners
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO preowner VALUES(?,?,?,?,?)");
+            stmt.setString(1, nic);
+            stmt.setString(2, name);
+            stmt.setString(3, address);
+            stmt.setString(4, tp);
+            stmt.setString(5, date);
+            stmt.execute();*/
+            
+            
+            Statement stm = con.createStatement();
+            String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
+            String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
+            stm.executeUpdate(sql1);
+            stm.executeUpdate(sql);
+            //con.close()
+            } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        JOptionPane.showMessageDialog(this,"Recorded adeed successfully"); 
+        
+        regnot.setText("");
+                categoryt.setText("");
+                maket.setText("");
+                modelt.setText("");
+                manuyt.setText("");
+                regyt.setText("");
+                milaget.setText("");
+                pricet.setText("");
+                nict.setText("");
+                namet.setText("");
+                addresst.setText("");
+                tpt.setText("");
+                datet.setText("");
+                regnot.setText("");
+    }//GEN-LAST:event_saveMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -707,18 +726,18 @@ public class NewJFrame1 extends javax.swing.JFrame {
     private javax.swing.JTextArea addresst;
     private javax.swing.JTextField categoryt;
     private javax.swing.JTextField datet;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -730,6 +749,8 @@ public class NewJFrame1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField maket;
     private javax.swing.JTextField manuyt;
@@ -740,6 +761,7 @@ public class NewJFrame1 extends javax.swing.JFrame {
     private javax.swing.JTextField pricet;
     private javax.swing.JTextField regnot;
     private javax.swing.JTextField regyt;
+    private javax.swing.JLabel save;
     private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
 }
