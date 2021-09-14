@@ -454,64 +454,42 @@ public class NewJFrame1 extends javax.swing.JFrame {
     private void datetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_datetActionPerformed
-
-    private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            // TODO add your handling code here:
-            //For vehicles
-            String regno = regnot.getText();
-            String category = categoryt.getText();
-            String make = maket.getText();
-            String model = modelt.getText();
-            String manuy = manuyt.getText();
-            String regy = regyt.getText();
-            String milage = milaget.getText();
-            String price = pricet.getText();
-
-            //For owners
-            String nic = nict.getText();
-            String name = namet.getText();
-            String address = addresst.getText();
-            String tp = tpt.getText();
-            String date = datet.getText();
-            String regno1 = regnot.getText();
-                /*Convert
-                int num = Tnteger.parse(number);
-                */
-           
-            try {
-                /*//clesInsert vehicles
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO vehicle VALUES(?,?,?,?,?,?,?,?)");
-                stmt.setString(1, regno);
-                stmt.setString(2, category);
-                stmt.setString(3, make);
-                stmt.setString(4, model);
-                stmt.setString(5, manuy);
-                stmt.setString(6, regy);
-                stmt.setString(7, milage);
-                stmt.setString(8, price);
-
-                //Insert owners
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO preowner VALUES(?,?,?,?,?)");
-                stmt.setString(1, nic);
-                stmt.setString(2, name);
-                stmt.setString(3, address);
-                stmt.setString(4, tp);
-                stmt.setString(5, date);
-                stmt.execute();*/
-
-
-                Statement stm = con.createStatement();
-                String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
-                String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
-                stm.executeUpdate(sql1);
-                stm.executeUpdate(sql);
-                //con.close()
-                } catch (SQLException ex) {
-                    Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
-                regnot.setText("");
+    
+    public void savevehicle(){
+        //For vehicles
+        String regno = regnot.getText();
+        String category = categoryt.getText();
+        String make = maket.getText();
+        String model = modelt.getText();
+        String manuy = manuyt.getText();
+        String regy = regyt.getText();
+        String milage = milaget.getText();
+        String price = pricet.getText();
+        
+        //For owners
+        String nic = nict.getText();
+        String name = namet.getText();
+        String address = addresst.getText();
+        String tp = tpt.getText();
+        String date = datet.getText();
+        String regno1 = regnot.getText();
+            /*Convert
+            int num = Tnteger.parse(number);
+            */
+     
+        try {
+            Statement stm = con.createStatement();
+            String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
+            String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
+            stm.executeUpdate(sql1);
+            stm.executeUpdate(sql);
+            //con.close()
+            } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        JOptionPane.showMessageDialog(this,"Recorded adeed successfully"); 
+        
+        regnot.setText("");
                 categoryt.setText("");
                 maket.setText("");
                 modelt.setText("");
@@ -525,8 +503,10 @@ public class NewJFrame1 extends javax.swing.JFrame {
                 tpt.setText("");
                 datet.setText("");
                 regnot.setText("");
-                
-                regnot.requestFocus();   
+    }
+    private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            savevehicle();   
         }
     }//GEN-LAST:event_datetKeyPressed
 
@@ -617,74 +597,7 @@ public class NewJFrame1 extends javax.swing.JFrame {
     }//GEN-LAST:event_homeMouseClicked
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-//For vehicles
-        String regno = regnot.getText();
-        String category = categoryt.getText();
-        String make = maket.getText();
-        String model = modelt.getText();
-        String manuy = manuyt.getText();
-        String regy = regyt.getText();
-        String milage = milaget.getText();
-        String price = pricet.getText();
-        
-        //For owners
-        String nic = nict.getText();
-        String name = namet.getText();
-        String address = addresst.getText();
-        String tp = tpt.getText();
-        String date = datet.getText();
-        String regno1 = regnot.getText();
-            /*Convert
-            int num = Tnteger.parse(number);
-            */
-     
-        try {
-            /*//clesInsert vehicles
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO vehicle VALUES(?,?,?,?,?,?,?,?)");
-            stmt.setString(1, regno);
-            stmt.setString(2, category);
-            stmt.setString(3, make);
-            stmt.setString(4, model);
-            stmt.setString(5, manuy);
-            stmt.setString(6, regy);
-            stmt.setString(7, milage);
-            stmt.setString(8, price);
-            
-            //Insert owners
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO preowner VALUES(?,?,?,?,?)");
-            stmt.setString(1, nic);
-            stmt.setString(2, name);
-            stmt.setString(3, address);
-            stmt.setString(4, tp);
-            stmt.setString(5, date);
-            stmt.execute();*/
-            
-            
-            Statement stm = con.createStatement();
-            String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
-            String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
-            stm.executeUpdate(sql1);
-            stm.executeUpdate(sql);
-            //con.close()
-            } catch (SQLException ex) {
-            Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        JOptionPane.showMessageDialog(this,"Recorded adeed successfully"); 
-        
-        regnot.setText("");
-                categoryt.setText("");
-                maket.setText("");
-                modelt.setText("");
-                manuyt.setText("");
-                regyt.setText("");
-                milaget.setText("");
-                pricet.setText("");
-                nict.setText("");
-                namet.setText("");
-                addresst.setText("");
-                tpt.setText("");
-                datet.setText("");
-                regnot.setText("");
+        savevehicle();
     }//GEN-LAST:event_saveMouseClicked
 
     /**

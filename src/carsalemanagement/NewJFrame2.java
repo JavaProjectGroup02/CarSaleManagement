@@ -43,6 +43,52 @@ public class NewJFrame2 extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public void sellcar(){
+        try {
+            // TODO add your handling code here:
+            
+            //For newowners
+            String nic = nict.getText();
+            String name = namet.getText();
+            String address = addresst.getText();
+            String tp = tpt.getText();
+            String regno1 = regnot.getText();
+            
+            //For Sold items
+            String regno = regnot.getText();
+            String price = pricet.getText();
+            String date = datet.getText();
+            String spnote = spnotet.getText();
+            
+            //Insert Items
+            Statement stm = con.createStatement();
+            String sql ="INSERT INTO newowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
+            String sql1 ="INSERT INTO solditem VALUES('"+regno+"','"+price+"','"+date+"','"+spnote+"')";
+            stm.executeUpdate(sql);
+            stm.executeUpdate(sql1);
+            
+            //Delete Items
+            Statement stm1 = (Statement) con.createStatement();
+            String query1 = "delete from  vehicle where Regno='"+regno+"'";
+            stm1.executeUpdate(query1);
+            
+            JOptionPane.showMessageDialog(this,"Vehicle sold successfully");
+            
+            nict.setText("");
+            namet.setText("");
+            addresst.setText("");
+            tpt.setText("");
+            regnot.setText("");
+            pricet.setText("");
+            datet.setText("");
+            spnotet.setText("");
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -439,48 +485,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
 
     private void tptKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tptKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            try {
-                // TODO add your handling code here:
-
-                //For newowners
-                String nic = nict.getText();
-                String name = namet.getText();
-                String address = addresst.getText();
-                String tp = tpt.getText();
-                String regno1 = regnot.getText();
-
-                //For Sold items
-                String regno = regnot.getText();
-                String price = pricet.getText();
-                String date = datet.getText();
-                String spnote = spnotet.getText();
-
-                //Insert Items
-                Statement stm = con.createStatement();
-                String sql ="INSERT INTO newowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
-                String sql1 ="INSERT INTO solditem VALUES('"+regno+"','"+price+"','"+date+"','"+spnote+"')";
-                stm.executeUpdate(sql);
-                stm.executeUpdate(sql1);
-
-                //Delete Items
-                Statement stm1 = (Statement) con.createStatement();
-                String query1 = "delete from  vehicle where Regno='"+regno+"'";
-                stm1.executeUpdate(query1);
-
-                JOptionPane.showMessageDialog(this,"Vehicle sold successfully"); 
-            } catch (SQLException ex) {
-                Logger.getLogger(NewJFrame2.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            nict.setText("");
-            namet.setText("");
-            addresst.setText("");
-            tpt.setText("");
-            regnot.setText("");
-            pricet.setText("");
-            datet.setText("");
-            spnotet.setText("");
-                
-            regnot.requestFocus();
+            sellcar();
         }
     }//GEN-LAST:event_tptKeyPressed
 
@@ -519,49 +524,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6KeyPressed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        try {
-            // TODO add your handling code here:
-            
-            //For newowners
-            String nic = nict.getText();
-            String name = namet.getText();
-            String address = addresst.getText();
-            String tp = tpt.getText();
-            String regno1 = regnot.getText();
-            
-            //For Sold items
-            String regno = regnot.getText();
-            String price = pricet.getText();
-            String date = datet.getText();
-            String spnote = spnotet.getText();
-            
-            //Insert Items
-            Statement stm = con.createStatement();
-            String sql ="INSERT INTO newowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
-            String sql1 ="INSERT INTO solditem VALUES('"+regno+"','"+price+"','"+date+"','"+spnote+"')";
-            stm.executeUpdate(sql);
-            stm.executeUpdate(sql1);
-            
-            //Delete Items
-            Statement stm1 = (Statement) con.createStatement();
-            String query1 = "delete from  vehicle where Regno='"+regno+"'";
-            stm1.executeUpdate(query1);
-            
-            JOptionPane.showMessageDialog(this,"Vehicle sold successfully");
-            
-            nict.setText("");
-            namet.setText("");
-            addresst.setText("");
-            tpt.setText("");
-            regnot.setText("");
-            pricet.setText("");
-            datet.setText("");
-            spnotet.setText("");
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(NewJFrame2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sellcar();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked

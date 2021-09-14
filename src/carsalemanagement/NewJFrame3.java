@@ -264,7 +264,7 @@ public class NewJFrame3 extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        NewJFrame jf = new NewJFrame();
+        loginform jf = new loginform();
         jf.show();
         dispose();
     }//GEN-LAST:event_jLabel3MouseClicked

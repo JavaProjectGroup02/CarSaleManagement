@@ -5,17 +5,63 @@
  */
 package carsalemanagement;
 
-/**
- *
- * @author Dell
- */
+import java.awt.event.KeyEvent;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class loginform extends javax.swing.JFrame {
 
-    /**
-     * Creates new form loginform
-     */
+    Connection con = null;
     public loginform() {
         initComponents();
+        createConnection();
+    }
+    
+    void createConnection(){
+        String className = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(className);
+            System.out.println("Driver loaded Successfully");
+            
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            System.out.println("Connection Successfull");
+      
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver loding Failed");
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed");
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void validateUser(){
+        ResultSet rs;
+        String username= usernamet.getText();
+        String password= passt.getText();
+        
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(("SELECT * from register WHERE username='"+username+"' AND password='"+password+"'"));
+            
+            if(!rs.next()){
+                JOptionPane.showMessageDialog(this,"Incorrect Username or Password");
+            }else{
+                if(username.equals("admin")){
+                    NewJFrame jf = new NewJFrame();
+                    jf.show();
+                    dispose();
+                }else{
+                    NewJFrame4 jf = new NewJFrame4();
+                    jf.show();
+                    dispose();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(loginform.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -33,8 +79,8 @@ public class loginform extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        username = new javax.swing.JTextField();
-        pass = new javax.swing.JPasswordField();
+        usernamet = new javax.swing.JTextField();
+        passt = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
@@ -94,34 +140,44 @@ public class loginform extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
 
-        username.setBackground(new java.awt.Color(186, 79, 84));
-        username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        username.setForeground(new java.awt.Color(255, 255, 255));
-        username.setText("Username");
-        username.setBorder(null);
-        username.addFocusListener(new java.awt.event.FocusAdapter() {
+        usernamet.setBackground(new java.awt.Color(186, 79, 84));
+        usernamet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        usernamet.setForeground(new java.awt.Color(255, 255, 255));
+        usernamet.setText("Username");
+        usernamet.setBorder(null);
+        usernamet.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                usernameFocusGained(evt);
+                usernametFocusGained(evt);
             }
         });
-        username.addActionListener(new java.awt.event.ActionListener() {
+        usernamet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
+                usernametActionPerformed(evt);
+            }
+        });
+        usernamet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernametKeyPressed(evt);
             }
         });
 
-        pass.setBackground(new java.awt.Color(186, 79, 84));
-        pass.setForeground(new java.awt.Color(255, 255, 255));
-        pass.setText("Password");
-        pass.setBorder(null);
-        pass.addFocusListener(new java.awt.event.FocusAdapter() {
+        passt.setBackground(new java.awt.Color(186, 79, 84));
+        passt.setForeground(new java.awt.Color(255, 255, 255));
+        passt.setText("Password");
+        passt.setBorder(null);
+        passt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                passFocusGained(evt);
+                passtFocusGained(evt);
             }
         });
-        pass.addActionListener(new java.awt.event.ActionListener() {
+        passt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
+                passtActionPerformed(evt);
+            }
+        });
+        passt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passtKeyPressed(evt);
             }
         });
 
@@ -135,6 +191,11 @@ public class loginform extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("      Signup");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -154,6 +215,11 @@ public class loginform extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("      Signin");
         jLabel1.setToolTipText("");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -187,8 +253,8 @@ public class loginform extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pass, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(username, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                    .addComponent(passt, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernamet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -205,11 +271,11 @@ public class loginform extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addGap(86, 86, 86)
-                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usernamet, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passt, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,25 +294,63 @@ public class loginform extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+    private void usernametActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernametActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
+    }//GEN-LAST:event_usernametActionPerformed
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+    private void passtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
+    }//GEN-LAST:event_passtActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
-        username.setText("");
-    }//GEN-LAST:event_usernameFocusGained
+    private void usernametFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernametFocusGained
+        usernamet.setText("");
+    }//GEN-LAST:event_usernametFocusGained
 
-    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
-        pass.setText("");
-    }//GEN-LAST:event_passFocusGained
+    private void passtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passtFocusGained
+        passt.setText("");
+    }//GEN-LAST:event_passtFocusGained
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+         validateUser(); 
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        ResultSet rs1;
+        Statement st1;
+        String admin= "admin";
+        try {
+            st1 = con.createStatement();
+            rs1 = st1.executeQuery("SELECT * from register WHERE username='"+admin+"'");
+            
+            if(!rs1.next()){
+                registationform jf = new registationform();
+                jf.show();
+                dispose();
+            }else{
+                adminlogin jf = new adminlogin();
+                jf.show();
+                dispose();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(loginform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void usernametKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernametKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            passt.requestFocus();
+        }
+    }//GEN-LAST:event_usernametKeyPressed
+
+    private void passtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passtKeyPressed
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            validateUser();
+        }
+    }//GEN-LAST:event_passtKeyPressed
 
     /**
      * @param args the command line arguments
@@ -297,7 +401,7 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField username;
+    private javax.swing.JPasswordField passt;
+    private javax.swing.JTextField usernamet;
     // End of variables declaration//GEN-END:variables
 }

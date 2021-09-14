@@ -394,7 +394,7 @@ void createConnection(){
     }//GEN-LAST:event_searchtKeyPressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        NewJFrame jf = new NewJFrame();
+        loginform jf = new loginform();
         jf.show();
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
