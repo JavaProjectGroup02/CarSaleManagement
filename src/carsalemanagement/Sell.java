@@ -26,13 +26,34 @@ public class Sell extends javax.swing.JFrame {
         createConnection();
     }
     
+     public void autorefNo(){
+         try {
+             Statement s = con.createStatement();
+             ResultSet rs = s.executeQuery("Select Max(S_RefNo) from solditem ");
+             rs.next();
+             
+             rs.getString("Max(S_RefNo)");
+             
+             if(rs.getString("Max(S_RefNo)")==null){
+                 S_refnot.setText("B0001");
+             }
+             else{
+                 Long B_RefNo = Long.parseLong(rs.getString("Max(S_RefNo)").substring(2,rs.getString("Max(S_RefNo)").length()));
+                 B_RefNo++;
+                 S_refnot.setText("B0" + String.format("%03d", B_RefNo));
+             }
+         } catch (SQLException ex) {
+             Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
     void createConnection(){
         String className = "com.mysql.cj.jdbc.Driver";
         try {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","9823Nan@831");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -47,24 +68,29 @@ public class Sell extends javax.swing.JFrame {
     public void sellcar(){
         try {
             // TODO add your handling code here:
-            
+           
             //For newowners
             String nic = nict.getText();
             String name = namet.getText();
             String address = addresst.getText();
             String tp = tpt.getText();
             String regno1 = regnot.getText();
+            String s_refno1 = S_refnot.getText();
             
             //For Sold items
+            String s_refno = S_refnot.getText();
             String regno = regnot.getText();
             String price = pricet.getText();
             String date = datet.getText();
             String spnote = spnotet.getText();
             
+            //From vechicle table
+            
+            
             //Insert Items
             Statement stm = con.createStatement();
-            String sql ="INSERT INTO newowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
-            String sql1 ="INSERT INTO solditem VALUES('"+regno+"','"+price+"','"+date+"','"+spnote+"')";
+            String sql ="INSERT INTO newowner VALUES('"+s_refno1+"','"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
+            String sql1 ="INSERT INTO solditem VALUES('"+s_refno+"','"+regno+"','"+price+"','"+date+"','"+spnote+"')";
             stm.executeUpdate(sql);
             stm.executeUpdate(sql1);
             
@@ -83,6 +109,7 @@ public class Sell extends javax.swing.JFrame {
             pricet.setText("");
             datet.setText("");
             spnotet.setText("");
+            S_refnot.setText("");
             
             
         } catch (SQLException ex) {
@@ -125,6 +152,8 @@ public class Sell extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        S_refnot = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -387,6 +416,26 @@ public class Sell extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(153, 153, 153));
         jLabel15.setText("Vehicle ");
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Ref. no");
+        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        S_refnot.setBackground(new java.awt.Color(73, 31, 61));
+        S_refnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        S_refnot.setForeground(new java.awt.Color(255, 255, 255));
+        S_refnot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        S_refnot.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                S_refnotFocusGained(evt);
+            }
+        });
+        S_refnot.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                S_refnotKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -402,10 +451,6 @@ public class Sell extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(regnot, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(pricet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -416,7 +461,15 @@ public class Sell extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(regnot, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                    .addComponent(S_refnot))))
                         .addGap(21, 21, 21))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -427,6 +480,10 @@ public class Sell extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(S_refnot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -524,7 +581,24 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6KeyPressed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        sellcar();
+         try {
+                // TODO add your handling code here:
+                pst = con.prepareStatement("SELECT * from vehicle WHERE Regno=?");
+                pst.setString(1,regnot.getText());
+                rs = pst.executeQuery();
+                if(rs.next()==false){
+                    JOptionPane.showMessageDialog(this, "This car can't be sold");
+                    regnot.setText("");
+                }
+                else{
+                    sellcar();
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -536,6 +610,16 @@ public class Sell extends javax.swing.JFrame {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void S_refnotKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_S_refnotKeyPressed
+       if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            regnot.requestFocus();
+        }   
+    }//GEN-LAST:event_S_refnotKeyPressed
+
+    private void S_refnotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_S_refnotFocusGained
+        autorefNo();
+    }//GEN-LAST:event_S_refnotFocusGained
 
     /**
      * @param args the command line arguments
@@ -574,12 +658,14 @@ public class Sell extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField S_refnot;
     private javax.swing.JTextArea addresst;
     private javax.swing.JTextField datet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;

@@ -17,10 +17,13 @@ public class Existing extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame3
      */
+    ResultSet rs; 
     Connection con = null;
     public Existing() {
         initComponents();
         createConnection();
+       
+        
     }
     
     void createConnection(){
@@ -53,8 +56,8 @@ public class Existing extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        Btn1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -101,16 +104,6 @@ public class Existing extends javax.swing.JFrame {
             Table1.getColumnModel().getColumn(4).setPreferredWidth(7);
         }
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText(" Show All ");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText(" Search ");
@@ -121,30 +114,45 @@ public class Existing extends javax.swing.JFrame {
             }
         });
 
+        Btn1.setBackground(new java.awt.Color(73, 31, 61));
+        Btn1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Btn1.setForeground(new java.awt.Color(255, 255, 255));
+        Btn1.setText("  Show All   ");
+        Btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        Btn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn1MouseClicked(evt);
+            }
+        });
+        Btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(58, 58, 58))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(Btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(58, 58, 58))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 19, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -218,27 +226,6 @@ public class Existing extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
-        
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM vehicle");
-            while (rs.next()) {
-                String Regno = rs.getString("Regno");
-                String Category = rs.getString("Category");
-                String Make = rs.getString("Make");
-                String Model = rs.getString("Model");
-                String Price = rs.getString("Price");
-                
-                tableModel.addRow(new Object[]{Regno,Category,Make,Model,Price});
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Existing.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jLabel2MouseClicked
-
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Welcome jf = new Welcome();
         jf.show();
@@ -254,6 +241,32 @@ public class Existing extends javax.swing.JFrame {
         jf4.show();
         dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
+        
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM vehicle");
+            while (rs.next()) {
+                String Regno = rs.getString("Regno");
+                String Category = rs.getString("Category");
+                String Make = rs.getString("Make");
+                String Model = rs.getString("Model");
+                String Price = rs.getString("Price");
+                
+                tableModel.addRow(new Object[]{Regno,Category,Make,Model,Price});
+                
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Existing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Btn1ActionPerformed
+
+    private void Btn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn1MouseClicked
+         Btn1.setEnabled(false);
+    }//GEN-LAST:event_Btn1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -292,9 +305,9 @@ public class Existing extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn1;
     private javax.swing.JTable Table1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

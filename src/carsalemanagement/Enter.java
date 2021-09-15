@@ -9,6 +9,9 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Font;
 /**
  *
  * @author Dell
@@ -17,11 +20,58 @@ public class Enter extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame1
-     */
+     * */
+     ResultSet rs;
+    PreparedStatement pst;
     Connection con = null;
     public Enter() {
         initComponents();
         createConnection();
+        
+        FontStyle(regnot);
+        FontStyle(maket);
+        FontStyle(manuyt);
+        FontStyle(regyt);
+        FontStyle(milaget);
+        FontStyle2(refnot);
+        FontStyle2(tpt);
+        FontStyle2(datet);
+    }
+    public void autorefNo(){
+         try {
+             Statement s = con.createStatement();
+             ResultSet rs = s.executeQuery("Select Max(B_RefNo) from preowner ");
+             rs.next();
+             
+             rs.getString("Max(B_RefNo)");
+             
+             if(rs.getString("Max(B_RefNo)")==null){
+                 refnot.setText("C0001");
+             }
+             else{
+                 Long B_RefNo = Long.parseLong(rs.getString("Max(B_RefNo)").substring(2,rs.getString("Max(B_RefNo)").length()));
+                 B_RefNo++;
+                 refnot.setText("C0" + String.format("%03d", B_RefNo));
+             }
+         } catch (SQLException ex) {
+             Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    public void FontStyle(JTextField textField){
+        Font font = textField.getFont();
+        font = font.deriveFont(Font.PLAIN);
+        textField.setFont(font);
+        textField.setForeground(Color.white);
+         
+    }
+
+    public void FontStyle2(JTextField textField){
+        Font font = textField.getFont();
+        font = font.deriveFont(Font.PLAIN);
+        textField.setFont(font);
+        textField.setForeground(Color.LIGHT_GRAY);
+         
     }
     
     void createConnection(){
@@ -30,7 +80,7 @@ public class Enter extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","9823Nan@831");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -74,6 +124,10 @@ public class Enter extends javax.swing.JFrame {
         pricet = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        text1 = new javax.swing.JTextField();
+        text3 = new javax.swing.JTextField();
+        text5 = new javax.swing.JTextField();
+        text6 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         home = new javax.swing.JLabel();
         save = new javax.swing.JLabel();
@@ -90,6 +144,10 @@ public class Enter extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        refnot = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        reftext = new javax.swing.JTextField();
+        text7 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -113,22 +171,22 @@ public class Enter extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Reg. No.");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Category");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Make");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Model");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,28 +201,42 @@ public class Enter extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Milage");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Price");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
 
         regnot.setBackground(new java.awt.Color(73, 31, 61));
         regnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         regnot.setForeground(new java.awt.Color(255, 255, 255));
+        regnot.setText("XXX-xxx");
         regnot.setToolTipText("");
         regnot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         regnot.setCaretColor(new java.awt.Color(255, 255, 255));
         regnot.setMinimumSize(new java.awt.Dimension(7, 21));
         regnot.setPreferredSize(new java.awt.Dimension(7, 21));
         regnot.setSelectionColor(new java.awt.Color(255, 255, 255));
+        regnot.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                regnotFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                regnotFocusLost(evt);
+            }
+        });
+        regnot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regnotMouseClicked(evt);
+            }
+        });
         regnot.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 regnotKeyPressed(evt);
             }
         });
-        jPanel1.add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 190, -1));
+        jPanel1.add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 190, -1));
 
         categoryt.setBackground(new java.awt.Color(73, 31, 61));
         categoryt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -178,14 +250,23 @@ public class Enter extends javax.swing.JFrame {
                 categorytKeyPressed(evt);
             }
         });
-        jPanel1.add(categoryt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 190, -1));
+        jPanel1.add(categoryt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 190, -1));
 
         maket.setBackground(new java.awt.Color(73, 31, 61));
         maket.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        maket.setForeground(new java.awt.Color(255, 255, 255));
+        maket.setForeground(new java.awt.Color(153, 153, 153));
+        maket.setText("YYYY");
         maket.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         maket.setCaretColor(new java.awt.Color(255, 255, 255));
         maket.setPreferredSize(new java.awt.Dimension(7, 21));
+        maket.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                maketFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                maketFocusLost(evt);
+            }
+        });
         maket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 maketActionPerformed(evt);
@@ -196,7 +277,7 @@ public class Enter extends javax.swing.JFrame {
                 maketKeyPressed(evt);
             }
         });
-        jPanel1.add(maket, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 190, -1));
+        jPanel1.add(maket, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 190, -1));
 
         modelt.setBackground(new java.awt.Color(73, 31, 61));
         modelt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -209,14 +290,23 @@ public class Enter extends javax.swing.JFrame {
                 modeltKeyPressed(evt);
             }
         });
-        jPanel1.add(modelt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 190, -1));
+        jPanel1.add(modelt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 190, -1));
 
         manuyt.setBackground(new java.awt.Color(73, 31, 61));
         manuyt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        manuyt.setForeground(new java.awt.Color(255, 255, 255));
+        manuyt.setForeground(new java.awt.Color(153, 153, 153));
+        manuyt.setText("YYYY");
         manuyt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         manuyt.setCaretColor(new java.awt.Color(255, 255, 255));
         manuyt.setPreferredSize(new java.awt.Dimension(7, 21));
+        manuyt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                manuytFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                manuytFocusLost(evt);
+            }
+        });
         manuyt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manuytActionPerformed(evt);
@@ -227,14 +317,23 @@ public class Enter extends javax.swing.JFrame {
                 manuytKeyPressed(evt);
             }
         });
-        jPanel1.add(manuyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 190, -1));
+        jPanel1.add(manuyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 190, -1));
 
         regyt.setBackground(new java.awt.Color(73, 31, 61));
         regyt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        regyt.setForeground(new java.awt.Color(255, 255, 255));
+        regyt.setForeground(new java.awt.Color(153, 153, 153));
+        regyt.setText("YYYY");
         regyt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         regyt.setCaretColor(new java.awt.Color(255, 255, 255));
         regyt.setPreferredSize(new java.awt.Dimension(7, 21));
+        regyt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                regytFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                regytFocusLost(evt);
+            }
+        });
         regyt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 regytKeyPressed(evt);
@@ -244,16 +343,24 @@ public class Enter extends javax.swing.JFrame {
 
         milaget.setBackground(new java.awt.Color(73, 31, 61));
         milaget.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        milaget.setForeground(new java.awt.Color(255, 255, 255));
+        milaget.setForeground(new java.awt.Color(153, 153, 153));
         milaget.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         milaget.setCaretColor(new java.awt.Color(255, 255, 255));
         milaget.setPreferredSize(new java.awt.Dimension(7, 21));
+        milaget.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                milagetFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                milagetFocusLost(evt);
+            }
+        });
         milaget.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 milagetKeyPressed(evt);
             }
         });
-        jPanel1.add(milaget, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 190, -1));
+        jPanel1.add(milaget, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 190, -1));
 
         pricet.setBackground(new java.awt.Color(73, 31, 61));
         pricet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -266,7 +373,7 @@ public class Enter extends javax.swing.JFrame {
                 pricetKeyPressed(evt);
             }
         });
-        jPanel1.add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 190, -1));
+        jPanel1.add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 190, -1));
 
         jLabel13.setFont(new java.awt.Font("Tekton Pro Ext", 0, 60)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
@@ -278,7 +385,31 @@ public class Enter extends javax.swing.JFrame {
         jLabel16.setText("Vehicle  ");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 410));
+        text1.setBackground(new java.awt.Color(73, 31, 61));
+        text1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        text1.setForeground(new java.awt.Color(255, 204, 204));
+        text1.setBorder(null);
+        jPanel1.add(text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 135, 190, 10));
+
+        text3.setBackground(new java.awt.Color(73, 31, 61));
+        text3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        text3.setForeground(new java.awt.Color(255, 204, 204));
+        text3.setBorder(null);
+        jPanel1.add(text3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 215, 190, 10));
+
+        text5.setBackground(new java.awt.Color(73, 31, 61));
+        text5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        text5.setForeground(new java.awt.Color(255, 204, 204));
+        text5.setBorder(null);
+        jPanel1.add(text5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 295, 190, 10));
+
+        text6.setBackground(new java.awt.Color(73, 31, 61));
+        text6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        text6.setForeground(new java.awt.Color(255, 204, 204));
+        text6.setBorder(null);
+        jPanel1.add(text6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 335, 190, 10));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 450));
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(375, 400));
@@ -293,7 +424,7 @@ public class Enter extends javax.swing.JFrame {
                 homeMouseClicked(evt);
             }
         });
-        jPanel2.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, -1, -1));
+        jPanel2.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, -1, -1));
 
         save.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         save.setForeground(new java.awt.Color(255, 255, 255));
@@ -304,7 +435,7 @@ public class Enter extends javax.swing.JFrame {
                 saveMouseClicked(evt);
             }
         });
-        jPanel2.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
+        jPanel2.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, -1, -1));
 
         nict.setBackground(new java.awt.Color(189, 76, 84));
         nict.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -317,10 +448,10 @@ public class Enter extends javax.swing.JFrame {
                 nictKeyPressed(evt);
             }
         });
-        jPanel2.add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 190, -1));
+        jPanel2.add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 190, -1));
 
         namet.setBackground(new java.awt.Color(189, 76, 84));
-        namet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        namet.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         namet.setForeground(new java.awt.Color(255, 255, 255));
         namet.setToolTipText("");
         namet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -335,7 +466,7 @@ public class Enter extends javax.swing.JFrame {
                 nametKeyPressed(evt);
             }
         });
-        jPanel2.add(namet, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 250, 20));
+        jPanel2.add(namet, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 250, 20));
 
         addresst.setBackground(new java.awt.Color(189, 76, 84));
         addresst.setColumns(20);
@@ -356,10 +487,19 @@ public class Enter extends javax.swing.JFrame {
 
         tpt.setBackground(new java.awt.Color(189, 76, 84));
         tpt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tpt.setForeground(new java.awt.Color(255, 255, 255));
+        tpt.setForeground(new java.awt.Color(204, 204, 204));
+        tpt.setText("077-1234567");
         tpt.setToolTipText("");
         tpt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         tpt.setCaretColor(new java.awt.Color(255, 255, 255));
+        tpt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tptFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tptFocusLost(evt);
+            }
+        });
         tpt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tptActionPerformed(evt);
@@ -374,10 +514,19 @@ public class Enter extends javax.swing.JFrame {
 
         datet.setBackground(new java.awt.Color(189, 76, 84));
         datet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        datet.setForeground(new java.awt.Color(255, 255, 255));
+        datet.setForeground(new java.awt.Color(204, 204, 204));
+        datet.setText("YYYY-MM-DD");
         datet.setToolTipText("");
         datet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         datet.setCaretColor(new java.awt.Color(255, 255, 255));
+        datet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                datetFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                datetFocusLost(evt);
+            }
+        });
         datet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 datetActionPerformed(evt);
@@ -388,7 +537,7 @@ public class Enter extends javax.swing.JFrame {
                 datetKeyPressed(evt);
             }
         });
-        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 190, 20));
+        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 190, 20));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -403,17 +552,17 @@ public class Enter extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NIC");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Name");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Address");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -423,7 +572,7 @@ public class Enter extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Date");
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
 
         jLabel15.setBackground(new java.awt.Color(255, 204, 204));
         jLabel15.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
@@ -431,7 +580,44 @@ public class Enter extends javax.swing.JFrame {
         jLabel15.setText("Owner  ");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 0, -1, 410));
+        refnot.setBackground(new java.awt.Color(189, 76, 84));
+        refnot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        refnot.setForeground(new java.awt.Color(204, 204, 204));
+        refnot.setText("0000");
+        refnot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        refnot.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                refnotFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                refnotFocusLost(evt);
+            }
+        });
+        refnot.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                refnotKeyPressed(evt);
+            }
+        });
+        jPanel2.add(refnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 190, 20));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Ref. No.");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 60, 20));
+
+        reftext.setBackground(new java.awt.Color(189, 76, 84));
+        reftext.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        reftext.setForeground(new java.awt.Color(255, 204, 204));
+        reftext.setBorder(null);
+        jPanel2.add(reftext, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 190, 10));
+
+        text7.setBackground(new java.awt.Color(189, 76, 84));
+        text7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        text7.setForeground(new java.awt.Color(255, 204, 204));
+        text7.setBorder(null);
+        jPanel2.add(text7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 250, 10));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 380, 450));
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -456,6 +642,7 @@ public class Enter extends javax.swing.JFrame {
     
     public void savevehicle(){
         //For vehicles
+        
         String regno = regnot.getText();
         String category = categoryt.getText();
         String make = maket.getText();
@@ -466,6 +653,7 @@ public class Enter extends javax.swing.JFrame {
         String price = pricet.getText();
         
         //For owners
+        String refno1 = refnot.getText();
         String nic = nict.getText();
         String name = namet.getText();
         String address = addresst.getText();
@@ -477,31 +665,44 @@ public class Enter extends javax.swing.JFrame {
             */
      
         try {
+            if(refno1.equals("") || nic.equals("") || name.equals("") || address.equals("") || tp.equals("")
+                        || date.equals("") || regno1.equals("") || category.equals("") || make.equals("") || model.equals("") || manuy.equals("") ||regy.equals("") || milage.equals("") || price.equals(""))
+             {
+                    JOptionPane.showMessageDialog(this,"All required fields are mandatory"); 
+              }
+            else {
             Statement stm = con.createStatement();
             String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
-            String sql1 ="INSERT INTO preowner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
+            String sql1 ="INSERT INTO preowner VALUES('"+refno1+"','"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
             stm.executeUpdate(sql1);
             stm.executeUpdate(sql);
+            
+            JOptionPane.showMessageDialog(this,"Recorded adeed successfully"); 
+            }
             //con.close()
             } catch (SQLException ex) {
             Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
             }
-        JOptionPane.showMessageDialog(this,"Recorded adeed successfully"); 
         
-        regnot.setText("");
+        
+                refnot.setText("");
+                regnot.setText("");
                 categoryt.setText("");
-                maket.setText("");
+                maket.setText("YYYY");
                 modelt.setText("");
-                manuyt.setText("");
-                regyt.setText("");
-                milaget.setText("");
+                manuyt.setText("YYYY");
+                regyt.setText("YYYY");
+                milaget.setText("0000000");
                 pricet.setText("");
                 nict.setText("");
                 namet.setText("");
                 addresst.setText("");
-                tpt.setText("");
-                datet.setText("");
-                regnot.setText("");
+                tpt.setText("077-1234567");
+                datet.setText("YYYY-MM-DD");
+                regnot.setText("XXX-xxx");
+                     
+                
+                
     }
     private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -513,6 +714,7 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             categoryt.requestFocus();
         }
+        
     }//GEN-LAST:event_regnotKeyPressed
 
     private void categorytKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_categorytKeyPressed
@@ -525,6 +727,37 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             modelt.requestFocus();
         }
+         String myr = maket.getText();
+        int length=myr.length();
+        
+        char c=evt.getKeyChar();
+        
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            if(length<4){
+                maket.setEditable(true);
+            }
+            else
+            {
+                maket.setEditable(false);
+                text3.setText("Invalid entry");
+               
+                
+            }
+        }
+        else
+        {
+            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
+            {  
+                maket.setEditable(true);
+            }
+            else
+            {
+                maket.setEditable(false);
+               text3.setText("*Can't add letters");
+            }
+        }
+        
+
     }//GEN-LAST:event_maketKeyPressed
 
     private void modeltKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modeltKeyPressed
@@ -537,11 +770,70 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             regyt.requestFocus();
         }
+       String myr = manuyt.getText();
+        int length=myr.length();
+        
+        char c=evt.getKeyChar();
+        
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            if(length<4){
+                manuyt.setEditable(true);
+            }
+            else
+            {
+                manuyt.setEditable(false);
+                text5.setText("Invalid entry");
+                
+                
+            }
+        }
+        else
+        {
+            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
+            {  
+                manuyt.setEditable(true);
+            }
+            else
+            {
+                manuyt.setEditable(false);
+               text5.setText("*Can't add letters");
+            }
+        }
+        
     }//GEN-LAST:event_manuytKeyPressed
 
     private void regytKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regytKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             milaget.requestFocus();
+        }
+        String myr = regyt.getText();
+        int length=myr.length();
+        
+        char c=evt.getKeyChar();
+        
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            if(length<4){
+                regyt.setEditable(true);
+            }
+            else
+            {
+                regyt.setEditable(false);
+                text6.setText("Invalid entry");
+            
+                
+            }
+        }
+        else
+        {
+            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
+            {  
+                regyt.setEditable(true);
+            }
+            else
+            {
+                regyt.setEditable(false);
+               text6.setText("*Can't add letters");
+            }
         }
     }//GEN-LAST:event_regytKeyPressed
 
@@ -553,7 +845,7 @@ public class Enter extends javax.swing.JFrame {
 
     private void pricetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pricetKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            nict.requestFocus();
+            refnot.requestFocus();
         }
     }//GEN-LAST:event_pricetKeyPressed
 
@@ -579,6 +871,36 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             datet.requestFocus();
         }
+         String myr = regyt.getText();
+        int length=myr.length();
+        
+        char c=evt.getKeyChar();
+        
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            if(length<10){
+                tpt.setEditable(true);
+            }
+            else
+            {
+                tpt.setEditable(false);
+                text7.setText("Invalid entry");
+                
+                
+            }
+        }
+        else
+        {
+            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
+            {  
+                tpt.setEditable(true);
+            }
+            else
+            {
+                tpt.setEditable(false);
+               text7.setText("*Can't add letters");
+            }
+        }
+        
     }//GEN-LAST:event_tptKeyPressed
 
     private void manuytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manuytActionPerformed
@@ -598,6 +920,164 @@ public class Enter extends javax.swing.JFrame {
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
         savevehicle();
     }//GEN-LAST:event_saveMouseClicked
+
+    private void regnotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusGained
+       regnot.setText("");
+        text1.setText("");
+         
+        if(regnot.getText().equals("XXX-xxxx")){
+           regnot.setText(null);
+           regnot.requestFocus();
+            
+       }
+        
+    }//GEN-LAST:event_regnotFocusGained
+
+    private void regnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusLost
+        if(regnot.getText().length()==0){
+           FontStyle(regnot);
+           regnot.setText("XXX-xxx");
+       }
+        if(regnot.getText().length()<7 || regnot.getText().length()>8){
+           text1.setText("*Invalid entry");
+          
+        }
+    }//GEN-LAST:event_regnotFocusLost
+
+    private void maketFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maketFocusGained
+        
+        text3.setText("");
+       
+        if(maket.getText().equals("YYYY")){
+           maket.setText(null);
+           maket.requestFocus();
+           
+       }
+    }//GEN-LAST:event_maketFocusGained
+
+    private void maketFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maketFocusLost
+        if(maket.getText().length()==0){
+           FontStyle(maket); 
+           maket.setText("YYYY");
+       }
+        text3.setText("");
+          
+        
+         
+        
+    }//GEN-LAST:event_maketFocusLost
+
+    private void manuytFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manuytFocusGained
+       
+        text5.setText("");
+        if(manuyt.getText().equals("YYYY")){
+           manuyt.setText(null);
+           manuyt.requestFocus();
+
+           
+       }
+        
+    }//GEN-LAST:event_manuytFocusGained
+
+    private void manuytFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manuytFocusLost
+       if(manuyt.getText().length()==0){
+           FontStyle(manuyt);
+           manuyt.setText("YYYY");
+       }
+       text5.setText("");
+       
+    }//GEN-LAST:event_manuytFocusLost
+
+    private void regytFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regytFocusGained
+       
+        text6.setText("");
+        if(regyt.getText().equals("YYYY")){
+           regyt.setText(null);
+           regyt.requestFocus();
+           
+           
+       }
+    }//GEN-LAST:event_regytFocusGained
+
+    private void regytFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regytFocusLost
+        if(regyt.getText().length()==0){
+            FontStyle(regyt);
+           regyt.setText("YYYY");
+       }
+        text6.setText("");
+    }//GEN-LAST:event_regytFocusLost
+
+    private void milagetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_milagetFocusGained
+        if(milaget.getText().equals("0000000")){
+           milaget.setText(null);
+           milaget.requestFocus();
+           
+           
+       }
+    }//GEN-LAST:event_milagetFocusGained
+
+    private void milagetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_milagetFocusLost
+       
+    }//GEN-LAST:event_milagetFocusLost
+
+    private void tptFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusGained
+        text7.setText("");
+        if(tpt.getText().equals("077-1234567")){
+           tpt.setText(null);
+           tpt.requestFocus();
+          
+           
+       }
+    }//GEN-LAST:event_tptFocusGained
+
+    private void tptFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusLost
+        if(tpt.getText().length()==0){
+            FontStyle2(tpt);
+           tpt.setText("077-1234567");
+       }
+        text7.setText("");
+    }//GEN-LAST:event_tptFocusLost
+
+    private void datetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusGained
+         if(datet.getText().equals("YYYY-MM-DD")){
+           datet.setText(null);
+           datet.requestFocus();
+           
+           
+       }
+    }//GEN-LAST:event_datetFocusGained
+
+    private void datetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusLost
+        if(datet.getText().length()==0){
+            FontStyle2(datet);
+           datet.setText("YYYY-MM-DD");
+       }
+    }//GEN-LAST:event_datetFocusLost
+
+    private void refnotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_refnotFocusGained
+         autorefNo();
+       
+    }//GEN-LAST:event_refnotFocusGained
+
+    private void refnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_refnotFocusLost
+
+        if(refnot.getText().length()==0){
+            FontStyle2(refnot);
+            refnot.setText("C0000");
+        }
+        
+            
+    }//GEN-LAST:event_refnotFocusLost
+
+    private void refnotKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refnotKeyPressed
+         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            nict.requestFocus();
+        }
+    }//GEN-LAST:event_refnotKeyPressed
+
+    private void regnotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regnotMouseClicked
+        text1.setText("");
+    }//GEN-LAST:event_regnotMouseClicked
 
     /**
      * @param args the command line arguments
@@ -651,6 +1131,7 @@ public class Enter extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -672,9 +1153,16 @@ public class Enter extends javax.swing.JFrame {
     private javax.swing.JTextField namet;
     private javax.swing.JTextField nict;
     private javax.swing.JTextField pricet;
+    private javax.swing.JTextField refnot;
+    private javax.swing.JTextField reftext;
     private javax.swing.JTextField regnot;
     private javax.swing.JTextField regyt;
     private javax.swing.JLabel save;
+    private javax.swing.JTextField text1;
+    private javax.swing.JTextField text3;
+    private javax.swing.JTextField text5;
+    private javax.swing.JTextField text6;
+    private javax.swing.JTextField text7;
     private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
 }

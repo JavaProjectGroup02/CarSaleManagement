@@ -47,7 +47,7 @@ void createConnection(){
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        border = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -61,6 +61,8 @@ void createConnection(){
         pricel = new javax.swing.JLabel();
         Spl = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        refno = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         searcht = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -92,8 +94,8 @@ void createConnection(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel3.setBackground(new java.awt.Color(73, 31, 61));
-        jPanel3.setPreferredSize(new java.awt.Dimension(575, 400));
+        border.setBackground(new java.awt.Color(73, 31, 61));
+        border.setPreferredSize(new java.awt.Dimension(575, 400));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,7 +119,7 @@ void createConnection(){
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Special Notes");
+        jLabel8.setText("Special Note");
 
         namel.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         namel.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,76 +143,93 @@ void createConnection(){
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("ABC");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("S_Ref No");
+
+        refno.setBackground(new java.awt.Color(73, 31, 61));
+        refno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        refno.setForeground(new java.awt.Color(255, 255, 255));
+        refno.setBorder(null);
+
+        javax.swing.GroupLayout borderLayout = new javax.swing.GroupLayout(border);
+        border.setLayout(borderLayout);
+        borderLayout.setHorizontalGroup(
+            borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(namel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(addressl, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Telel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(datel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pricel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                                .addComponent(Spl, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(78, 78, 78))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(borderLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addressl, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borderLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                        .addComponent(Telel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borderLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(datel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borderLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pricel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borderLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Spl, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borderLayout.createSequentialGroup()
+                        .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(borderLayout.createSequentialGroup()
+                                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(borderLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(81, 81, 81)))
+                        .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(namel, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                            .addComponent(refno))))
+                .addGap(78, 78, 78))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        borderLayout.setVerticalGroup(
+            borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refno, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(namel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borderLayout.createSequentialGroup()
                         .addComponent(addressl, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(Telel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(borderLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borderLayout.createSequentialGroup()
                         .addComponent(datel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(pricel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(borderLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Spl, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(27, 27, 27))
@@ -290,13 +309,13 @@ void createConnection(){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(border, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(border, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -310,17 +329,18 @@ void createConnection(){
         ResultSet rs1;
         
         try {
-            pst = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
+            pst = con.prepareStatement("SELECT * from newowner WHERE Regno=? ORDER BY S_RefNo DESC LIMIT 1");
             pst.setString(1,searcht.getText());
             rs = pst.executeQuery();
             
-            pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
+            pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=? ORDER BY S_RefNo DESC LIMIT 1");
             pst1.setString(1,searcht.getText());
             rs1 = pst1.executeQuery();
 
             if(rs.next()==false || rs1.next()==false){
                 JOptionPane.showMessageDialog(this, "Sorry records not found");
                 searcht.setText("");
+                refno.setText("");
                 namel.setText("");
                 addressl.setText("");
                 Telel.setText("");
@@ -328,19 +348,21 @@ void createConnection(){
                 pricel.setText("");
                 Spl.setText("");
             }else{
+                String S_Ref_No = rs.getString("S_RefNo");
                 String Name = rs.getString("Name");
                 String Address = rs.getString("Address");
                 String Tele = rs.getString("Tele");
                 String Date = rs1.getString("Date");
                 String Price = rs1.getString("Price");
-                String SpNotes = rs1.getString("SpNotes");
-
+                String SpecialNote = rs1.getString("SpNotes");
+                
+                refno.setText(S_Ref_No);
                 namel.setText(Name);
                 addressl.setText(Address);
                 Telel.setText(Tele);
                 datel.setText(Date);
                 pricel.setText(Price);
-                Spl.setText(SpNotes);
+                Spl.setText(SpecialNote);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ViewSold.class.getName()).log(Level.SEVERE, null, ex);
@@ -353,43 +375,46 @@ void createConnection(){
             ResultSet rs;
             ResultSet rs1;
 
-            try {
-                pst = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
-                pst.setString(1,searcht.getText());
-                rs = pst.executeQuery();
+           
+        try {
+            pst = con.prepareStatement("SELECT * from newowner WHERE Regno=? ORDER BY S_RefNo DESC LIMIT 1");
+            pst.setString(1,searcht.getText());
+            rs = pst.executeQuery();
+            
+            pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=? ORDER BY S_RefNo DESC LIMIT 1");
+            pst1.setString(1,searcht.getText());
+            rs1 = pst1.executeQuery();
 
-                pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
-                pst1.setString(1,searcht.getText());
-                rs1 = pst1.executeQuery();
-
-                if(rs.next()==false || rs1.next()==false){
-                    JOptionPane.showMessageDialog(this, "Sorry records not found");
-                    searcht.setText("");
-                    namel.setText("");
-                    addressl.setText("");
-                    Telel.setText("");
-                    datel.setText("");
-                    pricel.setText("");
-                    Spl.setText("");
-                }else{
-                    String Name = rs.getString("Name");
-                    String Address = rs.getString("Address");
-                    String Tele = rs.getString("Tele");
-                    String Date = rs1.getString("Date");
-                    String Price = rs1.getString("Price");
-                    String SpNotes = rs1.getString("SpNotes");
-
-                    namel.setText(Name);
-                    addressl.setText(Address);
-                    Telel.setText(Tele);
-                    datel.setText(Date);
-                    pricel.setText(Price);
-                    Spl.setText(SpNotes);
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(ViewSold.class.getName()).log(Level.SEVERE, null, ex);
+            if(rs.next()==false || rs1.next()==false){
+                JOptionPane.showMessageDialog(this, "Sorry records not found");
+                searcht.setText("");
+                refno.setText("");
+                namel.setText("");
+                addressl.setText("");
+                Telel.setText("");
+                datel.setText("");
+                pricel.setText("");
+                Spl.setText("");
+            }else{
+                String S_Ref_No = rs.getString("S_RefNo");
+                String Name = rs.getString("Name");
+                String Address = rs.getString("Address");
+                String Tele = rs.getString("Tele");
+                String Date = rs1.getString("Date");
+                String Price = rs1.getString("Price");
+                String SpecialNote = rs1.getString("SpNotes");
+                
+                refno.setText(S_Ref_No);
+                namel.setText(Name);
+                addressl.setText(Address);
+                Telel.setText(Tele);
+                datel.setText(Date);
+                pricel.setText(Price);
+                Spl.setText(SpecialNote);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewSold.class.getName()).log(Level.SEVERE, null, ex);
+        }     
         }
     }//GEN-LAST:event_searchtKeyPressed
 
@@ -443,9 +468,11 @@ void createConnection(){
     private javax.swing.JLabel Spl;
     private javax.swing.JLabel Telel;
     private javax.swing.JLabel addressl;
+    private javax.swing.JPanel border;
     private javax.swing.JLabel datel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -456,10 +483,10 @@ void createConnection(){
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel namel;
     private javax.swing.JLabel pricel;
+    private javax.swing.JTextField refno;
     private javax.swing.JTextField searcht;
     // End of variables declaration//GEN-END:variables
 }

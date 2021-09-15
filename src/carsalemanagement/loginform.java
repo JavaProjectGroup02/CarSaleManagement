@@ -11,13 +11,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+
 public class loginform extends javax.swing.JFrame {
 
     Connection con = null;
     public loginform() {
         initComponents();
         createConnection();
+       
+        
     }
+    
+    
     
     void createConnection(){
         String className = "com.mysql.cj.jdbc.Driver";
@@ -119,11 +124,11 @@ public class loginform extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(85, 85, 85)
+                .addGap(92, 92, 92)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(189, 76, 84));
@@ -147,6 +152,14 @@ public class loginform extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernametFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                usernametFocusLost(evt);
+            }
+        });
+        usernamet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usernametMouseClicked(evt);
+            }
         });
         usernamet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +181,14 @@ public class loginform extends javax.swing.JFrame {
         passt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passtFocusLost(evt);
+            }
+        });
+        passt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                passtMouseClicked(evt);
             }
         });
         passt.addActionListener(new java.awt.event.ActionListener() {
@@ -256,8 +277,11 @@ public class loginform extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,10 +302,20 @@ public class loginform extends javax.swing.JFrame {
 
     private void usernametFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernametFocusGained
         usernamet.setText("");
+        if(usernamet.getText().equals("User Name")){
+           usernamet.setText(null);
+           usernamet.requestFocus();
+           
+       }
     }//GEN-LAST:event_usernametFocusGained
 
     private void passtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passtFocusGained
         passt.setText("");
+        if(passt.getText().equals("******")){
+           passt.setText(null);
+           passt.requestFocus();
+           
+       }
     }//GEN-LAST:event_passtFocusGained
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -321,6 +355,26 @@ public class loginform extends javax.swing.JFrame {
             validateUser();
         }
     }//GEN-LAST:event_passtKeyPressed
+
+    private void usernametFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernametFocusLost
+         if(usernamet.getText().length()==0){
+           usernamet.setText("User Name");
+       }
+    }//GEN-LAST:event_usernametFocusLost
+
+    private void passtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passtFocusLost
+        if(passt.getText().length()==0){
+           passt.setText("******");
+       }
+    }//GEN-LAST:event_passtFocusLost
+
+    private void usernametMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernametMouseClicked
+        
+    }//GEN-LAST:event_usernametMouseClicked
+
+    private void passtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passtMouseClicked
+        
+    }//GEN-LAST:event_passtMouseClicked
 
     /**
      * @param args the command line arguments

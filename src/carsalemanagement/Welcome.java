@@ -193,7 +193,7 @@ public class Welcome extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(existing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(sell, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                                     .addComponent(sold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -282,7 +282,7 @@ public class Welcome extends javax.swing.JFrame {
     }//GEN-LAST:event_existingMouseClicked
 
     private void soldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soldMouseClicked
-        ViewSold jf6 = new ViewSold();
+        SoldCars jf6 = new SoldCars();
         jf6.show();
         dispose();
     }//GEN-LAST:event_soldMouseClicked

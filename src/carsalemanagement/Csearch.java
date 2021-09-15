@@ -108,6 +108,11 @@ public class Csearch extends javax.swing.JFrame {
 
         text1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         text1.setToolTipText("");
+        text1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                text1FocusGained(evt);
+            }
+        });
         text1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 text1KeyPressed(evt);
@@ -119,6 +124,11 @@ public class Csearch extends javax.swing.JFrame {
         b1.setForeground(new java.awt.Color(255, 255, 255));
         b1.setText(" Search ");
         b1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        b1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b1MouseClicked(evt);
+            }
+        });
         b1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b1ActionPerformed(evt);
@@ -211,7 +221,7 @@ public class Csearch extends javax.swing.JFrame {
                     text1.setText("");
                 }
             else{
-                pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
+                pst = con.prepareStatement("SELECT * from vehicle WHERE Category=? ");
                 pst.setString(1,text1.getText());
                 rs = pst.executeQuery();
                 DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
@@ -274,6 +284,17 @@ public class Csearch extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void b1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b1MouseClicked
+         b1.setEnabled(false);
+    }//GEN-LAST:event_b1MouseClicked
+
+    private void text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusGained
+            Table1.setModel(new DefaultTableModel(null, new String[]{"Make", "Model", "Milage", "Price"}));
+            text1.setText("");
+            b1.setEnabled(true);
+            
+    }//GEN-LAST:event_text1FocusGained
 
     /**
      * @param args the command line arguments
