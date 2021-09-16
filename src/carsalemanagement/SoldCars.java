@@ -23,8 +23,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SoldCars extends javax.swing.JFrame {
 
-     PreparedStatement pst,pst1;
-    ResultSet rs,rs1;
+    PreparedStatement pst_sell,pst_owner;
+    ResultSet rs_sell,rs_owner;
     Connection con = null;
     public SoldCars() {
         initComponents();
@@ -231,54 +231,58 @@ public class SoldCars extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+    public void insertData(){
         try {
-            // TODO add your handling code here:
-            pst = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
-            pst.setString(1,Text1.getText());
-            rs = pst.executeQuery();
+            pst_sell = con.prepareStatement("SELECT * from sell WHERE RegNo=?");
+            pst_sell.setString(1,Text1.getText());
+            rs_sell = pst_sell.executeQuery();
             
-            pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
-            pst1.setString(1,Text1.getText());
-            rs1 = pst1.executeQuery();
-            
-            if(rs.next()==false || rs1.next()==false){
+            if(rs_sell.next()==false){
                     JOptionPane.showMessageDialog(this, "Sorry records not found");
-                    Btn1.setText("Search");
+                    Text1.setText("");
+                    Text1.requestFocus();
                 }
             else{
-                pst = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
-                pst.setString(1,Text1.getText());
-                rs = pst.executeQuery();
+                pst_sell = con.prepareStatement("SELECT * from sell WHERE RegNo=?");
+                pst_sell.setString(1,Text1.getText());
+                rs_sell = pst_sell.executeQuery();
+                
+                
     
-                pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
-                 pst1.setString(1,Text1.getText());
-                 rs1 = pst1.executeQuery();
-                 
                 DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
-                Statement stmt = con.createStatement();
-                while (rs.next() && rs1.next()) {
+                //Statement stmt = con.createStatement();
+                while (rs_sell.next()) {
+                    String Date = rs_sell.getString("Date");
+                    String Price = rs_sell.getString("Price");
+                    String SpNote = rs_sell.getString("SpecNote");
+                    String NIC = rs_sell.getString("NIC");
+                    
+                    pst_owner = con.prepareStatement("SELECT * from owner WHERE NIC='"+NIC+"'");
+                    rs_owner = pst_owner.executeQuery();
+                    rs_owner.next();
+                    
+                    String Name = rs_owner.getString("Name");
+                    String Address = rs_owner.getString("Address");
+                    String Tele = rs_owner.getString("Tele");
+                    
+
+
+                    tableModel.addRow(new Object[]{Name,Address,Tele,Date,Price,SpNote});
                 
-                String Name = rs.getString("Name");
-                String Address = rs.getString("Address");
-                String Tele = rs.getString("Tele");
-                String Date = rs1.getString("Date");
-                String Price = rs1.getString("Price");
-                String SpNote = rs1.getString("SpNotes");
-                
-                
-                tableModel.addRow(new Object[]{Name,Address,Tele,Date,Price,SpNote});
-                
-            }
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(SoldCars.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        
     }//GEN-LAST:event_Btn1ActionPerformed
 
     private void Btn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn1MouseClicked
-         Btn1.setEnabled(false);
+        insertData();
+        Btn1.setEnabled(false);
        
     }//GEN-LAST:event_Btn1MouseClicked
 
@@ -304,49 +308,11 @@ public class SoldCars extends javax.swing.JFrame {
     }//GEN-LAST:event_Text1ActionPerformed
 
     private void Text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Text1KeyPressed
-        if(evt.getKeyChar()==KeyEvent.VK_ENTER){ 
-        try {
-            // TODO add your handling code here:
-            pst = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
-            pst.setString(1,Text1.getText());
-            rs = pst.executeQuery();
-            
-            pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
-            pst1.setString(1,Text1.getText());
-            rs1 = pst1.executeQuery();
-            
-            if(rs.next()==false || rs1.next()==false){
-                    JOptionPane.showMessageDialog(this, "Sorry records not found");
-                    Btn1.setText("");
-                }
-            else{
-                pst = con.prepareStatement("SELECT * from newowner WHERE Regno=?");
-                pst.setString(1,Text1.getText());
-                rs = pst.executeQuery();
-                 pst1 = con.prepareStatement("SELECT * from solditem WHERE Regno=?");
-                 pst1.setString(1,Text1.getText());
-                 rs1 = pst1.executeQuery();
-                 
-                DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
-                Statement stmt = con.createStatement();
-                while (rs.next() && rs1.next()) {
-                
-                String Name = rs.getString("Name");
-                String Address = rs.getString("Address");
-                String Tele = rs.getString("Tele");
-                String Date = rs1.getString("Date");
-                String Price = rs1.getString("Price");
-                String SpNote = rs1.getString("SpNotes");
-                
-                tableModel.addRow(new Object[]{Name,Address,Tele,Date,Price,SpNote});
-                
-            }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SoldCars.class.getName()).log(Level.SEVERE, null, ex);
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            insertData();
         }
     }//GEN-LAST:event_Text1KeyPressed
-   }
+   
     private void CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseClicked
        System.exit(0);
     }//GEN-LAST:event_CloseMouseClicked

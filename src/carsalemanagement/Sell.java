@@ -18,8 +18,8 @@ public class Sell extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame2
      */
-    ResultSet rs;
-    PreparedStatement pst;
+    ResultSet rs,rs_refno,rs_owner;
+    PreparedStatement pst,pst_owner;
     Connection con = null;
     public Sell() {
         initComponents();
@@ -29,18 +29,18 @@ public class Sell extends javax.swing.JFrame {
      public void autorefNo(){
          try {
              Statement s = con.createStatement();
-             ResultSet rs = s.executeQuery("Select Max(S_RefNo) from solditem ");
-             rs.next();
+             rs_refno = s.executeQuery("Select Max(RefNo) from sell ");
+             rs_refno.next();
              
-             rs.getString("Max(S_RefNo)");
+             rs_refno.getString("Max(RefNo)");
              
-             if(rs.getString("Max(S_RefNo)")==null){
+             if(rs_refno.getString("Max(RefNo)")==null){
                  S_refnot.setText("B0001");
              }
              else{
-                 Long B_RefNo = Long.parseLong(rs.getString("Max(S_RefNo)").substring(2,rs.getString("Max(S_RefNo)").length()));
-                 B_RefNo++;
-                 S_refnot.setText("B0" + String.format("%03d", B_RefNo));
+                 Long RefNo = Long.parseLong(rs_refno.getString("Max(RefNo)").substring(2,rs_refno.getString("Max(RefNo)").length()));
+                 RefNo++;
+                 S_refnot.setText("B0" + String.format("%03d", RefNo));
              }
          } catch (SQLException ex) {
              Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,8 +74,6 @@ public class Sell extends javax.swing.JFrame {
             String name = namet.getText();
             String address = addresst.getText();
             String tp = tpt.getText();
-            String regno1 = regnot.getText();
-            String s_refno1 = S_refnot.getText();
             
             //For Sold items
             String s_refno = S_refnot.getText();
@@ -83,38 +81,62 @@ public class Sell extends javax.swing.JFrame {
             String price = pricet.getText();
             String date = datet.getText();
             String spnote = spnotet.getText();
-            
-            //From vechicle table
-            
-            
-            //Insert Items
-            Statement stm = con.createStatement();
-            String sql ="INSERT INTO newowner VALUES('"+s_refno1+"','"+nic+"','"+name+"','"+address+"','"+tp+"','"+regno1+"')";
-            String sql1 ="INSERT INTO solditem VALUES('"+s_refno+"','"+regno+"','"+price+"','"+date+"','"+spnote+"')";
-            stm.executeUpdate(sql);
-            stm.executeUpdate(sql1);
-            
-            //Delete Items
-            Statement stm1 = (Statement) con.createStatement();
-            String query1 = "delete from  vehicle where Regno='"+regno+"'";
-            stm1.executeUpdate(query1);
-            
-            JOptionPane.showMessageDialog(this,"Vehicle sold successfully");
-            
-            nict.setText("");
-            namet.setText("");
-            addresst.setText("");
-            tpt.setText("");
-            regnot.setText("");
-            pricet.setText("");
-            datet.setText("");
-            spnotet.setText("");
-            S_refnot.setText("");
+            String status = "Unavailable";
             
             
+                pst_owner = con.prepareStatement("SELECT * from owner WHERE NIC=?");
+                pst_owner.setString(1,nict.getText());
+                rs_owner = pst_owner.executeQuery();
+                Statement stm = con.createStatement();
+                if(rs_owner.next()==false){
+                    String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
+                    String sql_sell ="INSERT INTO sell VALUES('"+s_refno+"','"+nic+"','"+regno+"','"+date+"','"+price+"','"+spnote+"')";
+                    stm.executeUpdate(sql_owner);
+                    stm.executeUpdate(sql_sell);
+                }
+                else{
+                    String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
+                    String sql_sell ="INSERT INTO sell VALUES('"+s_refno+"','"+nic+"','"+regno+"','"+date+"','"+price+"','"+spnote+"')";
+                    stm.executeUpdate(sql_owner);
+                    stm.executeUpdate(sql_sell);
+                }
+                String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
+                stm.executeUpdate(sql_vehicle);
+                   
+                JOptionPane.showMessageDialog(this,"Vehicle sold successfully");
+
+                nict.setText("");
+                namet.setText("");
+                addresst.setText("");
+                tpt.setText("");
+                regnot.setText("");
+                pricet.setText("");
+                datet.setText("");
+                spnotet.setText("");
+                S_refnot.setText("");
+                S_refnot.requestFocus();  
+                
         } catch (SQLException ex) {
             Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void ensureVehicle(){
+            try {
+                pst = con.prepareStatement("SELECT * from vehicle WHERE RegNo=?");
+                pst.setString(1,regnot.getText());
+                rs = pst.executeQuery();
+                if(rs.next()==false){
+                    JOptionPane.showMessageDialog(this, "This car can't be sold");
+                    regnot.setText("");
+                    regnot.requestFocus();
+                }
+                else{
+                    sellcar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**
@@ -542,7 +564,7 @@ public class Sell extends javax.swing.JFrame {
 
     private void tptKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tptKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            sellcar();
+            ensureVehicle();
         }
     }//GEN-LAST:event_tptKeyPressed
 
@@ -581,24 +603,7 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6KeyPressed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-         try {
-                // TODO add your handling code here:
-                pst = con.prepareStatement("SELECT * from vehicle WHERE Regno=?");
-                pst.setString(1,regnot.getText());
-                rs = pst.executeQuery();
-                if(rs.next()==false){
-                    JOptionPane.showMessageDialog(this, "This car can't be sold");
-                    regnot.setText("");
-                }
-                else{
-                    sellcar();
-                }
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        
+        ensureVehicle();  
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked

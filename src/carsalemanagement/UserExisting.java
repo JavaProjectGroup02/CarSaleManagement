@@ -18,6 +18,8 @@ public class UserExisting extends javax.swing.JFrame {
      * Creates new form NewJFrame3
      */
     Connection con = null;
+    ResultSet rs,rs_price; 
+    PreparedStatement pst_price;
     public UserExisting() {
         initComponents();
         createConnection();
@@ -221,16 +223,20 @@ public class UserExisting extends javax.swing.JFrame {
         
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM vehicle");
+            rs = stmt.executeQuery("SELECT * FROM vehicle WHERE Status = 'Available'");
             while (rs.next()) {
-                String Regno = rs.getString("Regno");
+                String Regno = rs.getString("RegNo");
                 String Category = rs.getString("Category");
                 String Make = rs.getString("Make");
                 String Model = rs.getString("Model");
-                String Price = rs.getString("Price");
+               
+                pst_price = con.prepareStatement("SELECT * FROM enter WHERE RegNo = ? ORDER BY RefNo DESC limit 1");
+                pst_price.setString(1,Regno);
+                rs_price = pst_price.executeQuery();
+                rs_price.next();
+                String Price = rs_price.getString("Price");
                 
                 tableModel.addRow(new Object[]{Regno,Category,Make,Model,Price});
-                
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserExisting.class.getName()).log(Level.SEVERE, null, ex);

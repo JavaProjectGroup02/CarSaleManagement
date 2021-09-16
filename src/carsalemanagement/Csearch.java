@@ -19,10 +19,12 @@ public class Csearch extends javax.swing.JFrame {
      * Creates new form NewJFrame4
      */
     Connection con = null;
-    PreparedStatement pst;
-    ResultSet rs;
+    PreparedStatement pst,pst_price;
+    ResultSet rs,rs_price;
+    
     public Csearch() {
         initComponents();
+        text1.requestFocus();
         createConnection();
     }
     
@@ -41,6 +43,40 @@ public class Csearch extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("Connection Failed");
             System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void retrieve(){
+        try {
+            DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
+            
+            pst = con.prepareStatement("SELECT * FROM vehicle WHERE Status = 'Available' AND Category =?");
+            pst.setString(1,text1.getText());
+            rs = pst.executeQuery();
+            if(rs.next()==false){
+                JOptionPane.showMessageDialog(this, "Unavailable");
+                text1.setText("");
+                text1.requestFocus();
+            }else{
+                pst.setString(1,text1.getText());
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    String Regno = rs.getString("RegNo");
+                    String Make = rs.getString("Make");
+                    String Model = rs.getString("Model");
+
+                    pst_price = con.prepareStatement("SELECT * FROM enter WHERE RegNo = ? ORDER BY RefNo DESC limit 1");
+                    pst_price.setString(1,Regno);
+                    rs_price = pst_price.executeQuery();
+                    rs_price.next();
+                    String Price = rs_price.getString("Price");
+                    String Milage = rs_price.getString("Milage");
+
+                    tableModel.addRow(new Object[]{Make,Model,Milage,Price});
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Existing.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -211,34 +247,7 @@ public class Csearch extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
-        try {
-            // TODO add your handling code here:
-            pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
-            pst.setString(1,text1.getText());
-            rs = pst.executeQuery();
-            if(rs.next()==false){
-                    JOptionPane.showMessageDialog(this, "Sorry records not found");
-                    text1.setText("");
-                }
-            else{
-                pst = con.prepareStatement("SELECT * from vehicle WHERE Category=? ");
-                pst.setString(1,text1.getText());
-                rs = pst.executeQuery();
-                DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
-                Statement stmt = con.createStatement();
-                while (rs.next()) {
-                String Make = rs.getString("Make");
-                String Model = rs.getString("Model");
-                String Milage = rs.getString("Milage");
-                String Price = rs.getString("Price");
-                
-                tableModel.addRow(new Object[]{Make,Model,Milage,Price});
-                
-            }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Csearch.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       retrieve();
     }//GEN-LAST:event_b1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -249,34 +258,7 @@ public class Csearch extends javax.swing.JFrame {
 
     private void text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text1KeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            try {
-            // TODO add your handling code here:
-                pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
-                pst.setString(1,text1.getText());
-                rs = pst.executeQuery();
-                if(rs.next()==false){
-                        JOptionPane.showMessageDialog(this, "Sorry records not found");
-                        text1.setText("");
-                    }
-                else{
-                    pst = con.prepareStatement("SELECT * from vehicle WHERE Category=?");
-                    pst.setString(1,text1.getText());
-                    rs = pst.executeQuery();
-                    DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
-                    Statement stmt = con.createStatement();
-                    while (rs.next()) {
-                    String Make = rs.getString("Make");
-                    String Model = rs.getString("Model");
-                    String Milage = rs.getString("Milage");
-                    String Price = rs.getString("Price");
-
-                    tableModel.addRow(new Object[]{Make,Model,Milage,Price});
-
-                }
-            }
-            } catch (SQLException ex) {
-                Logger.getLogger(Csearch.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            retrieve();
         }
     }//GEN-LAST:event_text1KeyPressed
 

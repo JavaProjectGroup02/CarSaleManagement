@@ -21,8 +21,8 @@ public class Enter extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame1
      * */
-     ResultSet rs;
-    PreparedStatement pst;
+     ResultSet rs,rs_regno,rs_id;
+    PreparedStatement pst,pst_regno,pst_id;
     Connection con = null;
     public Enter() {
         initComponents();
@@ -40,18 +40,18 @@ public class Enter extends javax.swing.JFrame {
     public void autorefNo(){
          try {
              Statement s = con.createStatement();
-             ResultSet rs = s.executeQuery("Select Max(B_RefNo) from preowner ");
+             ResultSet rs = s.executeQuery("Select Max(RefNo) from enter ");
              rs.next();
              
-             rs.getString("Max(B_RefNo)");
+             rs.getString("Max(RefNo)");
              
-             if(rs.getString("Max(B_RefNo)")==null){
+             if(rs.getString("Max(RefNo)")==null){
                  refnot.setText("C0001");
              }
              else{
-                 Long B_RefNo = Long.parseLong(rs.getString("Max(B_RefNo)").substring(2,rs.getString("Max(B_RefNo)").length()));
-                 B_RefNo++;
-                 refnot.setText("C0" + String.format("%03d", B_RefNo));
+                 Long RefNo= Long.parseLong(rs.getString("Max(RefNo)").substring(2,rs.getString("Max(RefNo)").length()));
+                 RefNo++;
+                 refnot.setText("C0" + String.format("%03d", RefNo));
              }
          } catch (SQLException ex) {
              Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
@@ -642,7 +642,6 @@ public class Enter extends javax.swing.JFrame {
     
     public void savevehicle(){
         //For vehicles
-        
         String regno = regnot.getText();
         String category = categoryt.getText();
         String make = maket.getText();
@@ -653,38 +652,73 @@ public class Enter extends javax.swing.JFrame {
         String price = pricet.getText();
         
         //For owners
-        String refno1 = refnot.getText();
+        String refno = refnot.getText();
         String nic = nict.getText();
         String name = namet.getText();
         String address = addresst.getText();
         String tp = tpt.getText();
         String date = datet.getText();
         String regno1 = regnot.getText();
-            /*Convert
-            int num = Tnteger.parse(number);
-            */
-     
+        String status = "Available";
         try {
-            if(refno1.equals("") || nic.equals("") || name.equals("") || address.equals("") || tp.equals("")
+            if(refno.equals("") || nic.equals("") || name.equals("") || address.equals("") || tp.equals("")
                         || date.equals("") || regno1.equals("") || category.equals("") || make.equals("") || model.equals("") || manuy.equals("") ||regy.equals("") || milage.equals("") || price.equals(""))
              {
                     JOptionPane.showMessageDialog(this,"All required fields are mandatory"); 
               }
-            else {
-            Statement stm = con.createStatement();
-            String sql ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+milage+"','"+price+"')";
-            String sql1 ="INSERT INTO preowner VALUES('"+refno1+"','"+nic+"','"+name+"','"+address+"','"+tp+"','"+date+"','"+regno1+"')";
-            stm.executeUpdate(sql1);
-            stm.executeUpdate(sql);
-            
-            JOptionPane.showMessageDialog(this,"Recorded adeed successfully"); 
+            else{
+                pst_regno = con.prepareStatement("SELECT * from vehicle WHERE RegNo=?");
+                pst_regno.setString(1,regnot.getText());
+                rs_regno = pst_regno.executeQuery();
+                
+                pst_id = con.prepareStatement("SELECT * from owner WHERE NIC=?");
+                pst_id.setString(1,nict.getText());
+                rs_id = pst_id.executeQuery();
+                
+                int OwnerStatus = 1;
+                int VehicleStatus = 1;
+                if(rs_regno.next()==false){
+                    VehicleStatus = 0;
+                }
+                if(rs_id.next()==false){
+                    OwnerStatus = 0;
+                }
+                
+                Statement stm = con.createStatement();
+                if(VehicleStatus == 0 && OwnerStatus == 0){
+                    String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
+                    String sql_vehicle ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+status+"')";
+                    stm.executeUpdate(sql_owner);
+                    stm.executeUpdate(sql_vehicle);
+                }else{
+                    if(VehicleStatus == 0 && OwnerStatus == 1){
+                        String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
+                        String sql_vehicle ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+status+"')";
+                        stm.executeUpdate(sql_vehicle);
+                        stm.executeUpdate(sql_owner);
+                    }else{
+                        if(VehicleStatus == 1 && OwnerStatus == 0){
+                            String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
+                            String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
+                            stm.executeUpdate(sql_owner);
+                            stm.executeUpdate(sql_vehicle);
+                        }else{
+                            String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
+                            String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
+                            stm.executeUpdate(sql_owner);
+                            stm.executeUpdate(sql_vehicle);
+                        }
+                    }   
+                }
+                String sql_enter ="INSERT INTO enter VALUES('"+refno+"','"+nic+"','"+regno+"','"+date+"','"+milage+"','"+price+"')";
+                stm.executeUpdate(sql_enter);
+                JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
+               
             }
-            //con.close()
-            } catch (SQLException ex) {
+        
+        } catch (SQLException ex) {
             Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        
+        }
                 refnot.setText("");
                 regnot.setText("");
                 categoryt.setText("");
@@ -700,10 +734,9 @@ public class Enter extends javax.swing.JFrame {
                 tpt.setText("077-1234567");
                 datet.setText("YYYY-MM-DD");
                 regnot.setText("XXX-xxx");
-                     
-                
-                
+                regnot.requestFocus();
     }
+    
     private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             savevehicle();   
