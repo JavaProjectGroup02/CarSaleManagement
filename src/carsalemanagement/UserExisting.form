@@ -84,10 +84,10 @@
                     <Column editable="false" title="Category" type="java.lang.Object"/>
                     <Column editable="false" title="Make" type="java.lang.Object"/>
                     <Column editable="false" title="Model" type="java.lang.Object"/>
-                    <Column editable="true" title="Reg. Year" type="java.lang.Object"/>
-                    <Column editable="true" title="Manu. Year" type="java.lang.Object"/>
+                    <Column editable="false" title="Manu. Year" type="java.lang.Object"/>
+                    <Column editable="false" title="Reg. Year" type="java.lang.Object"/>
                     <Column editable="false" title="Price" type="java.lang.Object"/>
-                    <Column editable="true" title="Milage" type="java.lang.Object"/>
+                    <Column editable="false" title="Milage" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

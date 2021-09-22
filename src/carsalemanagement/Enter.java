@@ -9,9 +9,6 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.Font;
 import java.util.regex.*;
 /**
  *
@@ -25,21 +22,14 @@ public class Enter extends javax.swing.JFrame {
     ResultSet rs,rs_regno,rs_id,rs_vehicle,rs_owner,rs_vehicle1;
     PreparedStatement pst,pst_regno,pst_id,pst_vehicle,pst_owner,pst_vehicle1;
     Connection con = null;
+    
     public Enter() {
         initComponents();
         regnot.requestFocus();
         createConnection();
         autorefNo();
-        
-        /*FontStyle2(regnot);
-        FontStyle2(maket);
-        FontStyle2(manuyt);
-        FontStyle2(regyt);
-        FontStyle2(milaget);
-        FontStyle2(refnot);
-        FontStyle2(tpt);
-        FontStyle2(datet);*/
     }
+    
     public void autorefNo(){
          try {
              Statement s = con.createStatement();
@@ -49,38 +39,17 @@ public class Enter extends javax.swing.JFrame {
              rs.getString("Max(RefNo)");
              
              if(rs.getString("Max(RefNo)")==null){
-                 refnot.setText("C0001");
+                 refnot.setText("C00001");
              }
              else{
                  Long RefNo= Long.parseLong(rs.getString("Max(RefNo)").substring(2,rs.getString("Max(RefNo)").length()));
                  RefNo++;
-                 refnot.setText("C0" + String.format("%03d", RefNo));
+                 refnot.setText("C" + String.format("%05d", RefNo));
              }
          } catch (SQLException ex) {
              Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
-    
-    void design(){
-        home.setHorizontalAlignment(home.CENTER);
-        save.setHorizontalAlignment(home.CENTER);
-    }
-    
-    /*public void FontStyle(JTextField textField){
-        Font font = textField.getFont();
-        font = font.deriveFont(Font.PLAIN);
-        textField.setFont(font);
-        textField.setForeground(Color.white);
-         
-    }
-
-    public void FontStyle2(JTextField textField){
-        Font font = textField.getFont();
-        font = font.deriveFont(Font.PLAIN);
-        textField.setFont(font);
-        textField.setForeground(Color.LIGHT_GRAY);
-         
-    }*/
     
     void createConnection(){
         String className = "com.mysql.cj.jdbc.Driver";
@@ -296,6 +265,11 @@ public class Enter extends javax.swing.JFrame {
                 categorytFocusLost(evt);
             }
         });
+        categoryt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categorytActionPerformed(evt);
+            }
+        });
         categoryt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 categorytKeyPressed(evt);
@@ -341,6 +315,11 @@ public class Enter extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 modeltFocusLost(evt);
+            }
+        });
+        modelt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modeltActionPerformed(evt);
             }
         });
         modelt.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -649,6 +628,7 @@ public class Enter extends javax.swing.JFrame {
         refnot.setForeground(new java.awt.Color(191, 191, 191));
         refnot.setText("C0000");
         refnot.setBorder(null);
+        refnot.setEnabled(false);
         refnot.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 refnotFocusGained(evt);
@@ -782,8 +762,8 @@ public class Enter extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -820,7 +800,7 @@ public class Enter extends javax.swing.JFrame {
         //For owners
         String refno = refnot.getText();
         String nic = nict.getText();
-        String name = addresst.getText();
+        String name = namet1.getText();
         String address = addresst.getText();
         String tp = tpt.getText();
         String date = datet.getText();
@@ -884,7 +864,7 @@ public class Enter extends javax.swing.JFrame {
                         }
                         String sql_enter ="INSERT INTO enter VALUES('"+refno+"','"+nic+"','"+regno+"','"+date+"','"+milage+"','"+price+"')";
                         stm.executeUpdate(sql_enter);
-                        JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
+                        JOptionPane.showMessageDialog(this,"Recorded added successfully");
                         autorefNo();
                         categoryt.setText("");
                         maket.setText("");
@@ -929,7 +909,7 @@ public class Enter extends javax.swing.JFrame {
             Matcher match4=patt4.matcher(datet.getText());
 
             if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
-                datelab.setText("*Invalid entry");
+                datelab.setText("*YYYY-MM-DD");
             }else{
                 datelab.setText("");
             }
@@ -1068,7 +1048,7 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_homeMouseClicked
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-        savevehicle();
+        datevalidation();
     }//GEN-LAST:event_saveMouseClicked
 
     private void regnotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusGained
@@ -1085,7 +1065,6 @@ public class Enter extends javax.swing.JFrame {
     private void regnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusLost
         autoFillVehicle(regnot.getText());
         if(regnot.getText().length()==0){
-           //FontStyle(regnot);
            regnot.setText("NN-NNNN, LL-NNNN, LLLNNNN");
        }
        String PATTERN1 = "^[0-9]{2,2}[-][0-9]{4,4}$";
@@ -1135,7 +1114,6 @@ public class Enter extends javax.swing.JFrame {
 
     private void manuytFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manuytFocusLost
        if(manuyt.getText().length()==0){
-           //FontStyle(regnot);
            manuyt.setText("YYYY");
        }
        String PATTERN1 = "^[0-9]{4,4}$";
@@ -1181,7 +1159,7 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_milagetFocusGained
 
     private void milagetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_milagetFocusLost
-       String PATTERN1 = "^[0-9]{0,7}$";
+       String PATTERN1 = "^[0-9]{0,6}$";
        Pattern patt1=Pattern.compile(PATTERN1);
        Matcher match1=patt1.matcher(milaget.getText());
        if(!match1.matches()){
@@ -1237,13 +1215,7 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_refnotFocusGained
 
     private void refnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_refnotFocusLost
-
-        if(refnot.getText().length()==0){
-            //FontStyle2(refnot);
-            refnot.setText("C0000");
-        }
-        
-            
+       
     }//GEN-LAST:event_refnotFocusLost
 
     private void refnotKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_refnotKeyPressed
@@ -1321,9 +1293,12 @@ public class Enter extends javax.swing.JFrame {
 
     private void modeltFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_modeltFocusLost
        String PATTERN1 = "^[a-zA-Z0-9]{0,20}$";
+       String PATTERN2 = "^[a-zA-Z0-9]{0,20}[ ][a-zA-Z0-9]{0,20}$";
        Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
        Matcher match1=patt1.matcher(modelt.getText());
-       if(!match1.matches()){
+       Matcher match2=patt2.matcher(modelt.getText());
+       if(!(match1.matches()||match2.matches())){
            modellab.setText("*Invalid entry.");
        }else{
            modellab.setText("");
@@ -1335,7 +1310,7 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_pricetFocusGained
 
     private void pricetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pricetFocusLost
-       String PATTERN1 = "^[0-9]{0,12}$";
+       String PATTERN1 = "^[0-9]{0,13}$";
        Pattern patt1=Pattern.compile(PATTERN1);
        Matcher match1=patt1.matcher(pricet.getText());
        if(!match1.matches()){
@@ -1358,10 +1333,10 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_namet1FocusGained
 
     private void namet1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namet1FocusLost
-       String PATTERN1 = "^[A-Za-z]{0,20}$";
-       String PATTERN2 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
-       String PATTERN3 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
-       String PATTERN4 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN1 = "^[A-Za-z.]{0,20}$";
+       String PATTERN2 = "^[A-Za-z.]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN3 = "^[A-Za-z.]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN4 = "^[A-Za-z.]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
        Pattern patt1=Pattern.compile(PATTERN1);
        Pattern patt2=Pattern.compile(PATTERN2);
        Pattern patt3=Pattern.compile(PATTERN3);
@@ -1383,10 +1358,10 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_addresstFocusGained
 
     private void addresstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addresstFocusLost
-       String PATTERN1 = "^[A-Za-z0-9/:]{0,20}$";
-       String PATTERN2 = "^[A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}$";
-       String PATTERN3 = "^[A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}$";
-       String PATTERN4 = "^[A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}$";
+       String PATTERN1 = "^[A-Za-z0-9/: ]{0,20}$";
+       String PATTERN2 = "^[A-Za-z0-9/: ]{0,20}[,][A-Za-z0-9/ ]{0,20}$";
+       String PATTERN3 = "^[A-Za-z0-9/: ]{0,20}[,][A-Za-z0-9/ ]{0,20}[,][A-Za-z0-9/ ]{0,20}$";
+       String PATTERN4 = "^[A-Za-z0-9/: ]{0,20}[,][A-Za-z0-9/ ]{0,20}[,][A-Za-z0-9/ ]{0,20}[,][A-Za-z0-9/ ]{0,20}$";
        Pattern patt1=Pattern.compile(PATTERN1);
        Pattern patt2=Pattern.compile(PATTERN2);
        Pattern patt3=Pattern.compile(PATTERN3);
@@ -1406,6 +1381,14 @@ public class Enter extends javax.swing.JFrame {
     private void tptAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_tptAncestorResized
         // TODO add your handling code here:
     }//GEN-LAST:event_tptAncestorResized
+
+    private void modeltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeltActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modeltActionPerformed
+
+    private void categorytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categorytActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categorytActionPerformed
 
     /**
      * @param args the command line arguments

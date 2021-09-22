@@ -23,6 +23,7 @@ public class Sell extends javax.swing.JFrame {
     ResultSet rs,rs_refno,rs_owner,rs_owner1;
     PreparedStatement pst,pst_owner,pst_owner1;
     Connection con = null;
+    
     public Sell() {
         initComponents();
         createConnection();
@@ -38,13 +39,13 @@ public class Sell extends javax.swing.JFrame {
              rs_refno.getString("Max(RefNo)");
              
              if(rs_refno.getString("Max(RefNo)")==null){
-                 S_refnot.setText("B0001");
+                 S_refnot.setText("B00001");
                  regnot.requestFocus();
              }
              else{
                  Long RefNo = Long.parseLong(rs_refno.getString("Max(RefNo)").substring(2,rs_refno.getString("Max(RefNo)").length()));
                  RefNo++;
-                 S_refnot.setText("B0" + String.format("%03d", RefNo));
+                 S_refnot.setText("B" + String.format("%05d", RefNo));
                  regnot.requestFocus();
              }
          } catch (SQLException ex) {
@@ -93,6 +94,7 @@ public class Sell extends javax.swing.JFrame {
                     pst_owner = con.prepareStatement("SELECT * from owner WHERE NIC=?");
                     pst_owner.setString(1,nict.getText());
                     rs_owner = pst_owner.executeQuery();
+                    
                     Statement stm = con.createStatement();
                     if(rs_owner.next()==false){
                         String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
@@ -223,6 +225,7 @@ public class Sell extends javax.swing.JFrame {
         regnolab = new javax.swing.JLabel();
         pricelab = new javax.swing.JLabel();
         datelab = new javax.swing.JLabel();
+        splab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -545,6 +548,7 @@ public class Sell extends javax.swing.JFrame {
         S_refnot.setForeground(new java.awt.Color(165, 165, 165));
         S_refnot.setText("C0000");
         S_refnot.setBorder(null);
+        S_refnot.setEnabled(false);
         S_refnot.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 S_refnotFocusGained(evt);
@@ -574,6 +578,9 @@ public class Sell extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 spnotetFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                spnotetFocusLost(evt);
+            }
         });
         spnotet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -594,6 +601,10 @@ public class Sell extends javax.swing.JFrame {
         datelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         datelab.setForeground(new java.awt.Color(255, 204, 204));
         jPanel2.add(datelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 180, 30));
+
+        splab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        splab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel2.add(splab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 180, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -745,7 +756,7 @@ public class Sell extends javax.swing.JFrame {
        Matcher match4=patt4.matcher(datet.getText());
        
        if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
-           datelab.setText("*Invalid entry");
+           datelab.setText("*YYYY-MM-DD");
        }else{
            datelab.setText("");
        } 
@@ -849,7 +860,7 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_pricetFocusLost
 
     private void spnotetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnotetFocusGained
-        // TODO add your handling code here:
+       splab.setText("");
     }//GEN-LAST:event_spnotetFocusGained
 
     private void nictFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nictFocusGained
@@ -861,17 +872,20 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_nametFocusGained
 
     private void nametFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nametFocusLost
-       String PATTERN1 = "^[A-Za-z]{0,20}$";
-       String PATTERN2 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
-       String PATTERN3 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN1 = "^[A-Za-z.]{0,20}$";
+       String PATTERN2 = "^[A-Za-z.]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN3 = "^[A-Za-z.]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN4 = "^[A-Za-z.]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
        Pattern patt1=Pattern.compile(PATTERN1);
        Pattern patt2=Pattern.compile(PATTERN2);
        Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
        Matcher match1=patt1.matcher(namet.getText());
        Matcher match2=patt2.matcher(namet.getText());
        Matcher match3=patt3.matcher(namet.getText());
+       Matcher match4=patt4.matcher(namet.getText());
        
-       if(!(match1.matches()||match2.matches()||match3.matches())){
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
            namelab.setText("*Invalid entry");
        }else{
            namelab.setText("");
@@ -883,10 +897,10 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_addresstFocusGained
 
     private void addresstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addresstFocusLost
-       String PATTERN1 = "^[A-Za-z0-9]{0,20}$";
-       String PATTERN2 = "^[A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}$";
-       String PATTERN3 = "^[A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}$";
-       String PATTERN4 = "^[A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}$";
+       String PATTERN1 = "^[A-Za-z0-9/: ]{0,20}$";
+       String PATTERN2 = "^[A-Za-z0-9/: ]{0,20}[,][A-Za-z0-9/ ]{0,20}$";
+       String PATTERN3 = "^[A-Za-z0-9/: ]{0,20}[,][A-Za-z0-9/ ]{0,20}[,][A-Za-z0-9/ ]{0,20}$";
+       String PATTERN4 = "^[A-Za-z0-9/: ]{0,20}[,][A-Za-z0-9/ ]{0,20}[,][A-Za-z0-9/ ]{0,20}[,][A-Za-z0-9/ ]{0,20}$";
        Pattern patt1=Pattern.compile(PATTERN1);
        Pattern patt2=Pattern.compile(PATTERN2);
        Pattern patt3=Pattern.compile(PATTERN3);
@@ -902,6 +916,18 @@ public class Sell extends javax.swing.JFrame {
            addresslab.setText("");
        }
     }//GEN-LAST:event_addresstFocusLost
+
+    private void spnotetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnotetFocusLost
+       //String PATTERN1 = "^[A-Za-z0-9/: ]{0,20}$";
+       //Pattern patt1=Pattern.compile(PATTERN1);
+       //Matcher match1=patt1.matcher(spnotet.getText());
+       
+       if(spnotet.getText().length()>100){
+           splab.setText("*Word limit exceeded");
+       }else{
+           splab.setText("");
+       }
+    }//GEN-LAST:event_spnotetFocusLost
     
     /**
      * @param args the command line arguments
@@ -983,6 +1009,7 @@ public class Sell extends javax.swing.JFrame {
     private javax.swing.JTextField pricet;
     private javax.swing.JLabel regnolab;
     private javax.swing.JTextField regnot;
+    private javax.swing.JLabel splab;
     private javax.swing.JTextField spnotet;
     private javax.swing.JLabel telelab;
     private javax.swing.JTextField tpt;

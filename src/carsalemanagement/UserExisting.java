@@ -161,11 +161,11 @@ public class UserExisting extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Reg No", "Category", "Make", "Model", "Reg. Year", "Manu. Year", "Price", "Milage"
+                "Reg No", "Category", "Make", "Model", "Manu. Year", "Reg. Year", "Price", "Milage"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -420,7 +420,7 @@ public class UserExisting extends javax.swing.JFrame {
                 rs_price.next();
                 String Price = rs_price.getString("Price");
                 String Milage = rs_price.getString("Milage");
-                tableModel.addRow(new Object[]{Regno,Category,Make,Model,ManuYear,RegYear,Milage,Price});
+                tableModel.addRow(new Object[]{Regno,Category,Make,Model,ManuYear,RegYear,Price,Milage});
                 
                 
             }

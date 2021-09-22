@@ -66,7 +66,6 @@ public class Existing extends javax.swing.JFrame {
         ((DefaultTableCellRenderer)Table1.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         Table1.setShowGrid(true);
-        //Table1.setFont(new Font("Colombia",Font.PLAIN,14));
         
         Table1.getTableHeader().setFont(new Font("Arial",Font.BOLD,15));
         Table1.getTableHeader().setOpaque(false);
@@ -161,11 +160,11 @@ public class Existing extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Reg No", "Category", "Make", "Model", "Reg. Year", "Manu. Year", "Price", "Milage"
+                "Reg No", "Category", "Make", "Model", "Manu. Year", "Reg. Year", "Price", "Milage"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -420,7 +419,7 @@ public class Existing extends javax.swing.JFrame {
                 rs_price.next();
                 String Price = rs_price.getString("Price");
                 String Milage = rs_price.getString("Milage");
-                tableModel.addRow(new Object[]{Regno,Category,Make,Model,ManuYear,RegYear,Milage,Price});
+                tableModel.addRow(new Object[]{Regno,Category,Make,Model,ManuYear,RegYear,Price,Milage});
                 
                 
             }

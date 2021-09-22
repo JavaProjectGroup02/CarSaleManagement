@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class loginform extends javax.swing.JFrame {
 
     Connection con = null;
+    
     public loginform() {
         initComponents();
         createConnection();   
@@ -104,6 +105,7 @@ public class loginform extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("ABC");
 
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(189, 76, 84));
         jLabel5.setText("  NextGenerationAutomobile");
 
@@ -255,8 +257,7 @@ public class loginform extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void usernametFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernametFocusGained
-        usernamet.setText("");
-        if(usernamet.getText().equals("User Name")){
+        if(usernamet.getText().equals("Username")){
            usernamet.setText(null);
            usernamet.requestFocus();
            
@@ -264,8 +265,7 @@ public class loginform extends javax.swing.JFrame {
     }//GEN-LAST:event_usernametFocusGained
 
     private void passtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passtFocusGained
-        passt.setText("");
-        if(passt.getText().equals("******")){
+        if(passt.getText().equals("Password")){
            passt.setText(null);
            passt.requestFocus();
            
@@ -312,13 +312,13 @@ public class loginform extends javax.swing.JFrame {
 
     private void usernametFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernametFocusLost
          if(usernamet.getText().length()==0){
-           usernamet.setText("User Name");
+           usernamet.setText("Username");
        }
     }//GEN-LAST:event_usernametFocusLost
 
     private void passtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passtFocusLost
         if(passt.getText().length()==0){
-           passt.setText("******");
+           passt.setText("Password");
        }
     }//GEN-LAST:event_passtFocusLost
 
