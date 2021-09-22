@@ -6,9 +6,11 @@
 package carsalemanagement;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -20,8 +22,8 @@ public class Existing extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame3
      */
-    ResultSet rs,rs_price; 
-    PreparedStatement pst_price;
+    ResultSet rs,rs_price,rs1,rs2,rs3; 
+    PreparedStatement pst_price,pst1,pst2,pst3;
     Connection con = null;
     public Existing() {
         initComponents();
@@ -38,7 +40,7 @@ public class Existing extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -67,6 +69,46 @@ public class Existing extends javax.swing.JFrame {
         Table1.getTableHeader().setBackground(new Color(51,21,42));
         Table1.getTableHeader().setForeground(new Color(225,225,225));
     }
+    
+    void viewownerDetails(){
+         try {
+            pst1 = con.prepareStatement("SELECT * FROM vehicle WHERE Status = 'Available' AND Regno =?");
+            pst1.setString(1,search.getText());
+            rs1 = pst1.executeQuery();
+            if (rs1.next()==true) {
+                
+                String Regno = rs1.getString("RegNo");
+                
+                pst2= con.prepareStatement("SELECT * FROM enter WHERE Regno ='"+Regno+"'");
+                rs2 = pst2.executeQuery();
+                rs2.next();
+                
+                 String NIC = rs2.getString("NIC");
+                
+                 pst3 = con.prepareStatement("SELECT * from owner WHERE NIC='"+NIC+"'");
+                 rs3= pst3.executeQuery();
+                 rs3.next();
+               
+                String Name = rs3.getString("Name");
+                String Address = rs3.getString("Address");
+                String Tele = rs3.getString("Tele");
+                
+                name.setText(Name);
+                address.setText(Address);
+                tele.setText(Tele);
+                
+                  
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "There is no car from this Register Number");
+                 search.setText("");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Existing.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +129,14 @@ public class Existing extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
+        tele = new javax.swing.JTextField();
+        search = new javax.swing.JTextField();
+        address = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -134,7 +184,7 @@ public class Existing extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 560, 361));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 420));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 470));
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(175, 400));
@@ -148,12 +198,12 @@ public class Existing extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tekton Pro Ext", 0, 60)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("ABC");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 60));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, 60));
 
         jPanel3.setBackground(new java.awt.Color(189, 76, 84));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -174,7 +224,7 @@ public class Existing extends javax.swing.JFrame {
         });
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 90, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 90, 40));
 
         jPanel4.setBackground(new java.awt.Color(189, 76, 84));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -195,9 +245,75 @@ public class Existing extends javax.swing.JFrame {
         });
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 60, 40));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 90, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, 90, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 180, 420));
+        name.setBackground(new java.awt.Color(189, 76, 84));
+        name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        name.setForeground(new java.awt.Color(73, 31, 61));
+        name.setBorder(null);
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 270, 20));
+
+        tele.setBackground(new java.awt.Color(189, 76, 84));
+        tele.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tele.setForeground(new java.awt.Color(73, 31, 61));
+        tele.setBorder(null);
+        jPanel2.add(tele, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 270, 20));
+
+        search.setBackground(new java.awt.Color(189, 76, 84));
+        search.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        search.setForeground(new java.awt.Color(204, 204, 204));
+        search.setBorder(null);
+        search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchFocusGained(evt);
+            }
+        });
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchKeyPressed(evt);
+            }
+        });
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 170, 30));
+
+        address.setBackground(new java.awt.Color(189, 76, 84));
+        address.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        address.setForeground(new java.awt.Color(73, 31, 61));
+        address.setBorder(null);
+        jPanel2.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 270, 20));
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("  View Owner");
+        jLabel2.setToolTipText("");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 100, 30));
+        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, 10));
+
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(189, 76, 84));
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("Reg No");
+        jTextField1.setBorder(null);
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 130, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 340, 470));
 
         pack();
         setLocationRelativeTo(null);
@@ -230,6 +346,36 @@ public class Existing extends javax.swing.JFrame {
         jf.show();
         dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void searchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusGained
+        
+        
+        
+    }//GEN-LAST:event_searchFocusGained
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        viewownerDetails();
+       
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyPressed
+         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            viewownerDetails();
+         }
+         else{
+            name.setText("");
+            address.setText("");
+            tele.setText("");
+         }
+    }//GEN-LAST:event_searchKeyPressed
     void retrive(){
         
         DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
@@ -295,7 +441,9 @@ public class Existing extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table1;
+    private javax.swing.JTextField address;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -304,5 +452,11 @@ public class Existing extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField search;
+    private javax.swing.JTextField tele;
     // End of variables declaration//GEN-END:variables
 }

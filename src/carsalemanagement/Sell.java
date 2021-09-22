@@ -53,7 +53,7 @@ public class Sell extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -108,13 +108,15 @@ public class Sell extends javax.swing.JFrame {
                 nict.setText("");
                 namet.setText("");
                 addresst.setText("");
-                tpt.setText("");
+                tpt.setText("077-1234567");
                 regnot.setText("");
                 pricet.setText("");
-                datet.setText("");
+                datet.setText("YYYY-MM-DD");
                 spnotet.setText("");
                 S_refnot.setText("");
-                S_refnot.requestFocus();  
+                S_refnot.requestFocus();
+                 regnot.setText("XXX-xxx");
+                regnot.requestFocus();  
                 
         } catch (SQLException ex) {
             Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,6 +169,7 @@ public class Sell extends javax.swing.JFrame {
         jSeparator8 = new javax.swing.JSeparator();
         addresst = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
+        text8 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         datet = new javax.swing.JTextField();
         pricet = new javax.swing.JTextField();
@@ -185,6 +188,7 @@ public class Sell extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         spnotet = new javax.swing.JTextField();
         jSeparator10 = new javax.swing.JSeparator();
+        text1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -242,9 +246,18 @@ public class Sell extends javax.swing.JFrame {
         tpt.setBackground(new java.awt.Color(189, 76, 84));
         tpt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
         tpt.setForeground(new java.awt.Color(191, 191, 191));
+        tpt.setText("077-1234567");
         tpt.setToolTipText("");
         tpt.setBorder(null);
         tpt.setCaretColor(new java.awt.Color(255, 255, 255));
+        tpt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tptFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tptFocusLost(evt);
+            }
+        });
         tpt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tptKeyPressed(evt);
@@ -337,6 +350,11 @@ public class Sell extends javax.swing.JFrame {
         jPanel1.add(addresst, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 300, 20));
         jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 300, 20));
 
+        text8.setBackground(new java.awt.Color(189, 76, 84));
+        text8.setForeground(new java.awt.Color(255, 204, 204));
+        text8.setBorder(null);
+        jPanel1.add(text8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 170, 20));
+
         jPanel2.setBackground(new java.awt.Color(73, 31, 61));
         jPanel2.setPreferredSize(new java.awt.Dimension(375, 400));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -344,9 +362,23 @@ public class Sell extends javax.swing.JFrame {
         datet.setBackground(new java.awt.Color(73, 31, 61));
         datet.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
         datet.setForeground(new java.awt.Color(165, 165, 165));
+        datet.setText("YYYY-MM-DD");
         datet.setToolTipText("");
         datet.setBorder(null);
         datet.setCaretColor(new java.awt.Color(255, 255, 255));
+        datet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                datetFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                datetFocusLost(evt);
+            }
+        });
+        datet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datetActionPerformed(evt);
+            }
+        });
         datet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 datetKeyPressed(evt);
@@ -360,6 +392,11 @@ public class Sell extends javax.swing.JFrame {
         pricet.setToolTipText("");
         pricet.setBorder(null);
         pricet.setCaretColor(new java.awt.Color(255, 255, 255));
+        pricet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pricetFocusGained(evt);
+            }
+        });
         pricet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pricetKeyPressed(evt);
@@ -370,9 +407,23 @@ public class Sell extends javax.swing.JFrame {
         regnot.setBackground(new java.awt.Color(73, 31, 61));
         regnot.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
         regnot.setForeground(new java.awt.Color(165, 165, 165));
+        regnot.setText("XXX-xxx");
         regnot.setToolTipText("");
         regnot.setBorder(null);
         regnot.setCaretColor(new java.awt.Color(255, 255, 255));
+        regnot.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                regnotFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                regnotFocusLost(evt);
+            }
+        });
+        regnot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regnotMouseClicked(evt);
+            }
+        });
         regnot.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 regnotKeyPressed(evt);
@@ -420,10 +471,14 @@ public class Sell extends javax.swing.JFrame {
         S_refnot.setBackground(new java.awt.Color(73, 31, 61));
         S_refnot.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
         S_refnot.setForeground(new java.awt.Color(165, 165, 165));
+        S_refnot.setText("C0000");
         S_refnot.setBorder(null);
         S_refnot.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 S_refnotFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                S_refnotFocusLost(evt);
             }
         });
         S_refnot.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -450,6 +505,11 @@ public class Sell extends javax.swing.JFrame {
         });
         jPanel2.add(spnotet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 300, 20));
         jPanel2.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 300, 20));
+
+        text1.setBackground(new java.awt.Color(73, 31, 61));
+        text1.setForeground(new java.awt.Color(255, 204, 204));
+        text1.setBorder(null);
+        jPanel2.add(text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 170, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -483,8 +543,39 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_nametKeyPressed
 
     private void tptKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tptKeyPressed
-        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            ensureVehicle();
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            sellcar();   
+        }
+         String myr = tpt.getText();
+        int length=myr.length();
+        
+        char c=evt.getKeyChar();
+        
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            
+        if(length<10){
+                tpt.setEditable(true);
+                text8.setText("Invalid entry");
+            }
+            else
+            {
+                tpt.setEditable(false);
+                text8.setText("");
+                
+                
+            }
+        }
+        else
+        {
+            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
+            {  
+                tpt.setEditable(true);
+            }
+            else
+            {
+                tpt.setEditable(false);
+               text8.setText("*Can't add letters");
+            }
         }
     }//GEN-LAST:event_tptKeyPressed
 
@@ -560,6 +651,78 @@ public class Sell extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_spnotetKeyPressed
 
+    private void datetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusGained
+             if(datet.getText().equals("YYYY-MM-DD")){
+           datet.setText(null);
+           datet.requestFocus();
+    }//GEN-LAST:event_datetFocusGained
+    }
+    private void datetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusLost
+        if(datet.getText().length()==0){
+            //FontStyle2(da5tet);
+           datet.setText("YYYY-MM-DD");
+    }//GEN-LAST:event_datetFocusLost
+    }
+    private void datetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datetActionPerformed
+
+    private void regnotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusGained
+        regnot.setText("");
+        text1.setText("");
+         
+        if(regnot.getText().equals("XXX-xxxx")){
+           regnot.setText(null);
+           regnot.requestFocus();
+            
+       }
+        
+    }//GEN-LAST:event_regnotFocusGained
+
+    private void regnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusLost
+          if(regnot.getText().length()==0){
+           //FontStyle(regnot);
+           regnot.setText("XXX-xxx");
+       }
+        if(regnot.getText().length()!=7 ){
+           text1.setText("*Invalid entry");
+          
+        }
+    }//GEN-LAST:event_regnotFocusLost
+
+    private void regnotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regnotMouseClicked
+           text1.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_regnotMouseClicked
+
+    private void pricetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pricetFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pricetFocusGained
+
+    private void S_refnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_S_refnotFocusLost
+       
+        if(S_refnot.getText().length()==0){
+            //FontStyle2(refnot);
+            S_refnot.setText("C0000");
+        }
+        
+    }//GEN-LAST:event_S_refnotFocusLost
+
+    private void tptFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusGained
+         if(tpt.getText().equals("077-1234567")){
+           tpt.setText(null);
+           tpt.requestFocus();
+         
+       }
+    }//GEN-LAST:event_tptFocusGained
+
+    private void tptFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusLost
+       if(tpt.getText().length()==0){
+            //FontStyle2(tpt);
+           tpt.setText("077-1234567");
+       }
+        text8.setText("");
+    }//GEN-LAST:event_tptFocusLost
+    
     /**
      * @param args the command line arguments
      */
@@ -633,6 +796,8 @@ public class Sell extends javax.swing.JFrame {
     private javax.swing.JTextField pricet;
     private javax.swing.JTextField regnot;
     private javax.swing.JTextField spnotet;
+    private javax.swing.JTextField text1;
+    private javax.swing.JTextField text8;
     private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
-}
+        }

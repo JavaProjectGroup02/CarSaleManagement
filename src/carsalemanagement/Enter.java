@@ -85,7 +85,7 @@ public class Enter extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -155,7 +155,6 @@ public class Enter extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         refnot = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        reftext = new javax.swing.JTextField();
         text7 = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
         jSeparator11 = new javax.swing.JSeparator();
@@ -168,6 +167,7 @@ public class Enter extends javax.swing.JFrame {
         home = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         save = new javax.swing.JLabel();
+        text8 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -186,6 +186,11 @@ public class Enter extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(73, 31, 61));
         jPanel1.setPreferredSize(new java.awt.Dimension(375, 400));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
@@ -249,6 +254,11 @@ public class Enter extends javax.swing.JFrame {
         regnot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 regnotMouseClicked(evt);
+            }
+        });
+        regnot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regnotActionPerformed(evt);
             }
         });
         regnot.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -472,7 +482,7 @@ public class Enter extends javax.swing.JFrame {
                 addresstKeyPressed(evt);
             }
         });
-        jPanel2.add(addresst, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 300, -1));
+        jPanel2.add(addresst, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 300, -1));
 
         tpt.setBackground(new java.awt.Color(189, 76, 84));
         tpt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
@@ -526,7 +536,7 @@ public class Enter extends javax.swing.JFrame {
                 datetKeyPressed(evt);
             }
         });
-        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 300, -1));
+        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 460, 300, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -536,7 +546,7 @@ public class Enter extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 0, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -572,7 +582,7 @@ public class Enter extends javax.swing.JFrame {
         refnot.setBackground(new java.awt.Color(189, 76, 84));
         refnot.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
         refnot.setForeground(new java.awt.Color(191, 191, 191));
-        refnot.setText("0000");
+        refnot.setText("C0000");
         refnot.setBorder(null);
         refnot.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -593,12 +603,6 @@ public class Enter extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ref. No.");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 80, 20));
-
-        reftext.setBackground(new java.awt.Color(189, 76, 84));
-        reftext.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        reftext.setForeground(new java.awt.Color(255, 204, 204));
-        reftext.setBorder(null);
-        jPanel2.add(reftext, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 10));
 
         text7.setBackground(new java.awt.Color(189, 76, 84));
         text7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -672,7 +676,11 @@ public class Enter extends javax.swing.JFrame {
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 590, 110, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 380, 670));
+        text8.setBackground(new java.awt.Color(189, 76, 84));
+        text8.setBorder(null);
+        jPanel2.add(text8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 150, 20));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, -10, 380, 670));
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -823,12 +831,13 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
             if(length<4){
                 maket.setEditable(true);
+                text3.setText("Invalid entry");
             }
-            else
+            else 
             {
                 maket.setEditable(false);
-                text3.setText("Invalid entry");
-               
+                text3.setText("");
+                
                 
             }
         }
@@ -866,11 +875,12 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
             if(length<4){
                 manuyt.setEditable(true);
+                text5.setText("Invalid entry");
             }
             else
             {
                 manuyt.setEditable(false);
-                text5.setText("Invalid entry");
+                text5.setText("");
                 
                 
             }
@@ -902,13 +912,12 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
             if(length<4){
                 regyt.setEditable(true);
+                text6.setText("Invalid entry");
             }
             else
             {
                 regyt.setEditable(false);
-                text6.setText("Invalid entry");
-            
-                
+                text6.setText("");
             }
         }
         else
@@ -953,19 +962,21 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             datet.requestFocus();
         }
-         String myr = regyt.getText();
+         String myr = tpt.getText();
         int length=myr.length();
         
         char c=evt.getKeyChar();
         
         if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
-            if(length<10){
+            
+        if(length<10){
                 tpt.setEditable(true);
+                text8.setText("Invalid entry");
             }
             else
             {
                 tpt.setEditable(false);
-                text7.setText("Invalid entry");
+                text8.setText("");
                 
                 
             }
@@ -979,7 +990,7 @@ public class Enter extends javax.swing.JFrame {
             else
             {
                 tpt.setEditable(false);
-               text7.setText("*Can't add letters");
+               text8.setText("*Can't add letters");
             }
         }
         
@@ -1020,7 +1031,7 @@ public class Enter extends javax.swing.JFrame {
            //FontStyle(regnot);
            regnot.setText("XXX-xxx");
        }
-        if(regnot.getText().length()<7 || regnot.getText().length()>8){
+        if(regnot.getText().length()!=7 ){
            text1.setText("*Invalid entry");
           
         }
@@ -1103,7 +1114,7 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_milagetFocusLost
 
     private void tptFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusGained
-        text7.setText("");
+        text8.setText("");
         if(tpt.getText().equals("077-1234567")){
            tpt.setText(null);
            tpt.requestFocus();
@@ -1117,7 +1128,7 @@ public class Enter extends javax.swing.JFrame {
             //FontStyle2(tpt);
            tpt.setText("077-1234567");
        }
-        text7.setText("");
+        text8.setText("");
     }//GEN-LAST:event_tptFocusLost
 
     private void datetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusGained
@@ -1178,6 +1189,14 @@ public class Enter extends javax.swing.JFrame {
         jf.show();
         dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void regnotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regnotActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_regnotActionPerformed
+
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -1269,7 +1288,6 @@ public class Enter extends javax.swing.JFrame {
     private javax.swing.JTextField nict;
     private javax.swing.JTextField pricet;
     private javax.swing.JTextField refnot;
-    private javax.swing.JTextField reftext;
     private javax.swing.JTextField regnot;
     private javax.swing.JTextField regyt;
     private javax.swing.JLabel save;
@@ -1278,6 +1296,7 @@ public class Enter extends javax.swing.JFrame {
     private javax.swing.JTextField text5;
     private javax.swing.JTextField text6;
     private javax.swing.JTextField text7;
+    private javax.swing.JTextField text8;
     private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
 }
