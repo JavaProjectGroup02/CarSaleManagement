@@ -3,7 +3,7 @@ This README file explains how to use this carsale managment program.
  ****Note that before run this application, the user must install mysql and create a new database named "abc" which can be accessed using the username "root" and the 
 password also "root". The port that the mysql server connect should be "3306". 
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ---Database structure---
 Table names: owner, vehicle, enter, sell, register
 
@@ -42,7 +42,7 @@ register
 Name varchar(60)
 Username varchar(15)  <- PK
 Password varchar(30)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 ---First run---
