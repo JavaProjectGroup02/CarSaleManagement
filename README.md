@@ -1,6 +1,6 @@
 This README file explains how to use this carsale managment program.
 
- ****Note that before run this application, the user must install mysql and create a new database named "abc" which can be accessed using the username "root" and the 
+ ****Note that before run this project, mysql must be created and create a new database named "abc" which can be accessed using the username "root" and the 
 password also "root". The port that the mysql server connect should be "3306". 
 
 
