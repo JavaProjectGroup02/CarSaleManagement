@@ -296,7 +296,7 @@ public class Sell extends javax.swing.JFrame {
         tpt.setBackground(new java.awt.Color(189, 76, 84));
         tpt.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         tpt.setForeground(new java.awt.Color(191, 191, 191));
-        tpt.setText("0XXXXXXXXX");
+        tpt.setText("0XXXXXXXXX OR +94XXXXXXXXX");
         tpt.setToolTipText("");
         tpt.setBorder(null);
         tpt.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -479,7 +479,7 @@ public class Sell extends javax.swing.JFrame {
         regnot.setBackground(new java.awt.Color(73, 31, 61));
         regnot.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         regnot.setForeground(new java.awt.Color(165, 165, 165));
-        regnot.setText("XXX-xxx");
+        regnot.setText("NN-NNNN, LL-NNNN, LLLNNNN");
         regnot.setToolTipText("");
         regnot.setBorder(null);
         regnot.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -626,9 +626,24 @@ public class Sell extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nametKeyPressed
 
+    void datevalidation(){
+        String PATTERN1 = "^[+][9][4][0-9]{9,9}$";
+        String PATTERN2 = "^[0][0-9]{9,9}$";
+        Pattern patt1=Pattern.compile(PATTERN1);
+        Pattern patt2=Pattern.compile(PATTERN2);
+        Matcher match1=patt1.matcher(tpt.getText());
+        Matcher match2=patt2.matcher(tpt.getText());
+
+        if(!(match1.matches()||match2.matches())){
+            telelab.setText("*Invalid Telephone number");
+        }else{
+            telelab.setText("");
+        }
+        ensureVehicle();
+    }
     private void tptKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tptKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            ensureVehicle();
+            datevalidation();
         }
     }//GEN-LAST:event_tptKeyPressed
 
@@ -659,7 +674,7 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6KeyPressed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        ensureVehicle();  
+        datevalidation();  
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -689,7 +704,7 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        ensureVehicle();
+        datevalidation();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void addresstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addresstKeyPressed
@@ -716,6 +731,24 @@ public class Sell extends javax.swing.JFrame {
        if(datet.getText().length()==0){
            datet.setText("YYYY-MM-DD");
        }
+       String PATTERN1 = "^[0-9]{4,4}[-][0][0-9]{1,1}[-][012]{1,1}[0-9]{1,1}$";
+       String PATTERN2 = "^[0-9]{4,4}[-][1][0-2]{1,1}[-][012]{1,1}[0-9]{1,1}$";
+       String PATTERN3 = "^[0-9]{4,4}[-][0][0-9]{1,1}[-][3][01]{1,1}$";
+       String PATTERN4 = "^[0-9]{4,4}[-][1][0-2]{1,1}[-][3][01]{1,1}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(datet.getText());
+       Matcher match2=patt2.matcher(datet.getText());
+       Matcher match3=patt3.matcher(datet.getText());
+       Matcher match4=patt4.matcher(datet.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           datelab.setText("*Invalid entry");
+       }else{
+           datelab.setText("");
+       } 
     }//GEN-LAST:event_datetFocusLost
     
     private void datetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datetActionPerformed
@@ -736,6 +769,24 @@ public class Sell extends javax.swing.JFrame {
     private void regnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusLost
        if(regnot.getText().length()==0){
             regnot.setText("NN-NNNN, LL-NNNN, LLLNNNN");
+       }
+       String PATTERN1 = "^[0-9]{2,2}[-][0-9]{4,4}$";
+       String PATTERN2 = "^[A-Z]{2,2}[-][0-9]{4,4}$";
+       String PATTERN3 = "^[A-Z]{3,3}[0-9]{4,4}$";
+       String PATTERN4 = "^[0-9]{3,3}[-][0-9]{4,4}";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(regnot.getText());
+       Matcher match2=patt2.matcher(regnot.getText());
+       Matcher match3=patt3.matcher(regnot.getText());
+       Matcher match4=patt4.matcher(regnot.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           regnolab.setText("*Invalide registation number");
+       }else{
+           regnolab.setText("");
        }
     }//GEN-LAST:event_regnotFocusLost
 
@@ -772,10 +823,29 @@ public class Sell extends javax.swing.JFrame {
 
     private void nictFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nictFocusLost
        autoFillOwner(nict.getText());
+       String PATTERN1 = "^[0-9]{9,9}[vVxX]{1,1}$";
+       String PATTERN2 = "^[0-9]{12,12}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Matcher match1=patt1.matcher(nict.getText());
+       Matcher match2=patt2.matcher(nict.getText());
+       
+       if(!(match1.matches()||match2.matches())){
+           niclab.setText("*Invalid NIC number");
+       }else{
+           niclab.setText("");
+       }
     }//GEN-LAST:event_nictFocusLost
 
     private void pricetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pricetFocusLost
-       
+       String PATTERN1 = "^[0-9]{0,12}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(pricet.getText());
+       if(!match1.matches()){
+           pricelab.setText("*Invalid entry.");
+       }else{
+           pricelab.setText("");
+       }
     }//GEN-LAST:event_pricetFocusLost
 
     private void spnotetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnotetFocusGained
@@ -791,7 +861,21 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_nametFocusGained
 
     private void nametFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nametFocusLost
+       String PATTERN1 = "^[A-Za-z]{0,20}$";
+       String PATTERN2 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN3 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Matcher match1=patt1.matcher(namet.getText());
+       Matcher match2=patt2.matcher(namet.getText());
+       Matcher match3=patt3.matcher(namet.getText());
        
+       if(!(match1.matches()||match2.matches()||match3.matches())){
+           namelab.setText("*Invalid entry");
+       }else{
+           namelab.setText("");
+       }
     }//GEN-LAST:event_nametFocusLost
 
     private void addresstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addresstFocusGained
@@ -799,7 +883,24 @@ public class Sell extends javax.swing.JFrame {
     }//GEN-LAST:event_addresstFocusGained
 
     private void addresstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addresstFocusLost
+       String PATTERN1 = "^[A-Za-z0-9]{0,20}$";
+       String PATTERN2 = "^[A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}$";
+       String PATTERN3 = "^[A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}$";
+       String PATTERN4 = "^[A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}[,][A-Za-z0-9]{0,20}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(addresst.getText());
+       Matcher match2=patt2.matcher(addresst.getText());
+       Matcher match3=patt3.matcher(addresst.getText());
+       Matcher match4=patt4.matcher(addresst.getText());
        
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           addresslab.setText("*Invalid entry");
+       }else{
+           addresslab.setText("");
+       }
     }//GEN-LAST:event_addresstFocusLost
     
     /**
