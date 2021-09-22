@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +44,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -65,7 +67,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jScrollPane1.getViewport().setOpaque(false);
         Table1.setShowGrid(true);
         
-        Table1.getTableHeader().setFont(new Font("STXihei",Font.BOLD,15));
+        Table1.getTableHeader().setFont(new Font("Arial",Font.BOLD,15));
         Table1.getTableHeader().setOpaque(false);
         Table1.getTableHeader().setBackground(new Color(51,21,42));
         Table1.getTableHeader().setForeground(new Color(225,225,225));
@@ -75,17 +77,17 @@ public class ViewSoldCar extends javax.swing.JFrame {
         resetTable();
         try {
             pst_sell = con.prepareStatement("SELECT * from sell WHERE RegNo=?");
-            pst_sell.setString(1,Text1.getText());
+            pst_sell.setString(1,search.getText());
             rs_sell = pst_sell.executeQuery();
             
             if(rs_sell.next()==false){
                     JOptionPane.showMessageDialog(this, "Sorry records not found");
-                    Text1.setText("");
-                    Text1.requestFocus();
+                    search.setText("");
+                    search.requestFocus();
                 }
             else{
                 pst_sell = con.prepareStatement("SELECT * from sell WHERE RegNo=?");
-                pst_sell.setString(1,Text1.getText());
+                pst_sell.setString(1,search.getText());
                 rs_sell = pst_sell.executeQuery();
                 
                 
@@ -121,6 +123,28 @@ public class ViewSoldCar extends javax.swing.JFrame {
         Table1.setModel(new DefaultTableModel(null, new String[]{"Name", "Address", "Tele", "Date", "Price", "Special Notes"}));
     }
     
+    void regnoValidate(){
+       String PATTERN1 = "^[0-9]{2,2}[-][0-9]{4,4}$";
+       String PATTERN2 = "^[A-Z]{2,2}[-][0-9]{4,4}$";
+       String PATTERN3 = "^[A-Z]{3,3}[0-9]{4,4}$";
+       String PATTERN4 = "^[0-9]{3,3}[-][0-9]{4,4}";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(search.getText());
+       Matcher match2=patt2.matcher(search.getText());
+       Matcher match3=patt3.matcher(search.getText());
+       Matcher match4=patt4.matcher(search.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           searchlab.setText("*Invalid registation number");
+       }else{
+           searchlab.setText("");
+           retrieve();
+       } 
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,7 +159,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Table1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        Text1 = new javax.swing.JTextField();
+        search = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -144,6 +168,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        searchlab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -155,11 +180,11 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(73, 31, 61));
-        jScrollPane1.setBorder(null);
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         Table1.setBackground(new java.awt.Color(73, 31, 61));
         Table1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(165, 165, 165)));
-        Table1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        Table1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         Table1.setForeground(new java.awt.Color(255, 255, 255));
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,7 +208,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
         Table1.setRowMargin(2);
         jScrollPane1.setViewportView(Table1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 680, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 710, 370));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 410));
 
@@ -191,23 +216,23 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(175, 400));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Text1.setBackground(new java.awt.Color(189, 76, 84));
-        Text1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
-        Text1.setForeground(new java.awt.Color(191, 191, 191));
-        Text1.setToolTipText("");
-        Text1.setBorder(null);
-        Text1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        Text1.addFocusListener(new java.awt.event.FocusAdapter() {
+        search.setBackground(new java.awt.Color(189, 76, 84));
+        search.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        search.setForeground(new java.awt.Color(191, 191, 191));
+        search.setToolTipText("");
+        search.setBorder(null);
+        search.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        search.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                Text1FocusGained(evt);
+                searchFocusGained(evt);
             }
         });
-        Text1.addKeyListener(new java.awt.event.KeyAdapter() {
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                Text1KeyPressed(evt);
+                searchKeyPressed(evt);
             }
         });
-        jPanel2.add(Text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 150, 20));
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 150, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,11 +249,11 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jLabel4.setText("ABC");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 36, -1, 60));
 
-        jLabel2.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Reg. No.");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 100, 30));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 150, 20));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 100, 24));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 148, 150, 10));
 
         jPanel3.setBackground(new java.awt.Color(189, 76, 84));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -243,7 +268,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Search");
         jLabel3.setToolTipText("");
@@ -263,16 +288,16 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(43, 43, 43))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 150, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 80, -1));
 
         jPanel4.setBackground(new java.awt.Color(189, 76, 84));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -282,7 +307,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Home");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -295,17 +320,20 @@ public class ViewSoldCar extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 150, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 345, 80, -1));
+
+        searchlab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel2.add(searchlab, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 150, 20));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 210, 410));
 
@@ -313,20 +341,20 @@ public class ViewSoldCar extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Text1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Text1KeyPressed
+    private void searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            retrieve();
+            regnoValidate();
         }
-    }//GEN-LAST:event_Text1KeyPressed
+    }//GEN-LAST:event_searchKeyPressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void Text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Text1FocusGained
-        
-    }//GEN-LAST:event_Text1FocusGained
+    private void searchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusGained
+        searchlab.setText("");
+    }//GEN-LAST:event_searchFocusGained
 
     private void jLabel3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel3KeyPressed
         
@@ -337,11 +365,11 @@ public class ViewSoldCar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3KeyPressed
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-        retrieve();
+        regnoValidate();
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        retrieve();
+        regnoValidate();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -400,7 +428,6 @@ public class ViewSoldCar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table1;
-    private javax.swing.JTextField Text1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -412,5 +439,7 @@ public class ViewSoldCar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField search;
+    private javax.swing.JLabel searchlab;
     // End of variables declaration//GEN-END:variables
 }

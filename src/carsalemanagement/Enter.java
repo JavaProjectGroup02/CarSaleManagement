@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.regex.*;
 /**
  *
  * @author Dell
@@ -21,12 +22,14 @@ public class Enter extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame1
      * */
-    ResultSet rs,rs_regno,rs_id;
-    PreparedStatement pst,pst_regno,pst_id;
+    ResultSet rs,rs_regno,rs_id,rs_vehicle,rs_owner,rs_vehicle1;
+    PreparedStatement pst,pst_regno,pst_id,pst_vehicle,pst_owner,pst_vehicle1;
     Connection con = null;
     public Enter() {
         initComponents();
+        regnot.requestFocus();
         createConnection();
+        autorefNo();
         
         /*FontStyle2(regnot);
         FontStyle2(maket);
@@ -85,7 +88,7 @@ public class Enter extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -129,10 +132,6 @@ public class Enter extends javax.swing.JFrame {
         pricet = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        text1 = new javax.swing.JTextField();
-        text3 = new javax.swing.JTextField();
-        text5 = new javax.swing.JTextField();
-        text6 = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
@@ -141,6 +140,14 @@ public class Enter extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
+        regnolab = new javax.swing.JLabel();
+        makelab = new javax.swing.JLabel();
+        modellab = new javax.swing.JLabel();
+        manuylab = new javax.swing.JLabel();
+        regylab = new javax.swing.JLabel();
+        milagelab = new javax.swing.JLabel();
+        pricelab = new javax.swing.JLabel();
+        categorylab = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         nict = new javax.swing.JTextField();
         addresst = new javax.swing.JTextField();
@@ -167,7 +174,11 @@ public class Enter extends javax.swing.JFrame {
         home = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         save = new javax.swing.JLabel();
-        text8 = new javax.swing.JTextField();
+        niclab = new javax.swing.JLabel();
+        namelab = new javax.swing.JLabel();
+        addresslab = new javax.swing.JLabel();
+        telelab = new javax.swing.JLabel();
+        datelab = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -182,7 +193,6 @@ public class Enter extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(73, 31, 61));
         jPanel1.setPreferredSize(new java.awt.Dimension(375, 400));
@@ -193,50 +203,50 @@ public class Enter extends javax.swing.JFrame {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Reg. No.");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Category");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Make");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 216, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Model");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 286, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Manu. Year.");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 352, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Reg. Year.");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 422, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Milage");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 492, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Price");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 570, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 558, -1, -1));
 
         regnot.setBackground(new java.awt.Color(73, 31, 61));
-        regnot.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        regnot.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         regnot.setForeground(new java.awt.Color(165, 165, 165));
-        regnot.setText("XXX-xxx");
+        regnot.setText("NN-NNNN, LL-NNNN, LLLNNNN");
         regnot.setToolTipText("");
         regnot.setBorder(null);
         regnot.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -265,27 +275,37 @@ public class Enter extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 regnotKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                regnotKeyReleased(evt);
+            }
         });
         jPanel1.add(regnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 20));
 
         categoryt.setBackground(new java.awt.Color(73, 31, 61));
-        categoryt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        categoryt.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         categoryt.setForeground(new java.awt.Color(165, 165, 165));
         categoryt.setToolTipText("");
         categoryt.setBorder(null);
         categoryt.setCaretColor(new java.awt.Color(255, 255, 255));
         categoryt.setPreferredSize(new java.awt.Dimension(7, 21));
+        categoryt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                categorytFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                categorytFocusLost(evt);
+            }
+        });
         categoryt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 categorytKeyPressed(evt);
             }
         });
-        jPanel1.add(categoryt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 300, 20));
+        jPanel1.add(categoryt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 176, 300, 20));
 
         maket.setBackground(new java.awt.Color(73, 31, 61));
-        maket.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        maket.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         maket.setForeground(new java.awt.Color(165, 165, 165));
-        maket.setText("YYYY");
         maket.setBorder(null);
         maket.setCaretColor(new java.awt.Color(255, 255, 255));
         maket.setPreferredSize(new java.awt.Dimension(7, 21));
@@ -307,23 +327,31 @@ public class Enter extends javax.swing.JFrame {
                 maketKeyPressed(evt);
             }
         });
-        jPanel1.add(maket, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 300, 20));
+        jPanel1.add(maket, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 246, 300, 20));
 
         modelt.setBackground(new java.awt.Color(73, 31, 61));
-        modelt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        modelt.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         modelt.setForeground(new java.awt.Color(165, 165, 165));
         modelt.setBorder(null);
         modelt.setCaretColor(new java.awt.Color(255, 255, 255));
         modelt.setPreferredSize(new java.awt.Dimension(7, 21));
+        modelt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                modeltFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                modeltFocusLost(evt);
+            }
+        });
         modelt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 modeltKeyPressed(evt);
             }
         });
-        jPanel1.add(modelt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 300, 20));
+        jPanel1.add(modelt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 312, 300, 20));
 
         manuyt.setBackground(new java.awt.Color(73, 31, 61));
-        manuyt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        manuyt.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         manuyt.setForeground(new java.awt.Color(165, 165, 165));
         manuyt.setText("YYYY");
         manuyt.setBorder(null);
@@ -347,10 +375,10 @@ public class Enter extends javax.swing.JFrame {
                 manuytKeyPressed(evt);
             }
         });
-        jPanel1.add(manuyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 300, 20));
+        jPanel1.add(manuyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 382, 300, 20));
 
         regyt.setBackground(new java.awt.Color(73, 31, 61));
-        regyt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        regyt.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         regyt.setForeground(new java.awt.Color(165, 165, 165));
         regyt.setText("YYYY");
         regyt.setBorder(null);
@@ -369,10 +397,10 @@ public class Enter extends javax.swing.JFrame {
                 regytKeyPressed(evt);
             }
         });
-        jPanel1.add(regyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 300, 20));
+        jPanel1.add(regyt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 452, 300, 20));
 
         milaget.setBackground(new java.awt.Color(73, 31, 61));
-        milaget.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        milaget.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         milaget.setForeground(new java.awt.Color(165, 165, 165));
         milaget.setBorder(null);
         milaget.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -390,20 +418,28 @@ public class Enter extends javax.swing.JFrame {
                 milagetKeyPressed(evt);
             }
         });
-        jPanel1.add(milaget, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 300, 20));
+        jPanel1.add(milaget, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 518, 300, 20));
 
         pricet.setBackground(new java.awt.Color(73, 31, 61));
-        pricet.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        pricet.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         pricet.setForeground(new java.awt.Color(165, 165, 165));
         pricet.setBorder(null);
         pricet.setCaretColor(new java.awt.Color(255, 255, 255));
         pricet.setPreferredSize(new java.awt.Dimension(7, 21));
+        pricet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pricetFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pricetFocusLost(evt);
+            }
+        });
         pricet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pricetKeyPressed(evt);
             }
         });
-        jPanel1.add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 600, 300, 20));
+        jPanel1.add(pricet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 584, 300, 20));
 
         jLabel13.setFont(new java.awt.Font("Tekton Pro Ext", 0, 60)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
@@ -414,64 +450,86 @@ public class Enter extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(153, 153, 153));
         jLabel16.setText("Vehicle  ");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
-
-        text1.setBackground(new java.awt.Color(73, 31, 61));
-        text1.setFont(new java.awt.Font("STXihei", 0, 12)); // NOI18N
-        text1.setForeground(new java.awt.Color(255, 204, 204));
-        text1.setBorder(null);
-        jPanel1.add(text1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 190, 30));
-
-        text3.setBackground(new java.awt.Color(73, 31, 61));
-        text3.setFont(new java.awt.Font("STXihei", 0, 12)); // NOI18N
-        text3.setForeground(new java.awt.Color(255, 204, 204));
-        text3.setBorder(null);
-        jPanel1.add(text3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 190, 30));
-
-        text5.setBackground(new java.awt.Color(73, 31, 61));
-        text5.setFont(new java.awt.Font("STXihei", 0, 12)); // NOI18N
-        text5.setForeground(new java.awt.Color(255, 204, 204));
-        text5.setBorder(null);
-        jPanel1.add(text5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 190, 20));
-
-        text6.setBackground(new java.awt.Color(73, 31, 61));
-        text6.setFont(new java.awt.Font("STXihei", 0, 12)); // NOI18N
-        text6.setForeground(new java.awt.Color(255, 204, 204));
-        text6.setBorder(null);
-        jPanel1.add(text6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, 190, 30));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 300, 20));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 300, 20));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 300, 20));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 300, 20));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 300, 20));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 300, 20));
-        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 300, 20));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 604, 300, 20));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 196, 300, 20));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 266, 300, 20));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 332, 300, 20));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 402, 300, 20));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 472, 300, 20));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 538, 300, 20));
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 300, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 670));
+        regnolab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        regnolab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(regnolab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 180, 30));
+
+        makelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        makelab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(makelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 180, 30));
+
+        modellab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        modellab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(modellab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 180, 30));
+
+        manuylab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        manuylab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(manuylab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 180, 30));
+
+        regylab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        regylab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(regylab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 180, 30));
+
+        milagelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        milagelab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(milagelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 490, 180, 30));
+
+        pricelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        pricelab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(pricelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 180, 30));
+
+        categorylab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        categorylab.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel1.add(categorylab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 180, 30));
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(375, 400));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         nict.setBackground(new java.awt.Color(189, 76, 84));
-        nict.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        nict.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         nict.setForeground(new java.awt.Color(191, 191, 191));
         nict.setToolTipText("");
         nict.setBorder(null);
         nict.setCaretColor(new java.awt.Color(255, 255, 255));
+        nict.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nictFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nictFocusLost(evt);
+            }
+        });
         nict.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nictKeyPressed(evt);
             }
         });
-        jPanel2.add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 300, -1));
+        jPanel2.add(nict, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 176, 300, -1));
 
         addresst.setBackground(new java.awt.Color(189, 76, 84));
-        addresst.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        addresst.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         addresst.setForeground(new java.awt.Color(191, 191, 191));
         addresst.setToolTipText("");
         addresst.setBorder(null);
         addresst.setCaretColor(new java.awt.Color(255, 255, 255));
+        addresst.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                addresstFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                addresstFocusLost(evt);
+            }
+        });
         addresst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addresstActionPerformed(evt);
@@ -482,12 +540,12 @@ public class Enter extends javax.swing.JFrame {
                 addresstKeyPressed(evt);
             }
         });
-        jPanel2.add(addresst, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 300, -1));
+        jPanel2.add(addresst, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 308, 300, -1));
 
         tpt.setBackground(new java.awt.Color(189, 76, 84));
-        tpt.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        tpt.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         tpt.setForeground(new java.awt.Color(191, 191, 191));
-        tpt.setText("077-1234567");
+        tpt.setText("0XXXXXXXXX OR +94XXXXXXXXX");
         tpt.setToolTipText("");
         tpt.setBorder(null);
         tpt.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -497,6 +555,13 @@ public class Enter extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tptFocusLost(evt);
+            }
+        });
+        tpt.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                tptAncestorResized(evt);
             }
         });
         tpt.addActionListener(new java.awt.event.ActionListener() {
@@ -509,10 +574,10 @@ public class Enter extends javax.swing.JFrame {
                 tptKeyPressed(evt);
             }
         });
-        jPanel2.add(tpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 300, -1));
+        jPanel2.add(tpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 378, 300, -1));
 
         datet.setBackground(new java.awt.Color(189, 76, 84));
-        datet.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        datet.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         datet.setForeground(new java.awt.Color(191, 191, 191));
         datet.setText("YYYY-MM-DD");
         datet.setToolTipText("");
@@ -536,7 +601,7 @@ public class Enter extends javax.swing.JFrame {
                 datetKeyPressed(evt);
             }
         });
-        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 460, 300, -1));
+        jPanel2.add(datet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 444, 300, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -546,41 +611,41 @@ public class Enter extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 5, -1, 20));
 
-        jLabel2.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NIC");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Name");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 216, -1, -1));
 
-        jLabel23.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Address");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 282, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Telephone");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 348, -1, -1));
 
-        jLabel25.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Date");
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 418, -1, -1));
 
         jLabel15.setBackground(new java.awt.Color(255, 204, 204));
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(204, 204, 255));
         jLabel15.setText("Owner  ");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         refnot.setBackground(new java.awt.Color(189, 76, 84));
-        refnot.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        refnot.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         refnot.setForeground(new java.awt.Color(191, 191, 191));
         refnot.setText("C0000");
         refnot.setBorder(null);
@@ -599,7 +664,7 @@ public class Enter extends javax.swing.JFrame {
         });
         jPanel2.add(refnot, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, -1));
 
-        jLabel3.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ref. No.");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 80, 20));
@@ -608,20 +673,28 @@ public class Enter extends javax.swing.JFrame {
         text7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         text7.setForeground(new java.awt.Color(255, 204, 204));
         text7.setBorder(null);
-        jPanel2.add(text7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 250, 10));
-        jPanel2.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 300, 20));
+        jPanel2.add(text7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 318, 250, 10));
+        jPanel2.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 464, 300, 20));
         jPanel2.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 300, 20));
-        jPanel2.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 300, 20));
-        jPanel2.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 300, 20));
-        jPanel2.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 300, 20));
-        jPanel2.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 300, 20));
+        jPanel2.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 196, 300, 20));
+        jPanel2.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 262, 300, 20));
+        jPanel2.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 328, 300, 20));
+        jPanel2.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 398, 300, 20));
 
         namet1.setBackground(new java.awt.Color(189, 76, 84));
-        namet1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        namet1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         namet1.setForeground(new java.awt.Color(191, 191, 191));
         namet1.setToolTipText("");
         namet1.setBorder(null);
         namet1.setCaretColor(new java.awt.Color(255, 255, 255));
+        namet1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                namet1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                namet1FocusLost(evt);
+            }
+        });
         namet1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 namet1ActionPerformed(evt);
@@ -632,7 +705,7 @@ public class Enter extends javax.swing.JFrame {
                 namet1KeyPressed(evt);
             }
         });
-        jPanel2.add(namet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 300, -1));
+        jPanel2.add(namet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 242, 300, -1));
 
         jPanel3.setBackground(new java.awt.Color(189, 76, 84));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -643,7 +716,7 @@ public class Enter extends javax.swing.JFrame {
         });
 
         home.setBackground(new java.awt.Color(73, 31, 61));
-        home.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        home.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         home.setForeground(new java.awt.Color(255, 255, 255));
         home.setText(" Home ");
         home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -653,7 +726,7 @@ public class Enter extends javax.swing.JFrame {
         });
         jPanel3.add(home);
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 110, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 574, 110, 40));
 
         jPanel5.setBackground(new java.awt.Color(189, 76, 84));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -664,7 +737,7 @@ public class Enter extends javax.swing.JFrame {
         });
 
         save.setBackground(new java.awt.Color(73, 31, 61));
-        save.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        save.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         save.setForeground(new java.awt.Color(255, 255, 255));
         save.setText(" Save ");
         save.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -674,14 +747,44 @@ public class Enter extends javax.swing.JFrame {
         });
         jPanel5.add(save);
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 590, 110, 40));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 574, 110, 40));
 
-        text8.setBackground(new java.awt.Color(189, 76, 84));
-        text8.setBorder(null);
-        jPanel2.add(text8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 150, 20));
+        niclab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        niclab.setForeground(new java.awt.Color(73, 31, 61));
+        jPanel2.add(niclab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 180, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, -10, 380, 670));
+        namelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        namelab.setForeground(new java.awt.Color(73, 31, 61));
+        jPanel2.add(namelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 180, 30));
+
+        addresslab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        addresslab.setForeground(new java.awt.Color(73, 31, 61));
+        jPanel2.add(addresslab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 180, 30));
+
+        telelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        telelab.setForeground(new java.awt.Color(73, 31, 61));
+        jPanel2.add(telelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 180, 30));
+
+        datelab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        datelab.setForeground(new java.awt.Color(73, 31, 61));
+        jPanel2.add(datelab, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 180, 30));
+
         setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -725,84 +828,117 @@ public class Enter extends javax.swing.JFrame {
         String status = "Available";
         try {
             if(refno.equals("") || nic.equals("") || name.equals("") || address.equals("") || tp.equals("")
-                        || date.equals("") || regno1.equals("") || category.equals("") || make.equals("") || model.equals("") || manuy.equals("") ||regy.equals("") || milage.equals("") || price.equals(""))
-             {
+                        || date.equals("") || regno1.equals("") || category.equals("") || make.equals("") || model.equals("") || manuy.equals("") ||regy.equals("") || milage.equals("") || price.equals("") ){
                     JOptionPane.showMessageDialog(this,"All required fields are mandatory"); 
               }
             else{
-                pst_regno = con.prepareStatement("SELECT * from vehicle WHERE RegNo=?");
-                pst_regno.setString(1,regnot.getText());
-                rs_regno = pst_regno.executeQuery();
-                
-                pst_id = con.prepareStatement("SELECT * from owner WHERE NIC=?");
-                pst_id.setString(1,nict.getText());
-                rs_id = pst_id.executeQuery();
-                
-                int OwnerStatus = 1;
-                int VehicleStatus = 1;
-                if(rs_regno.next()==false){
-                    VehicleStatus = 0;
-                }
-                if(rs_id.next()==false){
-                    OwnerStatus = 0;
-                }
-                
-                Statement stm = con.createStatement();
-                if(VehicleStatus == 0 && OwnerStatus == 0){
-                    String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
-                    String sql_vehicle ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+status+"')";
-                    stm.executeUpdate(sql_owner);
-                    stm.executeUpdate(sql_vehicle);
-                }else{
-                    if(VehicleStatus == 0 && OwnerStatus == 1){
-                        String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
-                        String sql_vehicle ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+status+"')";
-                        stm.executeUpdate(sql_vehicle);
-                        stm.executeUpdate(sql_owner);
-                    }else{
-                        if(VehicleStatus == 1 && OwnerStatus == 0){
-                            String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
+                if(regnolab.getText().equals("") && categorylab.getText().equals("") &&  makelab.getText().equals("") && modellab.getText().equals("") && manuylab.getText().equals("") && regylab.getText().equals("") 
+                        && milagelab.getText().equals("") && pricelab.getText().equals("") && niclab.getText().equals("") && namelab.getText().equals("") && addresslab.getText().equals("") && telelab.getText().equals("") && datelab.getText().equals("")){   
+                    pst_regno = con.prepareStatement("SELECT * from vehicle WHERE RegNo=?");
+                    pst_regno.setString(1,regnot.getText());
+                    rs_regno = pst_regno.executeQuery();
+
+                    pst_vehicle1 = con.prepareStatement("SELECT * from vehicle WHERE RegNo=? AND Status='Available'");
+                    pst_vehicle1.setString(1,regnot.getText());
+                    rs_vehicle1 = pst_vehicle1.executeQuery();
+
+                    pst_id = con.prepareStatement("SELECT * from owner WHERE NIC=?");
+                    pst_id.setString(1,nict.getText());
+                    rs_id = pst_id.executeQuery();
+
+                    if(!rs_vehicle1.next()){
+                        int OwnerStatus = 1;
+                        int VehicleStatus = 1;
+                        if(rs_regno.next()==false){
+                            VehicleStatus = 0;
+                        }
+                        if(rs_id.next()==false){
+                            OwnerStatus = 0;
+                        }
+
+                        Statement stm = con.createStatement();
+                        if(VehicleStatus == 0 && OwnerStatus == 0){
                             String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
+                            String sql_vehicle ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+status+"')";
                             stm.executeUpdate(sql_owner);
                             stm.executeUpdate(sql_vehicle);
                         }else{
-                            String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
-                            String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
-                            stm.executeUpdate(sql_owner);
-                            stm.executeUpdate(sql_vehicle);
+                            if(VehicleStatus == 0 && OwnerStatus == 1){
+                                String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
+                                String sql_vehicle ="INSERT INTO vehicle VALUES('"+regno+"','"+make+"','"+model+"','"+manuy+"','"+regy+"','"+category+"','"+status+"')";
+                                stm.executeUpdate(sql_vehicle);
+                                stm.executeUpdate(sql_owner);
+                            }else{
+                                if(VehicleStatus == 1 && OwnerStatus == 0){
+                                    String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
+                                    String sql_owner ="INSERT INTO owner VALUES('"+nic+"','"+name+"','"+address+"','"+tp+"')";
+                                    stm.executeUpdate(sql_owner);
+                                    stm.executeUpdate(sql_vehicle);
+                                }else{
+                                    String sql_owner = "UPDATE owner SET Name = '"+name+"',Address = '"+address+"',Tele = '"+tp+"' WHERE NIC = '"+nic+"'";
+                                    String sql_vehicle = "UPDATE vehicle SET Status = '"+status+"' WHERE RegNo = '"+regno+"'";
+                                    stm.executeUpdate(sql_owner);
+                                    stm.executeUpdate(sql_vehicle);
+                                }
+                            }   
                         }
-                    }   
+                        String sql_enter ="INSERT INTO enter VALUES('"+refno+"','"+nic+"','"+regno+"','"+date+"','"+milage+"','"+price+"')";
+                        stm.executeUpdate(sql_enter);
+                        JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
+                        autorefNo();
+                        categoryt.setText("");
+                        maket.setText("");
+                        modelt.setText("");
+                        manuyt.setText("YYYY");
+                        regyt.setText("YYYY");
+                        milaget.setText("0000000");
+                        pricet.setText("");
+                        nict.setText("");
+                        addresst.setText("");
+                        namet1.setText("");
+                        tpt.setText("0XXXXXXXXX OR +94XXXXXXXXX");
+                        datet.setText("YYYY-MM-DD");
+                        regnot.setText("NN-NNNN, LL-NNNN, LLLNNNN");
+                        datelab.setText("");
+                        regnot.requestFocus();
+                    }else{
+                        JOptionPane.showMessageDialog(this,"This vehicle is already available");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,"Invalid entry!");
                 }
-                String sql_enter ="INSERT INTO enter VALUES('"+refno+"','"+nic+"','"+regno+"','"+date+"','"+milage+"','"+price+"')";
-                stm.executeUpdate(sql_enter);
-                JOptionPane.showMessageDialog(this,"Recorded adeed successfully");
-               
             }
         
         } catch (SQLException ex) {
             Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                refnot.setText("");
-                regnot.setText("");
-                categoryt.setText("");
-                maket.setText("YYYY");
-                modelt.setText("");
-                manuyt.setText("YYYY");
-                regyt.setText("YYYY");
-                milaget.setText("0000000");
-                pricet.setText("");
-                nict.setText("");
-                addresst.setText("");
-                addresst.setText("");
-                tpt.setText("077-1234567");
-                datet.setText("YYYY-MM-DD");
-                regnot.setText("XXX-xxx");
-                regnot.requestFocus();
+        }     
+    }
+    
+    void datevalidation(){
+            String PATTERN1 = "^[0-9]{4,4}[-][0][0-9]{1,1}[-][012]{1,1}[0-9]{1,1}$";
+            String PATTERN2 = "^[0-9]{4,4}[-][1][0-2]{1,1}[-][012]{1,1}[0-9]{1,1}$";
+            String PATTERN3 = "^[0-9]{4,4}[-][0][0-9]{1,1}[-][3][01]{1,1}$";
+            String PATTERN4 = "^[0-9]{4,4}[-][1][0-2]{1,1}[-][3][01]{1,1}$";
+            Pattern patt1=Pattern.compile(PATTERN1);
+            Pattern patt2=Pattern.compile(PATTERN2);
+            Pattern patt3=Pattern.compile(PATTERN3);
+            Pattern patt4=Pattern.compile(PATTERN4);
+            Matcher match1=patt1.matcher(datet.getText());
+            Matcher match2=patt2.matcher(datet.getText());
+            Matcher match3=patt3.matcher(datet.getText());
+            Matcher match4=patt4.matcher(datet.getText());
+
+            if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+                datelab.setText("*Invalid entry");
+            }else{
+                datelab.setText("");
+            }
+            savevehicle();
     }
     
     private void datetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datetKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            savevehicle();   
+            datevalidation();
         }
     }//GEN-LAST:event_datetKeyPressed
 
@@ -823,38 +959,6 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             modelt.requestFocus();
         }
-         String myr = maket.getText();
-        int length=myr.length();
-        
-        char c=evt.getKeyChar();
-        
-        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
-            if(length<4){
-                maket.setEditable(true);
-                text3.setText("Invalid entry");
-            }
-            else 
-            {
-                maket.setEditable(false);
-                text3.setText("");
-                
-                
-            }
-        }
-        else
-        {
-            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
-            {  
-                maket.setEditable(true);
-            }
-            else
-            {
-                maket.setEditable(false);
-               text3.setText("*Can't add letters");
-            }
-        }
-        
-
     }//GEN-LAST:event_maketKeyPressed
 
     private void modeltKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modeltKeyPressed
@@ -866,74 +970,59 @@ public class Enter extends javax.swing.JFrame {
     private void manuytKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_manuytKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             regyt.requestFocus();
-        }
-       String myr = manuyt.getText();
-        int length=myr.length();
-        
-        char c=evt.getKeyChar();
-        
-        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
-            if(length<4){
-                manuyt.setEditable(true);
-                text5.setText("Invalid entry");
-            }
-            else
-            {
-                manuyt.setEditable(false);
-                text5.setText("");
-                
-                
-            }
-        }
-        else
-        {
-            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
-            {  
-                manuyt.setEditable(true);
-            }
-            else
-            {
-                manuyt.setEditable(false);
-               text5.setText("*Can't add letters");
-            }
-        }
-        
+        } 
     }//GEN-LAST:event_manuytKeyPressed
 
     private void regytKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regytKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             milaget.requestFocus();
-        }
-        String myr = regyt.getText();
-        int length=myr.length();
-        
-        char c=evt.getKeyChar();
-        
-        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
-            if(length<4){
-                regyt.setEditable(true);
-                text6.setText("Invalid entry");
-            }
-            else
-            {
-                regyt.setEditable(false);
-                text6.setText("");
-            }
-        }
-        else
-        {
-            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
-            {  
-                regyt.setEditable(true);
-            }
-            else
-            {
-                regyt.setEditable(false);
-               text6.setText("*Can't add letters");
-            }
-        }
+        } 
     }//GEN-LAST:event_regytKeyPressed
 
+    void autoFillVehicle(String Regno){
+        try {
+            pst_vehicle = con.prepareStatement("SELECT * FROM vehicle WHERE RegNo = ?");
+            pst_vehicle.setString(1,Regno);
+            rs_vehicle = pst_vehicle.executeQuery();
+            if(rs_vehicle.next()){
+                String Category = rs_vehicle.getString("Category");
+                String Make = rs_vehicle.getString("Make");
+                String Model = rs_vehicle.getString("Model");
+                String Manu_Year = rs_vehicle.getString("ManuYear");
+                String Reg_Year = rs_vehicle.getString("RegYear");
+
+                categoryt.setText(Category);
+                maket.setText(Make);
+                modelt.setText(Model);
+                manuyt.setText(Manu_Year);
+                regyt.setText(Reg_Year);
+            }
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    void autoFillOwner(String nic){
+        try {
+            pst_owner = con.prepareStatement("SELECT * FROM owner WHERE NIC = ?");
+            pst_owner.setString(1,nic);
+            rs_owner = pst_owner.executeQuery();
+            if(rs_owner.next()){
+                String Name = rs_owner.getString("Name");
+                String Address = rs_owner.getString("Address");
+                String TP = rs_owner.getString("Tele");
+
+                namet1.setText(Name);
+                addresst.setText(Address);
+                tpt.setText(TP);
+            }
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(Enter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void milagetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_milagetKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             pricet.requestFocus();
@@ -942,13 +1031,13 @@ public class Enter extends javax.swing.JFrame {
 
     private void pricetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pricetKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            refnot.requestFocus();
+            nict.requestFocus();
         }
     }//GEN-LAST:event_pricetKeyPressed
 
     private void nictKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nictKeyPressed
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-            addresst.requestFocus();
+            namet1.requestFocus();
         }
     }//GEN-LAST:event_nictKeyPressed
 
@@ -962,38 +1051,6 @@ public class Enter extends javax.swing.JFrame {
         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
             datet.requestFocus();
         }
-         String myr = tpt.getText();
-        int length=myr.length();
-        
-        char c=evt.getKeyChar();
-        
-        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
-            
-        if(length<10){
-                tpt.setEditable(true);
-                text8.setText("Invalid entry");
-            }
-            else
-            {
-                tpt.setEditable(false);
-                text8.setText("");
-                
-                
-            }
-        }
-        else
-        {
-            if(evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE)
-            {  
-                tpt.setEditable(true);
-            }
-            else
-            {
-                tpt.setEditable(false);
-               text8.setText("*Can't add letters");
-            }
-        }
-        
     }//GEN-LAST:event_tptKeyPressed
 
     private void manuytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manuytActionPerformed
@@ -1015,10 +1072,9 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMouseClicked
 
     private void regnotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusGained
-       regnot.setText("");
-        text1.setText("");
+        regnolab.setText("");
          
-        if(regnot.getText().equals("XXX-xxxx")){
+        if(regnot.getText().equals("NN-NNNN, LL-NNNN, LLLNNNN")){
            regnot.setText(null);
            regnot.requestFocus();
             
@@ -1027,122 +1083,150 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_regnotFocusGained
 
     private void regnotFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regnotFocusLost
+        autoFillVehicle(regnot.getText());
         if(regnot.getText().length()==0){
            //FontStyle(regnot);
-           regnot.setText("XXX-xxx");
+           regnot.setText("NN-NNNN, LL-NNNN, LLLNNNN");
        }
-        if(regnot.getText().length()!=7 ){
-           text1.setText("*Invalid entry");
-          
-        }
+       String PATTERN1 = "^[0-9]{2,2}[-][0-9]{4,4}$";
+       String PATTERN2 = "^[A-Z]{2,2}[-][0-9]{4,4}$";
+       String PATTERN3 = "^[A-Z]{3,3}[0-9]{4,4}$";
+       String PATTERN4 = "^[0-9]{3,3}[-][0-9]{4,4}";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(regnot.getText());
+       Matcher match2=patt2.matcher(regnot.getText());
+       Matcher match3=patt3.matcher(regnot.getText());
+       Matcher match4=patt4.matcher(regnot.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           regnolab.setText("*Invalid registation number");
+       }else{
+           regnolab.setText("");
+       }
     }//GEN-LAST:event_regnotFocusLost
 
     private void maketFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maketFocusGained
-        
-        text3.setText("");
-       
-        if(maket.getText().equals("YYYY")){
-           maket.setText(null);
-           maket.requestFocus();
-           
-       }
+        makelab.setText("");
+        maket.requestFocus();
     }//GEN-LAST:event_maketFocusGained
 
     private void maketFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maketFocusLost
-        if(maket.getText().length()==0){
-           //FontStyle(maket); 
-           maket.setText("YYYY");
+       String PATTERN1 = "^[A-Za-z]{0,12}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(maket.getText());
+       if(!match1.matches()){
+           makelab.setText("*Invalid enrity.");
+       }else{
+           makelab.setText("");
        }
-        text3.setText("");
-          
-        
-         
-        
     }//GEN-LAST:event_maketFocusLost
 
     private void manuytFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manuytFocusGained
        
-        text5.setText("");
+        manuylab.setText("");
         if(manuyt.getText().equals("YYYY")){
            manuyt.setText(null);
-           manuyt.requestFocus();
-
-           
-       }
-        
+           manuyt.requestFocus();   
+       }   
     }//GEN-LAST:event_manuytFocusGained
 
     private void manuytFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manuytFocusLost
        if(manuyt.getText().length()==0){
-           //FontStyle(manuyt);
+           //FontStyle(regnot);
            manuyt.setText("YYYY");
        }
-       text5.setText("");
-       
+       String PATTERN1 = "^[0-9]{4,4}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(manuyt.getText());
+       if(!match1.matches()){
+           manuylab.setText("*Invalid entry.");
+       }else{
+           manuylab.setText("");
+       }
     }//GEN-LAST:event_manuytFocusLost
 
     private void regytFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regytFocusGained
        
-        text6.setText("");
+        regylab.setText("");
         if(regyt.getText().equals("YYYY")){
            regyt.setText(null);
-           regyt.requestFocus();
-           
-           
+           regyt.requestFocus();   
        }
     }//GEN-LAST:event_regytFocusGained
 
     private void regytFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_regytFocusLost
-        if(regyt.getText().length()==0){
-            //FontStyle(regyt);
+       if(regyt.getText().length()==0){
+           //FontStyle(regnot);
            regyt.setText("YYYY");
        }
-        text6.setText("");
+       String PATTERN1 = "^[0-9]{4,4}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(regyt.getText());
+       if(!match1.matches()){
+           regylab.setText("*Invalid entry.");
+       }else{
+           regylab.setText("");
+       }
     }//GEN-LAST:event_regytFocusLost
 
     private void milagetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_milagetFocusGained
+        milagelab.setText("");
         if(milaget.getText().equals("0000000")){
            milaget.setText(null);
-           milaget.requestFocus();
-           
-           
+           milaget.requestFocus();   
        }
     }//GEN-LAST:event_milagetFocusGained
 
     private void milagetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_milagetFocusLost
-       
+       String PATTERN1 = "^[0-9]{0,7}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(milaget.getText());
+       if(!match1.matches()){
+           milagelab.setText("*Invalid entry.");
+       }else{
+           milagelab.setText("");
+       }
     }//GEN-LAST:event_milagetFocusLost
 
     private void tptFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusGained
-        text8.setText("");
-        if(tpt.getText().equals("077-1234567")){
+        telelab.setText("");
+        if(tpt.getText().equals("0XXXXXXXXX OR +94XXXXXXXXX")){
            tpt.setText(null);
-           tpt.requestFocus();
-          
-           
+           tpt.requestFocus();   
        }
     }//GEN-LAST:event_tptFocusGained
 
     private void tptFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tptFocusLost
-        if(tpt.getText().length()==0){
-            //FontStyle2(tpt);
-           tpt.setText("077-1234567");
+       if(tpt.getText().length()==0){
+           tpt.setText("0XXXXXXXXX OR +94XXXXXXXXX");
        }
-        text8.setText("");
+       String PATTERN1 = "^[+][9][4][0-9]{9,9}$";
+       String PATTERN2 = "^[0][0-9]{9,9}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Matcher match1=patt1.matcher(tpt.getText());
+       Matcher match2=patt2.matcher(tpt.getText());
+       
+       if(!(match1.matches()||match2.matches())){
+           telelab.setText("*Invalid Telephone number");
+       }else{
+           telelab.setText("");
+       }
     }//GEN-LAST:event_tptFocusLost
 
     private void datetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusGained
-         if(datet.getText().equals("YYYY-MM-DD")){
+        datelab.setText("");
+        if(datet.getText().equals("YYYY-MM-DD")){
            datet.setText(null);
-           datet.requestFocus();
-           
-           
+           datet.requestFocus();  
        }
     }//GEN-LAST:event_datetFocusGained
 
     private void datetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_datetFocusLost
-        if(datet.getText().length()==0){
-            //FontStyle2(datet);
+       if(datet.getText().length()==0){
            datet.setText("YYYY-MM-DD");
        }
     }//GEN-LAST:event_datetFocusLost
@@ -1169,7 +1253,7 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_refnotKeyPressed
 
     private void regnotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regnotMouseClicked
-        text1.setText("");
+        
     }//GEN-LAST:event_regnotMouseClicked
 
     private void namet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namet1ActionPerformed
@@ -1177,11 +1261,13 @@ public class Enter extends javax.swing.JFrame {
     }//GEN-LAST:event_namet1ActionPerformed
 
     private void namet1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namet1KeyPressed
-        // TODO add your handling code here:
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            addresst.requestFocus();
+        }
     }//GEN-LAST:event_namet1KeyPressed
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        savevehicle();
+        datevalidation();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
@@ -1197,6 +1283,129 @@ public class Enter extends javax.swing.JFrame {
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1KeyPressed
+
+    private void nictFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nictFocusLost
+       autoFillOwner(nict.getText());
+       String PATTERN1 = "^[0-9]{9,9}[vVxX]{1,1}$";
+       String PATTERN2 = "^[0-9]{12,12}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Matcher match1=patt1.matcher(nict.getText());
+       Matcher match2=patt2.matcher(nict.getText());
+       
+       if(!(match1.matches()||match2.matches())){
+           niclab.setText("*Invalid NIC number");
+       }else{
+           niclab.setText("");
+       }
+    }//GEN-LAST:event_nictFocusLost
+
+    private void regnotKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regnotKeyReleased
+       
+    }//GEN-LAST:event_regnotKeyReleased
+
+    private void categorytFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categorytFocusLost
+       String PATTERN1 = "^[a-zA-Z]{0,12}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(categoryt.getText());
+       if(!match1.matches()){
+           categorylab.setText("*Invalid entry.");
+       }else{
+           categorylab.setText("");
+       }
+    }//GEN-LAST:event_categorytFocusLost
+
+    private void modeltFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_modeltFocusGained
+        modellab.setText("");
+    }//GEN-LAST:event_modeltFocusGained
+
+    private void modeltFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_modeltFocusLost
+       String PATTERN1 = "^[a-zA-Z0-9]{0,20}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(modelt.getText());
+       if(!match1.matches()){
+           modellab.setText("*Invalid entry.");
+       }else{
+           modellab.setText("");
+       }
+    }//GEN-LAST:event_modeltFocusLost
+
+    private void pricetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pricetFocusGained
+        pricelab.setText("");
+    }//GEN-LAST:event_pricetFocusGained
+
+    private void pricetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pricetFocusLost
+       String PATTERN1 = "^[0-9]{0,12}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Matcher match1=patt1.matcher(pricet.getText());
+       if(!match1.matches()){
+           pricelab.setText("*Invalid entry.");
+       }else{
+           pricelab.setText("");
+       }
+    }//GEN-LAST:event_pricetFocusLost
+
+    private void categorytFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categorytFocusGained
+        categorylab.setText("");
+    }//GEN-LAST:event_categorytFocusGained
+
+    private void nictFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nictFocusGained
+        niclab.setText("");
+    }//GEN-LAST:event_nictFocusGained
+
+    private void namet1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namet1FocusGained
+        namelab.setText("");
+    }//GEN-LAST:event_namet1FocusGained
+
+    private void namet1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namet1FocusLost
+       String PATTERN1 = "^[A-Za-z]{0,20}$";
+       String PATTERN2 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN3 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       String PATTERN4 = "^[A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}[ ][A-Za-z]{0,20}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(namet1.getText());
+       Matcher match2=patt2.matcher(namet1.getText());
+       Matcher match3=patt3.matcher(namet1.getText());
+       Matcher match4=patt4.matcher(namet1.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           namelab.setText("*Invalid entry");
+       }else{
+           namelab.setText("");
+       }
+    }//GEN-LAST:event_namet1FocusLost
+
+    private void addresstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addresstFocusGained
+        addresslab.setText("");
+    }//GEN-LAST:event_addresstFocusGained
+
+    private void addresstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addresstFocusLost
+       String PATTERN1 = "^[A-Za-z0-9/:]{0,20}$";
+       String PATTERN2 = "^[A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}$";
+       String PATTERN3 = "^[A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}$";
+       String PATTERN4 = "^[A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}[,][A-Za-z0-9/:]{0,20}$";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(addresst.getText());
+       Matcher match2=patt2.matcher(addresst.getText());
+       Matcher match3=patt3.matcher(addresst.getText());
+       Matcher match4=patt4.matcher(addresst.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           addresslab.setText("*Invalid entry");
+       }else{
+           addresslab.setText("");
+       }
+    }//GEN-LAST:event_addresstFocusLost
+
+    private void tptAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_tptAncestorResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tptAncestorResized
 
     /**
      * @param args the command line arguments
@@ -1225,6 +1434,8 @@ public class Enter extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1235,8 +1446,11 @@ public class Enter extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addresslab;
     private javax.swing.JTextField addresst;
+    private javax.swing.JLabel categorylab;
     private javax.swing.JTextField categoryt;
+    private javax.swing.JLabel datelab;
     private javax.swing.JTextField datet;
     private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
@@ -1280,23 +1494,28 @@ public class Enter extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel makelab;
     private javax.swing.JTextField maket;
+    private javax.swing.JLabel manuylab;
     private javax.swing.JTextField manuyt;
+    private javax.swing.JLabel milagelab;
     private javax.swing.JTextField milaget;
+    private javax.swing.JLabel modellab;
     private javax.swing.JTextField modelt;
+    private javax.swing.JLabel namelab;
     private javax.swing.JTextField namet1;
+    private javax.swing.JLabel niclab;
     private javax.swing.JTextField nict;
+    private javax.swing.JLabel pricelab;
     private javax.swing.JTextField pricet;
     private javax.swing.JTextField refnot;
+    private javax.swing.JLabel regnolab;
     private javax.swing.JTextField regnot;
+    private javax.swing.JLabel regylab;
     private javax.swing.JTextField regyt;
     private javax.swing.JLabel save;
-    private javax.swing.JTextField text1;
-    private javax.swing.JTextField text3;
-    private javax.swing.JTextField text5;
-    private javax.swing.JTextField text6;
+    private javax.swing.JLabel telelab;
     private javax.swing.JTextField text7;
-    private javax.swing.JTextField text8;
     private javax.swing.JTextField tpt;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,7 +28,7 @@ public class registationform extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -48,19 +48,19 @@ public class registationform extends javax.swing.JFrame {
             pst.setString(1, namereg.getText());
             pst.setString(2, usernamereg.getText());
             pst.setString(3, passwordreg.getText());
-            
+
             int i = pst.executeUpdate();
-            
+
             if(i>0){
                 JOptionPane.showMessageDialog(this,"Registation Successfull");
                 loginform jf = new loginform();
                 jf.show();
                 dispose();
             }
-    
+
         } catch (SQLException ex) {
             Logger.getLogger(registationform.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
     
     public void validatePassword(){
@@ -75,25 +75,29 @@ public class registationform extends javax.swing.JFrame {
     }
     
     public void usernameValidate(){
-        ResultSet rs1;
-        Statement st1;
-        String admin= "admin";
-        String username = usernamereg.getText();
-        try {
-            st1 = con.createStatement();
-            rs1 = st1.executeQuery("SELECT * from register WHERE username='"+admin+"'");
-            
-            if(!rs1.next()){
-                if(!username.equals("admin")){
-                    JOptionPane.showMessageDialog(this,"Username must be 'admin'");
+        if(namereg.getText().equals("") || usernamereg.getText().equals("") || passwordreg.getText().equals("") || passwordreg1.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"All required fields are mandatory"); 
+        }else{
+            ResultSet rs1;
+            Statement st1;
+            String admin= "admin";
+            String username = usernamereg.getText();
+            try {
+                st1 = con.createStatement();
+                rs1 = st1.executeQuery("SELECT * from register WHERE username='"+admin+"'");
+
+                if(!rs1.next()){
+                    if(!username.equals("admin")){
+                        JOptionPane.showMessageDialog(this,"Username must be 'admin'");
+                    }else{
+                        validatePassword();
+                    }
                 }else{
                     validatePassword();
                 }
-            }else{
-                validatePassword();
+            } catch (SQLException ex) {
+                Logger.getLogger(registationform.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(registationform.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -144,10 +148,10 @@ public class registationform extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(510, 300));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(73, 31, 61));
@@ -159,28 +163,28 @@ public class registationform extends javax.swing.JFrame {
         jLabel5.setText("ABC");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 63));
 
-        jLabel6.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Name");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("User name");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Password");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Confirm password");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
 
         namereg.setBackground(new java.awt.Color(73, 31, 61));
-        namereg.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        namereg.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         namereg.setForeground(new java.awt.Color(165, 165, 165));
         namereg.setBorder(null);
         namereg.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -197,7 +201,7 @@ public class registationform extends javax.swing.JFrame {
         jPanel1.add(namereg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 320, 20));
 
         usernamereg.setBackground(new java.awt.Color(73, 31, 61));
-        usernamereg.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        usernamereg.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         usernamereg.setForeground(new java.awt.Color(165, 165, 165));
         usernamereg.setBorder(null);
         usernamereg.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -209,7 +213,7 @@ public class registationform extends javax.swing.JFrame {
         jPanel1.add(usernamereg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 320, 20));
 
         passwordreg.setBackground(new java.awt.Color(73, 31, 61));
-        passwordreg.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        passwordreg.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         passwordreg.setForeground(new java.awt.Color(165, 165, 165));
         passwordreg.setBorder(null);
         passwordreg.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -221,7 +225,7 @@ public class registationform extends javax.swing.JFrame {
         jPanel1.add(passwordreg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 320, 20));
 
         passwordreg1.setBackground(new java.awt.Color(73, 31, 61));
-        passwordreg1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        passwordreg1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         passwordreg1.setForeground(new java.awt.Color(165, 165, 165));
         passwordreg1.setBorder(null);
         passwordreg1.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -256,7 +260,7 @@ public class registationform extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("   Register ");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -278,7 +282,7 @@ public class registationform extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 40));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -288,7 +292,7 @@ public class registationform extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("      Clear");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -310,7 +314,7 @@ public class registationform extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 100, 40));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jPanel5.setBackground(new java.awt.Color(189, 76, 84));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -320,7 +324,7 @@ public class registationform extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("      Back ");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -335,18 +339,28 @@ public class registationform extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 100, 40));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText(" X");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 0, 24, 20));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 140, 390));
 
-        setSize(new java.awt.Dimension(539, 391));
+        setSize(new java.awt.Dimension(539, 388));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -418,6 +432,10 @@ public class registationform extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
 
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -429,7 +447,7 @@ public class registationform extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -455,6 +473,7 @@ public class registationform extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

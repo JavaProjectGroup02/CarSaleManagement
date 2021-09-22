@@ -6,9 +6,13 @@
 package carsalemanagement;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -20,14 +24,16 @@ public class UserExisting extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame3
      */
-    ResultSet rs,rs_price; 
-    PreparedStatement pst_price;
+    ResultSet rs,rs_price,rs1,rs2,rs3; 
+    PreparedStatement pst_price,pst1,pst2,pst3;
     Connection con = null;
+    
     public UserExisting() {
         initComponents();
         tableDesign();
         createConnection();
         retrive();
+        search.requestFocus();
        
         
     }
@@ -38,7 +44,7 @@ public class UserExisting extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -62,10 +68,50 @@ public class UserExisting extends javax.swing.JFrame {
         Table1.setShowGrid(true);
         //Table1.setFont(new Font("Colombia",Font.PLAIN,14));
         
-        Table1.getTableHeader().setFont(new Font("STXihei",Font.BOLD,15));
+        Table1.getTableHeader().setFont(new Font("Arial",Font.BOLD,15));
         Table1.getTableHeader().setOpaque(false);
         Table1.getTableHeader().setBackground(new Color(51,21,42));
         Table1.getTableHeader().setForeground(new Color(225,225,225));
+    }
+    
+    void viewownerDetails(){
+         try {
+            pst1 = con.prepareStatement("SELECT * FROM vehicle WHERE Status = 'Available' AND Regno =?");
+            pst1.setString(1,search.getText());
+            rs1 = pst1.executeQuery();
+            if (rs1.next()==true) {
+                
+                String Regno = rs1.getString("RegNo");
+                
+                pst2= con.prepareStatement("SELECT * FROM enter WHERE Regno ='"+Regno+"'");
+                rs2 = pst2.executeQuery();
+                rs2.next();
+                
+                 String NIC = rs2.getString("NIC");
+                
+                 pst3 = con.prepareStatement("SELECT * from owner WHERE NIC='"+NIC+"'");
+                 rs3= pst3.executeQuery();
+                 rs3.next();
+               
+                String Name = rs3.getString("Name");
+                String Address = rs3.getString("Address");
+                String Tele = rs3.getString("Tele");
+                
+                name.setText(Name);
+                address.setText(Address);
+                tele.setText(Tele);
+                
+                  
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "There is no car from this Register Number");
+                 search.setText("");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserExisting.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+
     }
 
     /**
@@ -83,10 +129,18 @@ public class UserExisting extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
+        tele = new javax.swing.JTextField();
+        search = new javax.swing.JTextField();
+        address = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        searchlab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -97,20 +151,21 @@ public class UserExisting extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(575, 400));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
         Table1.setBackground(new java.awt.Color(73, 31, 61));
-        Table1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(165, 165, 165)));
-        Table1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        Table1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         Table1.setForeground(new java.awt.Color(255, 255, 255));
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Reg No", "Category", "Make", "Model", "Price"
+                "Reg No", "Category", "Make", "Model", "Reg. Year", "Manu. Year", "Price", "Milage"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -128,13 +183,16 @@ public class UserExisting extends javax.swing.JFrame {
             Table1.getColumnModel().getColumn(0).setPreferredWidth(5);
             Table1.getColumnModel().getColumn(1).setPreferredWidth(5);
             Table1.getColumnModel().getColumn(2).setPreferredWidth(5);
-            Table1.getColumnModel().getColumn(3).setPreferredWidth(5);
-            Table1.getColumnModel().getColumn(4).setPreferredWidth(7);
+            Table1.getColumnModel().getColumn(3).setPreferredWidth(8);
+            Table1.getColumnModel().getColumn(4).setPreferredWidth(5);
+            Table1.getColumnModel().getColumn(5).setPreferredWidth(5);
+            Table1.getColumnModel().getColumn(6).setPreferredWidth(8);
+            Table1.getColumnModel().getColumn(7).setPreferredWidth(5);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 560, 361));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 820, 560));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 420));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 600));
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(175, 400));
@@ -148,33 +206,12 @@ public class UserExisting extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tekton Pro Ext", 0, 60)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("ABC");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 60));
-
-        jPanel3.setBackground(new java.awt.Color(189, 76, 84));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel3MouseClicked(evt);
-            }
-        });
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText(" Search ");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-        });
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 90, 40));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, 60));
 
         jPanel4.setBackground(new java.awt.Color(189, 76, 84));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -185,7 +222,7 @@ public class UserExisting extends javax.swing.JFrame {
         });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Home ");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,11 +230,96 @@ public class UserExisting extends javax.swing.JFrame {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 60, 40));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 60, 30));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 90, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 530, 90, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 180, 420));
+        name.setBackground(new java.awt.Color(189, 76, 84));
+        name.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        name.setForeground(new java.awt.Color(73, 31, 61));
+        name.setBorder(null);
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 290, 30));
+
+        tele.setBackground(new java.awt.Color(189, 76, 84));
+        tele.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        tele.setForeground(new java.awt.Color(73, 31, 61));
+        tele.setBorder(null);
+        jPanel2.add(tele, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 290, 30));
+
+        search.setBackground(new java.awt.Color(189, 76, 84));
+        search.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        search.setForeground(new java.awt.Color(204, 204, 204));
+        search.setBorder(null);
+        search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchFocusGained(evt);
+            }
+        });
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchKeyPressed(evt);
+            }
+        });
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 140, 20));
+
+        address.setBackground(new java.awt.Color(189, 76, 84));
+        address.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        address.setForeground(new java.awt.Color(73, 31, 61));
+        address.setBorder(null);
+        jPanel2.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 290, 30));
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("  View Owner");
+        jLabel2.setToolTipText("");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 120, 30));
+        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, 10));
+
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(189, 76, 84));
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("Reg No");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 130, -1));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText(" Search by Category ");
+        jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, -1, 30));
+
+        searchlab.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel2.add(searchlab, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 170, 20));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 340, 600));
 
         pack();
         setLocationRelativeTo(null);
@@ -219,18 +341,66 @@ public class UserExisting extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-        UserCsearch jf4 = new UserCsearch();
-        jf4.show();
-        dispose();
-    }//GEN-LAST:event_jPanel3MouseClicked
-
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         UserWelcome jf = new UserWelcome();
         jf.show();
         dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void searchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusGained
+        searchlab.setText("");   
+    }//GEN-LAST:event_searchFocusGained
+    
+    void regnoValidate(){
+       String PATTERN1 = "^[0-9]{2,2}[-][0-9]{4,4}$";
+       String PATTERN2 = "^[A-Z]{2,2}[-][0-9]{4,4}$";
+       String PATTERN3 = "^[A-Z]{3,3}[0-9]{4,4}$";
+       String PATTERN4 = "^[0-9]{3,3}[-][0-9]{4,4}";
+       Pattern patt1=Pattern.compile(PATTERN1);
+       Pattern patt2=Pattern.compile(PATTERN2);
+       Pattern patt3=Pattern.compile(PATTERN3);
+       Pattern patt4=Pattern.compile(PATTERN4);
+       Matcher match1=patt1.matcher(search.getText());
+       Matcher match2=patt2.matcher(search.getText());
+       Matcher match3=patt3.matcher(search.getText());
+       Matcher match4=patt4.matcher(search.getText());
+       
+       if(!(match1.matches()||match2.matches()||match3.matches()||match4.matches())){
+           searchlab.setText("*Invalid registation number");
+       }else{
+           searchlab.setText("");
+           viewownerDetails();
+       } 
+    }
+    
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+       regnoValidate(); 
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyPressed
+         if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            regnoValidate();
+         }
+         else{
+            name.setText("");
+            address.setText("");
+            tele.setText("");
+         }
+    }//GEN-LAST:event_searchKeyPressed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
     void retrive(){
+        
         DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
         
         try {
@@ -238,17 +408,19 @@ public class UserExisting extends javax.swing.JFrame {
             rs = stmt.executeQuery("SELECT * FROM vehicle WHERE Status = 'Available'");
             while (rs.next()) {
                 String Regno = rs.getString("RegNo");
-                String Category = rs.getString("Category");
                 String Make = rs.getString("Make");
+                String Category = rs.getString("Category");
                 String Model = rs.getString("Model");
+                String ManuYear = rs.getString("ManuYear");
+                String RegYear = rs.getString("RegYear");
                
                 pst_price = con.prepareStatement("SELECT * FROM enter WHERE RegNo = ? ORDER BY RefNo DESC limit 1");
                 pst_price.setString(1,Regno);
                 rs_price = pst_price.executeQuery();
                 rs_price.next();
                 String Price = rs_price.getString("Price");
-                
-                tableModel.addRow(new Object[]{Regno,Category,Make,Model,Price});
+                String Milage = rs_price.getString("Milage");
+                tableModel.addRow(new Object[]{Regno,Category,Make,Model,ManuYear,RegYear,Milage,Price});
                 
                 
             }
@@ -285,6 +457,18 @@ public class UserExisting extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -296,14 +480,22 @@ public class UserExisting extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table1;
+    private javax.swing.JTextField address;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField search;
+    private javax.swing.JLabel searchlab;
+    private javax.swing.JTextField tele;
     // End of variables declaration//GEN-END:variables
 }

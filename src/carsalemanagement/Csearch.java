@@ -38,7 +38,7 @@ public class Csearch extends javax.swing.JFrame {
             Class.forName(className);
             System.out.println("Driver loaded Successfully");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsale","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abc","root","root");
             System.out.println("Connection Successfull");
       
         } catch (ClassNotFoundException ex) {
@@ -61,14 +61,14 @@ public class Csearch extends javax.swing.JFrame {
         jScrollPane1.getViewport().setOpaque(false);
         Table1.setShowGrid(true);
         
-        Table1.getTableHeader().setFont(new Font("STXihei",Font.BOLD,15));
+        Table1.getTableHeader().setFont(new Font("Arial",Font.BOLD,15));
         Table1.getTableHeader().setOpaque(false);
         Table1.getTableHeader().setBackground(new Color(51,21,42));
         Table1.getTableHeader().setForeground(new Color(225,225,225));
     }
     
     public void retrieve(){
-        Table1.setModel(new DefaultTableModel(null, new String[]{"Make", "Model", "Milage", "Price"}));
+        Table1.setModel(new DefaultTableModel(null, new String[]{"Reg. No","Make", "Model","Manu. Year","Reg. Year", "Milage", "Price"}));
         try {
             DefaultTableModel tableModel = (DefaultTableModel) Table1.getModel();
             
@@ -86,6 +86,8 @@ public class Csearch extends javax.swing.JFrame {
                     String Regno = rs.getString("RegNo");
                     String Make = rs.getString("Make");
                     String Model = rs.getString("Model");
+                    String ManuYear = rs.getString("ManuYear");
+                    String RegYear = rs.getString("RegYear");
 
                     pst_price = con.prepareStatement("SELECT * FROM enter WHERE RegNo = ? ORDER BY RefNo DESC limit 1");
                     pst_price.setString(1,Regno);
@@ -94,7 +96,7 @@ public class Csearch extends javax.swing.JFrame {
                     String Price = rs_price.getString("Price");
                     String Milage = rs_price.getString("Milage");
 
-                    tableModel.addRow(new Object[]{Make,Model,Milage,Price});
+                    tableModel.addRow(new Object[]{Regno,Make,Model,ManuYear,RegYear,Milage,Price});
                 }
             }
         } catch (SQLException ex) {
@@ -135,35 +137,42 @@ public class Csearch extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(73, 31, 61));
-        jScrollPane1.setBorder(null);
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         Table1.setBackground(new java.awt.Color(73, 31, 61));
-        Table1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(165, 165, 165)));
-        Table1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        Table1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         Table1.setForeground(new java.awt.Color(255, 255, 255));
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Make", "Model", "Milage", "Price"
+                "Reg. No", "Make", "Model", "Manu. Year", "Reg. Year", "Milage", "Price"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         Table1.setGridColor(new java.awt.Color(165, 165, 165));
         Table1.setRowHeight(20);
         Table1.setRowMargin(2);
         jScrollPane1.setViewportView(Table1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 520, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 750, 560));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 600));
 
         jPanel2.setBackground(new java.awt.Color(189, 76, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(175, 400));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         text1.setBackground(new java.awt.Color(189, 76, 84));
-        text1.setFont(new java.awt.Font("STXihei", 0, 15)); // NOI18N
+        text1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         text1.setForeground(new java.awt.Color(191, 191, 191));
         text1.setToolTipText("");
         text1.setBorder(null);
@@ -188,14 +197,14 @@ public class Csearch extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 5, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Tekton Pro Ext", 0, 60)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("ABC");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 36, -1, 60));
 
-        jLabel2.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Category");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 100, 30));
@@ -215,7 +224,7 @@ public class Csearch extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Search");
         jLabel3.setToolTipText("");
@@ -235,16 +244,16 @@ public class Csearch extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 150, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 80, 30));
 
         jPanel4.setBackground(new java.awt.Color(189, 76, 84));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -254,9 +263,9 @@ public class Csearch extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("STXihei", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Home");
+        jLabel5.setText(" Home");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -268,18 +277,18 @@ public class Csearch extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel5)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 150, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 550, 80, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 210, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 210, 600));
 
         pack();
         setLocationRelativeTo(null);
@@ -297,7 +306,7 @@ public class Csearch extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void text1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text1FocusGained
-            Table1.setModel(new DefaultTableModel(null, new String[]{"Make", "Model", "Milage", "Price"}));
+            Table1.setModel(new DefaultTableModel(null, new String[]{"Reg. No","Make", "Model","Manu. Year","Reg. Year", "Milage", "Price"}));
             text1.setText("");
             
     }//GEN-LAST:event_text1FocusGained
